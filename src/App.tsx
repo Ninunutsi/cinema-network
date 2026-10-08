@@ -1,7 +1,8 @@
 import ComingSoon from "./components/organism/ComingSoon";
 import NowPlaying from "./components/organism/NowPlaying";
 import Slider from "./components/organism/Slider";
-import { Header } from "./components/template/Header/Header";
+import Footer from "./components/template/Footer";
+import { Header } from "./components/template/Header";
 import { Separator } from "./components/ui/separator";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Separator className="bg-background-tint" />
         <ComingSoon />
       </main>
+      <Footer />
     </div>
   );
 }

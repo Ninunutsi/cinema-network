@@ -1,9 +1,9 @@
-import { Input } from "../../atoms/Input";
 import { Search } from "lucide-react";
-import { Logo } from "../../atoms/Logo";
-import { Button } from "../../ui/button";
-import { useAuthStore } from "../../../store/authStore";
-import { Profile } from "../../molecules/Profile";
+import { useAuthStore } from "../../store/authStore";
+import { Input } from "../atoms/Input";
+import { Logo } from "../atoms/Logo";
+import { Profile } from "../molecules/Profile";
+import { Button } from "../ui/button";
 
 export const Header = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
