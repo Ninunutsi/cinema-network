@@ -1,10 +1,9 @@
-import { Button } from "./components/ui/button";
+import { Header } from "./components/template/Header/Header";
 
 function App() {
   return (
     <>
-      <p className="text-danger">hello</p>
-      <Button>fds</Button>
+      <Header />
     </>
   );
 }

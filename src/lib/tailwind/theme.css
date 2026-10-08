@@ -18,4 +18,11 @@
   --color-background-tint: rgb(255 255 255 / 10%);
   --color-danger-tint: rgb(236 48 19 / 10%);
   --color-success-tint: rgb(74 222 128 / 10%);
+
+  --background-image-header-gradient: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 100%) 0%,
+    rgb(0 0 0 / 51%) 50%,
+    rgb(0 0 0 / 0%) 100%
+  );
 }
