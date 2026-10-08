@@ -4,9 +4,11 @@ import "./index.css";
 import "./lib/tailwind/theme.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router/index.tsx";
+import { ModalManager } from "./utils/modals/ModalManager.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RouterProvider router={router} />
+    <ModalManager />
   </StrictMode>,
 );

@@ -4,6 +4,7 @@ import { Input } from "../atoms/Input";
 import { Logo } from "../atoms/Logo";
 import { Profile } from "../molecules/Profile";
 import { Button } from "../ui/button";
+import { openModal } from "../../utils/modals/modalActions";
 
 export const Header = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -29,7 +30,10 @@ export const Header = () => {
             <Button className="cursor-pointer  flex h-10 w-24 items-center gap-1 rounded-full px-5.5 py-3 font-sans text-sm font-extrabold leading-none bg-danger hover:bg-danger text-white">
               Sign Up
             </Button>
-            <Button className="cursor-pointer flex h-10 w-24 items-center gap-1 rounded-full px-5.5 py-3 font-sans text-sm font-extrabold leading-none bg-white hover:bg-white text-background">
+            <Button
+              onClick={() => openModal("share", { productId: "42" })}
+              className="cursor-pointer flex h-10 w-24 items-center gap-1 rounded-full px-5.5 py-3 font-sans text-sm font-extrabold leading-none bg-white hover:bg-white text-background"
+            >
               Log In
             </Button>
           </div>
