@@ -1,73 +1,68 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from "eslint-plugin-storybook";
+
 import js from "@eslint/js";
 import globals from "globals";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
-export default [
-  {
-    ignores: ["dist", "node_modules"],
+export default [{
+  ignores: ["dist", "node_modules"],
+}, js.configs.recommended, ...tseslint.configs.recommended, {
+  files: ["**/*.{ts,tsx}"],
+
+  languageOptions: {
+    globals: globals.browser,
   },
 
-  js.configs.recommended,
-
-  ...tseslint.configs.recommended,
-
-  {
-    files: ["**/*.{ts,tsx}"],
-
-    languageOptions: {
-      globals: globals.browser,
-    },
-
-    plugins: {
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
-    },
-
-    rules: {
-      "no-restricted-imports": [
-        "error",
-        {
-          name: "react",
-          importNames: ["useEffect"],
-          message:
-            "Do not use useEffect. Prefer derived state, event handlers, React Query, or other appropriate patterns.",
-        },
-      ],
-
-      "@typescript-eslint/no-explicit-any": "error",
-
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        {
-          argsIgnorePattern: "^_",
-          varsIgnorePattern: "^_",
-          caughtErrorsIgnorePattern: "^_",
-        },
-      ],
-
-      "no-console": "warn",
-      "no-debugger": "error",
-      "no-var": "error",
-      "prefer-const": "error",
-      "no-duplicate-imports": "error",
-
-      "no-magic-numbers": [
-        "error",
-        {
-          ignore: [0, 1, -1],
-          ignoreArrayIndexes: true,
-          ignoreDefaultValues: true,
-        },
-      ],
-
-      "react-refresh/only-export-components": [
-        "warn",
-        {
-          allowConstantExport: true,
-        },
-      ],
-    },
+  plugins: {
+    "react-hooks": reactHooks,
+    "react-refresh": reactRefresh,
   },
-];
+
+  rules: {
+    "no-restricted-imports": [
+      "error",
+      {
+        name: "react",
+        importNames: ["useEffect"],
+        message:
+          "Do not use useEffect. Prefer derived state, event handlers, React Query, or other appropriate patterns.",
+      },
+    ],
+
+    "@typescript-eslint/no-explicit-any": "error",
+
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        caughtErrorsIgnorePattern: "^_",
+      },
+    ],
+
+    "no-console": "warn",
+    "no-debugger": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+    "no-duplicate-imports": "error",
+
+    "no-magic-numbers": [
+      "error",
+      {
+        ignore: [0, 1, -1],
+        ignoreArrayIndexes: true,
+        ignoreDefaultValues: true,
+      },
+    ],
+
+    "react-refresh/only-export-components": [
+      "warn",
+      {
+        allowConstantExport: true,
+      },
+    ],
+  },
+}, ...storybook.configs["flat/recommended"]];
