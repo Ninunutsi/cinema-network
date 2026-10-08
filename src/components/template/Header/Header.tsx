@@ -9,7 +9,7 @@ export const Header = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   return (
-    <header className="flex items-center justify-between bg-[linear-gradient(180deg,#000000_-212.35%,rgba(0,0,0,0.51)_32.09%,rgba(0,0,0,0)_93.93%)] px-15 pt-7.5 pb-10">
+    <header className=" absolute inset-x-0 top-0 z-50 flex items-center justify-between bg-[linear-gradient(180deg,#000000_-212.35%,rgba(0,0,0,0.51)_32.09%,rgba(0,0,0,0)_93.93%)] px-15 pt-7.5 pb-10">
       <div className="flex gap-8 items-center">
         <Logo />
         <p className="font-sans text-xs font-semibold leading-none uppercase tracking-wide text-white cursor-pointer">
@@ -22,15 +22,18 @@ export const Header = () => {
           className="text-white bg-background-tint w-94 placeholder:text-white"
           startIcon={<Search className="size-4 text-white" />}
         />
-        {/* <div className="flex items-center gap-3">
-          <Button className="cursor-pointer  flex h-10 w-24 items-center gap-1 rounded-full px-5.5 py-3 font-sans text-sm font-extrabold leading-none bg-danger hover:bg-danger text-white">
-            Sign Up
-          </Button>
-          <Button className="cursor-pointer flex h-10 w-24 items-center gap-1 rounded-full px-5.5 py-3 font-sans text-sm font-extrabold leading-none bg-white hover:bg-white text-background">
-            Log In
-          </Button>
-        </div> */}
-        <Profile />
+        {isAuthenticated ? (
+          <Profile />
+        ) : (
+          <div className="flex items-center gap-3">
+            <Button className="cursor-pointer  flex h-10 w-24 items-center gap-1 rounded-full px-5.5 py-3 font-sans text-sm font-extrabold leading-none bg-danger hover:bg-danger text-white">
+              Sign Up
+            </Button>
+            <Button className="cursor-pointer flex h-10 w-24 items-center gap-1 rounded-full px-5.5 py-3 font-sans text-sm font-extrabold leading-none bg-white hover:bg-white text-background">
+              Log In
+            </Button>
+          </div>
+        )}
       </div>
     </header>
   );
