@@ -11,7 +11,8 @@ export interface SliderData {
 
 export const sliderData: SliderData[] = [
   {
-    image: "/images/odyssey.jpg",
+    image:
+      "https://images.unsplash.com/photo-1596367407372-96cb88503db6?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     badge: "PREMIERE · WEEK OF 15 SEPT",
     title: "THE ODYSSEY",
     ageRating: "12+",
@@ -22,7 +23,8 @@ export const sliderData: SliderData[] = [
       "A king spends ten years finding his way home from a war he already won, while monsters, gods, and his own restlessness make sure the return takes longer than the fighting did.",
   },
   {
-    image: "/images/odyssey.jpg",
+    image:
+      "https://images.unsplash.com/photo-1620712815162-1bbfb11ff5bf?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     badge: "NOW SHOWING",
     title: "THE LAST JOURNEY",
     ageRating: "16+",
@@ -33,7 +35,8 @@ export const sliderData: SliderData[] = [
       "A final journey across an unknown world becomes a fight for survival, where every decision brings the characters closer to the truth.",
   },
   {
-    image: "/images/odyssey.jpg",
+    image:
+      "https://images.unsplash.com/photo-1778324793752-e0c663c0ea21?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     badge: "COMING SOON",
     title: "BEYOND THE STARS",
     ageRating: "12+",
@@ -44,7 +47,8 @@ export const sliderData: SliderData[] = [
       "When humanity receives a message from beyond the stars, one crew must travel further than anyone has ever gone to discover who sent it.",
   },
   {
-    image: "/images/odyssey.jpg",
+    image:
+      "https://images.unsplash.com/photo-1759848461676-594facbc3700?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     badge: "PREMIERE · 22 SEPT",
     title: "THE HIDDEN KINGDOM",
     ageRating: "12+",
