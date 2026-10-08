@@ -1,0 +1,57 @@
+export interface SliderData {
+  image: string;
+  badge: string;
+  title: string;
+  ageRating: string;
+  duration: string;
+  format: string;
+  experience: string;
+  description: string;
+}
+
+export const sliderData: SliderData[] = [
+  {
+    image: "/images/odyssey.jpg",
+    badge: "PREMIERE · WEEK OF 15 SEPT",
+    title: "THE ODYSSEY",
+    ageRating: "12+",
+    duration: "134 Min",
+    format: "MAX",
+    experience: "PANORAMA",
+    description:
+      "A king spends ten years finding his way home from a war he already won, while monsters, gods, and his own restlessness make sure the return takes longer than the fighting did.",
+  },
+  {
+    image: "/images/odyssey.jpg",
+    badge: "NOW SHOWING",
+    title: "THE LAST JOURNEY",
+    ageRating: "16+",
+    duration: "128 Min",
+    format: "IMAX",
+    experience: "PANORAMA",
+    description:
+      "A final journey across an unknown world becomes a fight for survival, where every decision brings the characters closer to the truth.",
+  },
+  {
+    image: "/images/odyssey.jpg",
+    badge: "COMING SOON",
+    title: "BEYOND THE STARS",
+    ageRating: "12+",
+    duration: "142 Min",
+    format: "4DX",
+    experience: "DOLBY",
+    description:
+      "When humanity receives a message from beyond the stars, one crew must travel further than anyone has ever gone to discover who sent it.",
+  },
+  {
+    image: "/images/odyssey.jpg",
+    badge: "PREMIERE · 22 SEPT",
+    title: "THE HIDDEN KINGDOM",
+    ageRating: "12+",
+    duration: "118 Min",
+    format: "MAX",
+    experience: "PANORAMA",
+    description:
+      "A forgotten kingdom rises again, forcing a young explorer to choose between the world she knows and a secret buried for centuries.",
+  },
+];
