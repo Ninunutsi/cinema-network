@@ -1,6 +1,6 @@
 import { Input } from "../../atoms/Input";
 import { Search } from "lucide-react";
-import { Logo } from "../../atoms/Logo/Logo";
+import { Logo } from "../../atoms/Logo";
 import { Button } from "../../ui/button";
 import { useAuthStore } from "../../../store/authStore";
 import { Profile } from "../../molecules/Profile";
