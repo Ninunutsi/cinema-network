@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Archivo", sans-serif;
+
+  --color-background: #070c1c;
+  --color-surface: #1e2031;
+  --color-surface-secondary: #2a2c3d;
+
+  --color-foreground: #ffffff;
+  --color-muted: #a9a9a9;
+  --color-subtle: #505261;
+
+  --color-danger: #ec3013;
+  --color-success: #4ade80;
+  --color-warning: #e27e04;
+
+  --color-background-tint: rgb(255 255 255 / 10%);
+  --color-danger-tint: rgb(236 48 19 / 10%);
+  --color-success-tint: rgb(74 222 128 / 10%);
+}
