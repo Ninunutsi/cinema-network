@@ -11,12 +11,22 @@ import {
 import ArrorLeft from "../../assets/arrow-left.svg?react";
 import SliderContent from "../molecules/SliderContent";
 import { sliderData } from "../../types/slider.types";
-
+import Autoplay from "embla-carousel-autoplay";
 const Slider = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
-  const plugins = useMemo(() => [Fade()], []);
+  const plugins = useMemo(
+    () => [
+      Fade(),
+      Autoplay({
+        delay: 3000,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+      }),
+    ],
+    [],
+  );
 
   const handleApiChange = (carouselApi: CarouselApi) => {
     setApi(carouselApi);
@@ -36,7 +46,7 @@ const Slider = () => {
         plugins={plugins}
         opts={{
           loop: true,
-          duration: 40, // higher = slower fade (default is 25)
+          duration: 100,
         }}
       >
         <CarouselContent className="ml-0">
