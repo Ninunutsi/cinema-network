@@ -26,7 +26,7 @@ export const Input = ({
   return (
     <div className="w-full">
       {info && (
-        <p className="mb-1 text-xs font-semibold leading-none tracking-wide uppercase text-muted">
+        <p className="mb-2 text-xs font-semibold leading-none tracking-wide text-muted">
           {info}
         </p>
       )}
@@ -43,6 +43,7 @@ export const Input = ({
           aria-invalid={Boolean(error)}
           className={cn(
             "h-10 w-full rounded-full border-none bg-transparent shadow-none outline-none",
+            "aria-invalid:border-none aria-invalid:ring-1 aria-invalid:ring-danger",
             "focus:border-none focus:outline-none",
             "focus-visible:border-none focus-visible:outline-none focus-visible:ring-0",
             hasStartIcon && "pl-10",
@@ -59,7 +60,9 @@ export const Input = ({
       </div>
 
       {message && (
-        <p className={cn("mt-1 text-xs", error ? "text-danger" : "text-muted")}>
+        <p
+          className={cn("mt-0.5 text-xs", error ? "text-danger" : "text-muted")}
+        >
           {message}
         </p>
       )}

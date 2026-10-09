@@ -13,10 +13,10 @@ export interface ModalRegistryItem {
 }
 
 export const modalRegistry: Record<string, ModalRegistryItem> = {
-  share: {
-    component: lazy(() => import("./contents/ShareModal")),
+  AuthModal: {
+    component: lazy(() => import("./contents/AuthModal")),
     kind: "dialog",
-    fromParams: (p) => ({ productId: p.productId }),
+    fromParams: (p) => ({ mode: p.mode === "signup" ? "signup" : "login" }),
   },
   buyTicket: {
     component: lazy(() => import("./contents/BuyTicket/BuyTicket")),

@@ -1,5 +1,4 @@
 import { Check } from "lucide-react";
-import { Separator } from "../../../../components/ui/separator";
 import { Button } from "../../../../components/ui/button";
 import TicketCard from "../../../../components/molecules/TicketCard";
 
