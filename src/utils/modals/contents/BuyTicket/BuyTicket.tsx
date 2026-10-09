@@ -13,6 +13,7 @@ import BuyTicketHeader from "./BuyTicketHeader";
 import { Separator } from "../../../../components/ui/separator";
 import SelectedSeat from "../../../../components/molecules/SelectedSeat";
 import { Button } from "@base-ui/react";
+import BookingConfirmation from "./BookingConfirmation";
 
 const BuyTicketTabs = () => {
   const triggerClass = [
@@ -68,7 +69,7 @@ const BuyTicketTabs = () => {
 const BuyTicket = () => {
   return (
     <div className="flex h-auto min-h-150 w-276.5 max-w-full flex-col gap-8">
-      <BuyTicketHeader />
+      {/* <BuyTicketHeader />
 
       <div className="flex min-h-0 flex-1 gap-8">
         <BuyTicketTabs />
@@ -95,10 +96,21 @@ const BuyTicket = () => {
                 <SelectedSeat />
                 <SelectedSeat />
                 <SelectedSeat />
+                <SummaryTicket />
+                const SummaryTicket = () => (
+  <TicketCard
+    className="w-80.25 rounded-2xl p-3.75"
+    title="THE ODYSSEY"
+    subtitle="Hall B · Tue 15 Sep · 16:30"
+    details={[
+      { label: "Seats", value: "B3, B4, B5" },
+      { label: "Tickets", value: "2 x Adult, 1 x Child" },
+    ]}
+  />
+);
               </div>
             </div>
 
-            {/* footer: fills the leftover height, content sits at the bottom */}
             <div className="flex min-h-0 flex-1 flex-col justify-end gap-3 pt-2.5">
               <div className="flex items-center justify-between px-1.25">
                 <p className="font-sans text-xs font-semibold leading-none tracking-normal text-white">
@@ -114,7 +126,8 @@ const BuyTicket = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+      <BookingConfirmation />
     </div>
   );
 };
