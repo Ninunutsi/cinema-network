@@ -1,6 +1,8 @@
 import { Badge } from "../ui/badge";
 import Notify from "../../assets/notify.svg?react";
 import { Button } from "../ui/button";
+import type { ComingSoonMovie } from "../../features/movies/movies.types";
+import { formatReleaseDate, formatRuntime } from "../../features/movies/utils";
 
 interface BaseMovieData {
   title: string;
@@ -12,9 +14,7 @@ interface BaseMovieData {
 
 export type SmallMovieData = BaseMovieData;
 
-export interface MediumMovieData extends BaseMovieData {
-  releaseDate: string;
-}
+export type MediumMovieData = ComingSoonMovie;
 
 export interface LargeMovieData extends BaseMovieData {
   price: string;
@@ -70,39 +70,47 @@ const MovieCard = (props: MovieCardProps) => {
 
   if (props.variant === "medium") {
     const { movie, onNotify } = props;
+    const genre = movie.genres[0]?.name;
 
     return (
       <div className="flex h-40 w-117.5 gap-3 rounded-2xl bg-background-tint p-3.5">
         <img
-          src={movie.image}
+          src={movie.posterUrl}
           alt={movie.title}
+          loading="lazy"
+          decoding="async"
           className="h-full w-34 shrink-0 rounded-lg object-cover"
         />
 
         <div className="flex min-w-0 flex-col gap-2">
           <p className="font-sans text-xs font-semibold leading-none tracking-normal text-danger">
-            {movie.releaseDate}
+            {formatReleaseDate(movie.releaseDate)}
           </p>
 
-          <h3 className="truncate font-sans text-lg font-extrabold leading-none tracking-normal text-white">
+          <h3
+            title={movie.title}
+            className="truncate font-sans text-lg font-extrabold leading-none tracking-normal text-white"
+          >
             {movie.title}
           </h3>
 
-          <p className="font-sans text-sm font-normal leading-[130%] tracking-normal text-muted">
-            {movie.genre} · {movie.duration}
+          <p className="truncate font-sans text-sm font-normal leading-[130%] tracking-normal text-muted">
+            {genre ? `${genre} · ` : ""}
+            {formatRuntime(movie.runtimeMinutes)}
           </p>
 
           <Badge className="w-fit bg-danger-tint px-3 py-1.5 font-sans text-xs font-semibold leading-none tracking-normal text-danger">
-            {movie.ageRating}
+            {movie.ageRating.code}
           </Badge>
 
           <Button
             variant="outline"
             onClick={onNotify}
-            className="h-auto w-fit cursor-pointer rounded-full bg-transparent px-2.5 py-1.5 text-xs text-white hover:bg-transparent"
+            disabled={movie.isNotified}
+            className="h-auto w-fit cursor-pointer rounded-full bg-transparent px-2.5 py-1.5 text-xs text-white hover:bg-transparent disabled:cursor-default disabled:opacity-60"
           >
-            <Notify />
-            Notify Me
+            <Notify aria-hidden="true" />
+            {movie.isNotified ? "You'll be notified" : "Notify Me"}
           </Button>
         </div>
       </div>

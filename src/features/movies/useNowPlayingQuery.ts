@@ -6,6 +6,8 @@ export const movieKeys = {
   nowPlaying: (limit?: number) =>
     [...movieKeys.all, "now-playing", limit ?? "all"] as const,
   featured: () => [...movieKeys.all, "featured"] as const,
+  comingSoon: (limit?: number) =>
+    [...movieKeys.all, "coming-soon", limit ?? "all"] as const,
 };
 
 export function useNowPlayingQuery(limit?: number) {
@@ -19,6 +21,14 @@ export function useFeaturedQuery() {
   return useQuery({
     queryKey: movieKeys.featured(),
     queryFn: moviesApi.getFeatured,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useComingSoonQuery(limit?: number) {
+  return useQuery({
+    queryKey: movieKeys.comingSoon(limit),
+    queryFn: () => moviesApi.getComingSoon(limit),
     staleTime: 5 * 60 * 1000,
   });
 }

@@ -17,7 +17,8 @@ export interface MovieFormat {
   priceUplift: number;
 }
 
-export interface Movie {
+/** Fields every movie endpoint returns. */
+interface MovieBase {
   id: number;
   slug: string;
   title: string;
@@ -26,12 +27,28 @@ export interface Movie {
   posterUrl: string;
   backdropUrl: string | null;
   releaseDate: string;
-  synopsis: string;
-  isComingSoon: boolean;
   isNotified: boolean;
-  isFeatured: boolean;
   fromPrice: number;
   ageRating: MovieAgeRating;
   genres: MovieGenre[];
-  formats?: MovieFormat[];
+}
+
+/** /movies/now-playing: bookable, carries a synopsis. */
+export interface NowPlayingMovie extends MovieBase {
+  synopsis: string;
+  isComingSoon: false;
+  isFeatured: boolean; // featured titles are a subset of now playing
+}
+
+/** /movies/featured: now playing, flagged for the hero. */
+export interface FeaturedMovie extends NowPlayingMovie {
+  isFeatured: true;
+  formats: MovieFormat[];
+}
+
+/** /movies/coming-soon: no sessions, no synopsis. */
+export interface ComingSoonMovie extends MovieBase {
+  isComingSoon: true;
+  isFeatured: false;
+  formats: MovieFormat[];
 }

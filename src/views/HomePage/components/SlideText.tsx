@@ -1,11 +1,11 @@
 import { useCallback } from "react";
 import Timer from "../../../assets/timer.svg?react";
-import type { Movie } from "../../../features/movies/movies.types";
 import { Badge } from "../../../components/ui/badge";
 import { formatRuntime } from "../../../features/movies/utils";
+import type { FeaturedMovie } from "../../../features/movies/movies.types";
 
 interface SlideTextProps {
-  movie: Movie;
+  movie: FeaturedMovie;
   isActive: boolean;
   onHeight: (id: number, height: number) => void;
 }

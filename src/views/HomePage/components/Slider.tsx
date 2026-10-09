@@ -10,14 +10,14 @@ import {
   type CarouselApi,
 } from "../../../components/ui/carousel";
 import ArrowLeft from "../../../assets/arrow-left.svg?react";
-import type { Movie } from "../../../features/movies/movies.types";
+import type { FeaturedMovie } from "../../../features/movies/movies.types";
 import { useCarouselIndex } from "../useCarouselIndex";
 import SliderContent from "./SliderContent";
 import { useFeaturedQuery } from "../../../features/movies/useNowPlayingQuery";
 
 const SLIDER_HEIGHT = "h-197.5";
 
-const SliderCarousel = ({ movies }: { movies: Movie[] }) => {
+const SliderCarousel = ({ movies }: { movies: FeaturedMovie[] }) => {
   const [api, setApi] = useState<CarouselApi>();
   const current = useCarouselIndex(api);
 

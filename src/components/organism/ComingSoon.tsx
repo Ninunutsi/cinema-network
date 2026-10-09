@@ -1,55 +1,63 @@
-import type { MediumMovieData } from "../molecules/MovieCard";
+import { useComingSoonQuery } from "../../features/movies/useNowPlayingQuery";
 import MovieCard from "../molecules/MovieCard";
 import { Button } from "../ui/button";
 
-export const mediumMovies: MediumMovieData[] = [
-  {
-    title: "Avatar: Fire and Ash",
-    genre: "Sci-Fi",
-    duration: "3h 12m",
-    ageRating: "PG-13",
-    image: "https://picsum.photos/seed/avatar/300/400",
-    releaseDate: "Dec 19, 2026",
-  },
-  {
-    title: "The Odyssey",
-    genre: "Adventure",
-    duration: "2h 30m",
-    ageRating: "R",
-    image: "https://picsum.photos/seed/odyssey/300/400",
-    releaseDate: "Jul 17, 2026",
-  },
-  {
-    title: "Toy Story 5",
-    genre: "Animation",
-    duration: "1h 45m",
-    ageRating: "G",
-    image: "https://picsum.photos/seed/toystory/300/400",
-    releaseDate: "Jun 19, 2026",
-  },
-];
+const COMING_SOON_LIMIT = 6;
+const SKELETON_COUNT = 3;
 
 const ComingSoon = () => {
+  const {
+    data: movies,
+    isPending,
+    isError,
+    refetch,
+  } = useComingSoonQuery(COMING_SOON_LIMIT);
+
+  if (!isPending && !isError && !movies?.length) return null;
+
   return (
     <div className="flex flex-col gap-6 px-17.5">
       <div className="flex items-center justify-between">
-        <p className="font-sans text-2xl font-extrabold leading-none tracking-normal text-white">
+        <h2 className="font-sans text-2xl font-extrabold leading-none tracking-normal text-white">
           COMING SOON...
-        </p>
+        </h2>
         <Button
           variant="link"
-          className="font-sans text-sm font-semibold leading-none tracking-normal text-danger cursor-pointer hover:underline"
+          className="cursor-pointer font-sans text-sm font-semibold leading-none tracking-normal text-danger hover:underline"
         >
           See all
         </Button>
       </div>
-      <section className="flex flex-wrap gap-4">
-        {mediumMovies.map((movie) => (
+
+      <section className=" flex snap-x snap-proximity gap-4 overflow-x-auto scroll-px-17.5  pb-2 [&>*]:shrink-0 [&>*]:snap-start">
+        {isPending &&
+          Array.from({ length: SKELETON_COUNT }, (_, i) => (
+            <div
+              key={i}
+              aria-hidden="true"
+              className="h-40 w-117.5 animate-pulse rounded-2xl bg-background-tint"
+            />
+          ))}
+
+        {isError && (
+          <div className="flex items-center gap-4 text-sm text-muted">
+            <p>Couldn't load upcoming movies.</p>
+            <Button
+              variant="outline"
+              onClick={() => refetch()}
+              className="h-auto cursor-pointer rounded-full bg-transparent px-3 py-1.5 text-xs text-white hover:bg-transparent"
+            >
+              Retry
+            </Button>
+          </div>
+        )}
+
+        {movies?.map((movie) => (
           <MovieCard
-            key={movie.title}
+            key={movie.id}
             variant="medium"
             movie={movie}
-            onNotify={() => console.log("Notify:", movie.title)}
+            onNotify={() => console.log("Notify:", movie.id)}
           />
         ))}
       </section>
