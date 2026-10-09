@@ -132,3 +132,7 @@ html,
 body {
   overscroll-behavior: none;
 }
+
+html {
+  scrollbar-gutter: stable;
+}
