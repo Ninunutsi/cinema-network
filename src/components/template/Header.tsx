@@ -1,5 +1,5 @@
 import { Search } from "lucide-react";
-import { useAuthStore } from "../../store/authStore";
+import { useAuthStore } from "../../features/auth/store/authStore";
 import { Input } from "../atoms/Input";
 import { Logo } from "../atoms/Logo";
 import { Profile } from "../molecules/Profile";

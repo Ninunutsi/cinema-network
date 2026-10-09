@@ -99,7 +99,7 @@ const MovieCard = (props: MovieCardProps) => {
           <Button
             variant="outline"
             onClick={onNotify}
-            className="h-auto w-fit cursor-pointer rounded-full bg-transparent px-2.5 py-1.5 text-xs text-white"
+            className="h-auto w-fit cursor-pointer rounded-full bg-transparent px-2.5 py-1.5 text-xs text-white hover:bg-transparent"
           >
             <Notify />
             Notify Me

@@ -1,14 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useAuthStore } from "../store/authStore";
+import { useLoginMutation } from "../../../api/queries/auth-queries";
 import { loginSchema, type LoginFormValues } from "../schemas/auth.schemas";
-import { authApi } from "../utils/auth";
-import { applyAuthError } from "../utils/auth.utils";
+import { applyAuthError, LOGIN_ERROR_OPTIONS } from "../utils/auth.utils";
 import { AUTH_INPUT_CLASSNAME } from "../constants/auth.constants";
-import { Input } from "../components/atoms/Input";
-import { PasswordInput } from "../components/atoms/PasswordInput";
-import { Button } from "../components/ui/button";
-import { AuthFormFooter } from "../components/atoms/AuthFormFooter";
+import { Input } from "../../../components/atoms/Input";
+import { PasswordInput } from "../../../components/atoms/PasswordInput";
+import { Button } from "../../../components/ui/button";
+import { AuthFormFooter } from "../../../components/atoms/AuthFormFooter";
 
 interface LoginFormProps {
   onSuccess: () => void;
@@ -16,7 +15,7 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ onSuccess, onSwitchToSignUp }: LoginFormProps) {
-  const setSession = useAuthStore((s) => s.setSession);
+  const login = useLoginMutation();
 
   const {
     register,
@@ -33,10 +32,11 @@ export function LoginForm({ onSuccess, onSwitchToSignUp }: LoginFormProps) {
   const onSubmit = async (values: LoginFormValues) => {
     clearErrors("root.serverError");
     try {
-      setSession(await authApi.login(values));
+      await login.mutateAsync(values);
       onSuccess();
     } catch (error) {
-      applyAuthError(error, setError);
+      // On failure the modal stays open and the entered values are kept.
+      applyAuthError(error, setError, LOGIN_ERROR_OPTIONS);
     }
   };
 
@@ -44,7 +44,7 @@ export function LoginForm({ onSuccess, onSwitchToSignUp }: LoginFormProps) {
     <form
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      className="flex flex-col gap-6 p-0.5"
+      className="flex flex-col gap-5 px-0.5"
     >
       <Input
         info="Email"
@@ -77,12 +77,12 @@ export function LoginForm({ onSuccess, onSwitchToSignUp }: LoginFormProps) {
           disabled={isSubmitting}
           className="h-11 w-full cursor-pointer rounded-full bg-danger font-sans text-sm font-extrabold text-white hover:bg-danger"
         >
-          {isSubmitting ? "Logging in…" : "Log in"}
+          {isSubmitting ? "Logging In…" : "Log In"}
         </Button>
 
         <AuthFormFooter
           prompt="Don't have an account?"
-          actionLabel="Create account"
+          actionLabel="Sign Up"
           onAction={onSwitchToSignUp}
         />
       </div>

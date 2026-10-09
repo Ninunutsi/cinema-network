@@ -1,13 +1,13 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-import { useAuthStore } from "../store/authStore";
+import { useAuthStore } from "../features/auth/store/authStore";
 import { ROUTES } from "../config/routes.config";
 
 export const ProtectedRoute = () => {
-  const { isAuthenticated } = useAuthStore();
+  const { user } = useAuthStore();
   const location = useLocation();
 
-  if (!isAuthenticated) {
+  if (!user) {
     return <Navigate to={ROUTES.HOME} state={{ from: location }} replace />;
   }
 

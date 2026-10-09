@@ -1,15 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { useAuthStore } from "../store/authStore";
+import { useSignUpMutation } from "../../../api/queries/auth-queries";
 import { signUpSchema, type SignUpFormValues } from "../schemas/auth.schemas";
-import { authApi } from "../utils/auth";
-import { applyAuthError } from "../utils/auth.utils";
+import {
+  applyAuthError,
+  SIGN_UP_ERROR_OPTIONS,
+  toSignUpPayload,
+} from "../utils/auth.utils";
+import { AvatarUpload } from "../../../components/molecules/AvatarUpload";
 import { AUTH_INPUT_CLASSNAME } from "../constants/auth.constants";
-import { Input } from "../components/atoms/Input";
-import { PasswordInput } from "../components/atoms/PasswordInput";
-import { Button } from "../components/ui/button";
-import { AuthFormFooter } from "../components/atoms/AuthFormFooter";
-import { AvatarUpload } from "../components/molecules/AvatarUpload";
+import { Input } from "../../../components/atoms/Input";
+import { PasswordInput } from "../../../components/atoms/PasswordInput";
+import { Button } from "../../../components/ui/button";
+import { AuthFormFooter } from "../../../components/atoms/AuthFormFooter";
 
 interface SignUpFormProps {
   onSuccess: () => void;
@@ -17,7 +20,7 @@ interface SignUpFormProps {
 }
 
 export function SignUpForm({ onSuccess, onSwitchToLogin }: SignUpFormProps) {
-  const setSession = useAuthStore((s) => s.setSession);
+  const signUp = useSignUpMutation();
 
   const {
     register,
@@ -39,16 +42,14 @@ export function SignUpForm({ onSuccess, onSwitchToLogin }: SignUpFormProps) {
     mode: "onTouched",
   });
 
-  const onSubmit = async ({
-    confirmPassword: _confirmPassword,
-    ...payload
-  }: SignUpFormValues) => {
+  const onSubmit = async (values: SignUpFormValues) => {
     clearErrors("root.serverError");
     try {
-      setSession(await authApi.signUp(payload));
+      await signUp.mutateAsync(toSignUpPayload(values));
       onSuccess();
     } catch (error) {
-      applyAuthError(error, setError);
+      // Duplicate username/email etc. land on the specific field.
+      applyAuthError(error, setError, SIGN_UP_ERROR_OPTIONS);
     }
   };
 
@@ -56,7 +57,7 @@ export function SignUpForm({ onSuccess, onSwitchToLogin }: SignUpFormProps) {
     <form
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      className="flex flex-col gap-6 p-0.5"
+      className="flex flex-col gap-5 px-0.5"
     >
       <Controller
         name="avatar"
@@ -123,12 +124,12 @@ export function SignUpForm({ onSuccess, onSwitchToLogin }: SignUpFormProps) {
           disabled={isSubmitting}
           className="h-11 w-full cursor-pointer rounded-full bg-danger font-sans text-sm font-extrabold text-white hover:bg-danger"
         >
-          {isSubmitting ? "Creating account…" : "Sign up"}
+          {isSubmitting ? "Signing Up…" : "Sign Up"}
         </Button>
 
         <AuthFormFooter
           prompt="Already have an account?"
-          actionLabel="Log in"
+          actionLabel="Log In"
           onAction={onSwitchToLogin}
         />
       </div>

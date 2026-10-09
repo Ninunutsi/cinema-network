@@ -12,9 +12,15 @@ import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import ProfileIcon from "../../assets/profile.svg?react";
 import LogOutIcon from "../../assets/log-out.svg?react";
 import TicketIcon from "../../assets/ticket.svg?react";
+import { useLogoutMutation } from "../../api/queries/auth-queries";
 
 export const DropdownTrigger = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const logout = useLogoutMutation();
+
+  const handleLogout = () => {
+    logout.mutate();
+  };
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
@@ -70,8 +76,13 @@ export const DropdownTrigger = () => {
         <DropdownMenuSeparator className="m-0 bg-muted/20" />
 
         <div className="pb-2.5">
-          <DropdownMenuItem className="cursor-pointer px-5 py-2.5 font-sans text-sm font-semibold leading-none text-danger hover:bg-surface hover:text-danger">
-            <LogOutIcon className="stroke-danger " /> Log out
+          <DropdownMenuItem
+            onClick={handleLogout}
+            disabled={logout.isPending}
+            className="cursor-pointer px-5 py-2.5 font-sans text-sm font-semibold leading-none text-danger hover:bg-surface hover:text-danger"
+          >
+            <LogOutIcon className="stroke-danger" />
+            {logout.isPending ? "Logging out..." : "Log out"}
           </DropdownMenuItem>
         </div>
       </DropdownMenuContent>
