@@ -1,4 +1,3 @@
-import { useState } from "react";
 import SeatSection from "./SeatSection";
 import type {
   ApiRow,
@@ -7,11 +6,7 @@ import type {
   SeatMapResponse,
   SeatState,
 } from "../../types/seatMap.types";
-import {
-  getMineIds,
-  MAX_SEATS,
-  useSeatSelection,
-} from "../../hooks/useSeatSelection";
+import { MAX_SEATS } from "../../hooks/useSeatSelection";
 import { useSeatStore } from "../../store/seatStore";
 
 let nextId = 93;
@@ -112,7 +107,7 @@ const SeatMap = ({ sections }: SeatMapProps) => {
 
   return (
     <div className="flex flex-col items-center gap-6">
-      <div className="flex flex-col items-center gap-1">
+      {/* <div className="flex flex-col items-center gap-1">
         <p className="font-sans text-sm font-bold text-muted">
           {selectedIds.length} / {MAX_SEATS} selected
         </p>
@@ -124,7 +119,7 @@ const SeatMap = ({ sections }: SeatMapProps) => {
         >
           You can select up to {MAX_SEATS} seats.
         </p>
-      </div>
+      </div> */}
 
       <div className="max-w-full overflow-x-auto">
         <div className="mx-auto flex w-max flex-col gap-8">

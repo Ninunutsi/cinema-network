@@ -24,7 +24,7 @@ const SeatRow = ({ row, selectedIds, onSeatSelect }: SeatRowProps) => {
       aria-label={`Row ${row.label}`}
     >
       {/* Label comes from data, never from the array index */}
-      <span className="w-6 shrink-0 text-center font-sans text-[18px] font-extrabold text-muted">
+      <span className="w-6 shrink-0 text-center font-sans text-[18px] font-extrabold text-muted select-none">
         {row.label}
       </span>
 

@@ -7,6 +7,17 @@ type SeatSectionProps = {
   onSeatSelect: (seat: ApiSeat) => void;
 };
 
+const getSectionTitle = (section: ApiSection) => {
+  const labels = section.rows.map((r) => r.label);
+  if (labels.length === 0) return section.name;
+
+  const first = labels[0];
+  const last = labels[labels.length - 1];
+  const range = first === last ? `ROW ${first}` : `ROWS ${first}-${last}`;
+
+  return `${section.name} · ${range}`.toUpperCase();
+};
+
 const SeatSection = ({
   section,
   selectedIds,
@@ -16,8 +27,8 @@ const SeatSection = ({
     className="flex flex-col items-center gap-3"
     aria-label={section.name}
   >
-    <h3 className="font-sans text-sm font-bold uppercase tracking-wider text-muted">
-      {section.name}
+    <h3 className="font-sans text-sm font-bold self-start uppercase tracking-wider text-muted select-none">
+      {getSectionTitle(section)}
     </h3>
 
     <div className="flex flex-col gap-2">
