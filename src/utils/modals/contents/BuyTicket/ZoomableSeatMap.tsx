@@ -25,13 +25,8 @@ const ZoomableSeatMap = ({ children }: { children: ReactNode }) => {
       const w = content.offsetWidth;
       const h = content.offsetHeight;
       setSize({ w, h });
-      if (w > 0 && h > 0) {
-        // fit the whole hall: limited by width AND height
-        const fit = Math.min(
-          container.clientWidth / w,
-          container.clientHeight / h,
-        );
-        setFitScale(clamp(fit, MIN_SCALE, 1));
+      if (w > 0) {
+        setFitScale(clamp(container.clientWidth / w, MIN_SCALE, 1));
       }
     };
 

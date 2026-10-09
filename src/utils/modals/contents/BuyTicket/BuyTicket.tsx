@@ -10,6 +10,9 @@ import {
 import SeatStatus from "../../../../components/atoms/SeatStatus";
 import ZoomableSeatMap from "./ZoomableSeatMap";
 import BuyTicketHeader from "./BuyTicketHeader";
+import { Separator } from "../../../../components/ui/separator";
+import SelectedSeat from "../../../../components/molecules/SelectedSeat";
+import { Button } from "@base-ui/react";
 
 const BuyTicketTabs = () => {
   const triggerClass = [
@@ -22,9 +25,9 @@ const BuyTicketTabs = () => {
   return (
     <Tabs
       defaultValue="account"
-      className="h-full min-h-0 w-180 min-w-0 shrink-0"
+      className="min-h-0 min-h-0 w-180 min-w-0 shrink-0"
     >
-      <TabsList className="w-full shrink-0 rounded-full bg-background-tint mb-6 p-0 group-data-horizontal/tabs:h-11">
+      <TabsList className="w-full shrink-0 rounded-full bg-surface mb-6 p-0 group-data-horizontal/tabs:h-11">
         <TabsTrigger value="account" className={triggerClass}>
           SEATS
         </TabsTrigger>
@@ -37,7 +40,7 @@ const BuyTicketTabs = () => {
         <div className="flex h-full min-h-0 flex-col gap-3">
           <ZoomableSeatMap>
             <div className="flex w-max flex-col items-center gap-8 p-2">
-              <div className="flex h-7.5 w-170 shrink-0 items-center justify-center gap-3.5 rounded-b-[20px] bg-background-tint px-5">
+              <div className="flex h-7.5 w-170 shrink-0 items-center justify-center gap-3.5 rounded-b-[20px] bg-surface-secondary px-5">
                 <p className="font-sans text-xs font-semibold leading-none tracking-normal text-white">
                   SCREEN
                 </p>
@@ -64,14 +67,52 @@ const BuyTicketTabs = () => {
 
 const BuyTicket = () => {
   return (
-    <div className="flex h-149.75 w-286.5 max-w-full flex-col gap-8">
+    <div className="flex h-auto min-h-150 w-276.5 max-w-full flex-col gap-8">
       <BuyTicketHeader />
 
-      {/* the tabs and whatever sits next to them share this row */}
       <div className="flex min-h-0 flex-1 gap-8">
         <BuyTicketTabs />
-        <div className="min-w-0 flex-1">
-          {/* your other content (order summary, etc.) */}
+        <Separator orientation="vertical" className="bg-background-tint" />
+        <div className="min-w-0 flex-1 flex flex-col jus">
+          <div className="flex min-w-0 flex-1 flex-col gap-3">
+            <div className="flex h-87.75 shrink-0 flex-col gap-3">
+              <p className="shrink-0 font-sans text-sm font-extrabold leading-none tracking-normal text-white">
+                Your seats · Max 3
+              </p>
+
+              {false && (
+                <p className="shrink-0 font-sans text-xs font-normal leading-[130%] tracking-normal text-muted">
+                  Pick up to 3 seats from the map. Each seat can carry its own
+                  ticket type.
+                </p>
+              )}
+
+              <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-x-hidden overflow-y-auto pr-1 scrollbar-thin">
+                <SelectedSeat />
+                <SelectedSeat />
+                <SelectedSeat />
+                <SelectedSeat />
+                <SelectedSeat />
+                <SelectedSeat />
+                <SelectedSeat />
+              </div>
+            </div>
+
+            {/* footer: fills the leftover height, content sits at the bottom */}
+            <div className="flex min-h-0 flex-1 flex-col justify-end gap-3 pt-2.5">
+              <div className="flex items-center justify-between px-1.25">
+                <p className="font-sans text-xs font-semibold leading-none tracking-normal text-white">
+                  SUBTOTAL
+                </p>
+                <h1 className="font-sans text-2xl font-extrabold leading-none tracking-normal text-white">
+                  ₾ 32
+                </h1>
+              </div>
+              <Button className="flex cursor-pointer h-10.25 w-full items-center justify-center gap-0.5 rounded-full bg-danger px-3.25 font-sans text-sm font-extrabold leading-none tracking-normal text-white">
+                Next: Checkout
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

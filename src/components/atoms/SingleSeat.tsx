@@ -13,8 +13,7 @@ type VariantConfig = {
 
 const SEAT_VARIANTS: Record<SeatVariant, VariantConfig> = {
   available: {
-    container:
-      "border border-subtle bg-background-tint shadow-md cursor-pointer",
+    container: "border border-subtle bg-surface shadow-md cursor-pointer",
     text: "text-white",
     isInteractive: true,
     showHeldVector: false,
@@ -26,14 +25,14 @@ const SEAT_VARIANTS: Record<SeatVariant, VariantConfig> = {
     showHeldVector: false,
   },
   held: {
-    container: "bg-background-tint cursor-not-allowed",
+    container: "bg-surface cursor-not-allowed",
     text: "text-muted",
     isInteractive: false,
     showHeldVector: true,
     statusText: "held by someone else",
   },
   sold: {
-    container: "bg-background-tint cursor-not-allowed",
+    container: "bg-surface cursor-not-allowed",
     text: "text-subtle",
     isInteractive: false,
     showHeldVector: false,
