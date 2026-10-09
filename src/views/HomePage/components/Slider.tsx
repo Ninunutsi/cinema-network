@@ -1,8 +1,6 @@
 import { useMemo, useState } from "react";
 import Fade from "embla-carousel-fade";
 import Autoplay from "embla-carousel-autoplay";
-
-import ArrowLeft from "../../../assets/arrow-left.svg?react";
 import {
   Carousel,
   CarouselContent,
@@ -11,11 +9,15 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "../../../components/ui/carousel";
+import ArrowLeft from "../../../assets/arrow-left.svg?react";
+import type { Movie } from "../../../features/movies/movies.types";
 import { useCarouselIndex } from "../useCarouselIndex";
-import { sliderData } from "../slider.types";
 import SliderContent from "./SliderContent";
+import { useFeaturedQuery } from "../../../features/movies/useNowPlayingQuery";
 
-const Slider = () => {
+const SLIDER_HEIGHT = "h-197.5";
+
+const SliderCarousel = ({ movies }: { movies: Movie[] }) => {
   const [api, setApi] = useState<CarouselApi>();
   const current = useCarouselIndex(api);
 
@@ -38,14 +40,16 @@ const Slider = () => {
         className="w-full"
         setApi={setApi}
         plugins={plugins}
-        opts={{ loop: true, duration: 70 }}
+        opts={{ loop: movies.length > 1, duration: 70 }}
       >
         <CarouselContent className="ml-0">
-          {sliderData.map((slide, index) => (
-            <CarouselItem key={slide.id} className="basis-full pl-0">
-              <div className="relative h-197.5 w-full overflow-hidden">
+          {movies.map((movie, index) => (
+            <CarouselItem key={movie.id} className="basis-full pl-0">
+              <div
+                className={`relative ${SLIDER_HEIGHT} w-full overflow-hidden`}
+              >
                 <img
-                  src={slide.image}
+                  src={movie.backdropUrl ?? movie.posterUrl}
                   alt=""
                   loading={index === 0 ? "eager" : "lazy"}
                   fetchPriority={index === 0 ? "high" : "auto"}
@@ -58,16 +62,16 @@ const Slider = () => {
           ))}
         </CarouselContent>
 
-        <SliderContent slides={sliderData} current={current} />
+        <SliderContent movies={movies} current={current} />
 
         <div className="absolute inset-x-0 bottom-8 z-10 flex items-center gap-5 px-8">
           <div className="flex flex-1 items-center gap-1.75">
-            {sliderData.map((slide, index) => (
+            {movies.map((movie, index) => (
               <button
-                key={slide.id}
+                key={movie.id}
                 type="button"
                 onClick={() => api?.scrollTo(index)}
-                aria-label={`Go to slide ${index + 1}: ${slide.title}`}
+                aria-label={`Go to slide ${index + 1}: ${movie.title}`}
                 aria-current={current === index ? "true" : undefined}
                 className={`h-0.75 flex-1 transition-colors duration-300 ${
                   current === index ? "bg-orange-500" : "bg-white"
@@ -90,6 +94,25 @@ const Slider = () => {
       </Carousel>
     </section>
   );
+};
+
+const Slider = () => {
+  const { data: movies, isPending } = useFeaturedQuery();
+
+  if (isPending) {
+    // Same height as the real slider, so the page doesn't jump when data arrives
+    return (
+      <section
+        aria-busy="true"
+        className={`${SLIDER_HEIGHT} w-full animate-pulse bg-background-tint`}
+      />
+    );
+  }
+
+  // Error or nothing featured: render nothing rather than a broken hero
+  if (!movies?.length) return null;
+
+  return <SliderCarousel movies={movies} />;
 };
 
 export default Slider;

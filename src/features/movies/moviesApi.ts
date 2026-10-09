@@ -13,4 +13,10 @@ export const moviesApi = {
 
     return unwrap(response);
   },
+  async getFeatured(): Promise<Movie[]> {
+    const response =
+      await httpClient.get<DataEnvelope<Movie[]>>("/movies/featured");
+
+    return unwrap(response);
+  },
 };

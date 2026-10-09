@@ -1,26 +1,29 @@
 import { useCallback } from "react";
 import Timer from "../../../assets/timer.svg?react";
-import type { SliderData } from "../slider.types";
+import type { Movie } from "../../../features/movies/movies.types";
 import { Badge } from "../../../components/ui/badge";
+import { formatRuntime } from "../../../features/movies/utils";
 
 interface SlideTextProps {
-  slide: SliderData;
+  movie: Movie;
   isActive: boolean;
-  onHeight: (id: string, height: number) => void;
+  onHeight: (id: number, height: number) => void;
 }
 
-const SlideText = ({ slide, isActive, onHeight }: SlideTextProps) => {
+const SlideText = ({ movie, isActive, onHeight }: SlideTextProps) => {
   const measure = useCallback(
     (el: HTMLDivElement | null) => {
       if (!el) return;
-      const report = () => onHeight(slide.id, el.offsetHeight);
+      const report = () => onHeight(movie.id, el.offsetHeight);
       report();
       const observer = new ResizeObserver(report);
       observer.observe(el);
       return () => observer.disconnect();
     },
-    [slide.id, onHeight],
+    [movie.id, onHeight],
   );
+
+  const genre = movie.genres[0]?.name;
 
   return (
     <div
@@ -30,24 +33,29 @@ const SlideText = ({ slide, isActive, onHeight }: SlideTextProps) => {
         isActive ? "opacity-100 delay-150" : "pointer-events-none opacity-0"
       }`}
     >
-      <Badge variant="danger">{slide.badge}</Badge>
+      {genre && <Badge variant="danger">{genre}</Badge>}
 
       <h2 className="font-sans text-[40px] font-extrabold leading-none tracking-normal text-white">
-        {slide.title}
+        {movie.title}
       </h2>
 
-      <div className="flex items-center gap-2">
-        <Badge variant="danger">{slide.ageRating}</Badge>
+      <div className="flex flex-wrap items-center gap-2">
+        <Badge variant="danger">{movie.ageRating.code}</Badge>
+
         <Badge variant="muted">
           <Timer aria-hidden="true" />
-          {slide.duration}
+          {formatRuntime(movie.runtimeMinutes)}
         </Badge>
-        <Badge variant="muted">{slide.format}</Badge>
-        <Badge variant="muted">{slide.experience}</Badge>
+
+        {movie.formats?.map((format) => (
+          <Badge key={format.id} variant="muted">
+            {format.name}
+          </Badge>
+        ))}
       </div>
 
       <p className="font-sans text-sm font-normal leading-[130%] tracking-normal text-white">
-        {slide.description}
+        {movie.synopsis}
       </p>
     </div>
   );

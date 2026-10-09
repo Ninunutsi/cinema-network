@@ -10,6 +10,13 @@ export interface MovieAgeRating {
   description: string;
 }
 
+export interface MovieFormat {
+  id: number;
+  slug: string;
+  name: string;
+  priceUplift: number;
+}
+
 export interface Movie {
   id: number;
   slug: string;
@@ -26,4 +33,5 @@ export interface Movie {
   fromPrice: number;
   ageRating: MovieAgeRating;
   genres: MovieGenre[];
+  formats?: MovieFormat[];
 }

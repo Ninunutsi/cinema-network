@@ -1,19 +1,19 @@
 import { useCallback, useState } from "react";
-import type { SliderData } from "../slider.types";
 
-import SliderActions from "./SliderActions";
 import SlideText from "./SlideText";
+import SliderActions from "./SliderActions";
+import type { Movie } from "../../../features/movies/movies.types";
 
 interface SliderContentProps {
-  slides: SliderData[];
+  movies: Movie[];
   current: number;
 }
 
-const SliderContent = ({ slides, current }: SliderContentProps) => {
-  const [heights, setHeights] = useState<Record<string, number>>({});
-  const activeSlide = slides[current];
+const SliderContent = ({ movies, current }: SliderContentProps) => {
+  const [heights, setHeights] = useState<Record<number, number>>({});
+  const activeMovie = movies[current] ?? movies[0];
 
-  const handleHeight = useCallback((id: string, height: number) => {
+  const handleHeight = useCallback((id: number, height: number) => {
     setHeights((prev) =>
       prev[id] === height ? prev : { ...prev, [id]: height },
     );
@@ -24,12 +24,12 @@ const SliderContent = ({ slides, current }: SliderContentProps) => {
       <div className="flex w-145 max-w-xl flex-col gap-5 pl-16">
         <div
           className="relative transition-[height] duration-700 ease-bounce motion-reduce:transition-none"
-          style={{ height: heights[activeSlide.id] }}
+          style={{ height: heights[activeMovie.id] }}
         >
-          {slides.map((slide, index) => (
+          {movies.map((movie, index) => (
             <SlideText
-              key={slide.id}
-              slide={slide}
+              key={movie.id}
+              movie={movie}
               isActive={index === current}
               onHeight={handleHeight}
             />
@@ -37,8 +37,8 @@ const SliderContent = ({ slides, current }: SliderContentProps) => {
         </div>
 
         <SliderActions
-          ticketsUrl={activeSlide.ticketsUrl}
-          sessionsUrl={activeSlide.sessionsUrl}
+          ticketsUrl={`/movies/${activeMovie.slug}`}
+          sessionsUrl={`/movies/${activeMovie.slug}/sessions`}
         />
       </div>
     </div>
