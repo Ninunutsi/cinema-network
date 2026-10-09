@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import HomePage from "../views/HomePage";
+import HomePage from "../views/HomePage/HomePage";
 import SessionsPage from "../views/SessionsPage";
 import MovieDetailsPage from "../views/MovieDetailsPage";
 import { ProtectedRoute } from "./ProtectedRoute";

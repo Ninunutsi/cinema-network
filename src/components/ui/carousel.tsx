@@ -207,7 +207,9 @@ function CarouselNext({
   size = "icon-sm",
   icon,
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: React.ComponentProps<typeof Button> & {
+  icon?: React.ReactNode;
+}) {
   const { orientation, scrollNext, canScrollNext } = useCarousel();
 
   return (

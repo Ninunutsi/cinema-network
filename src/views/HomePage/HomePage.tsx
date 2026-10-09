@@ -1,7 +1,7 @@
-import Slider from "../components/organism/Slider";
-import NowPlaying from "../components/organism/NowPlaying";
+import NowPlaying from "../../components/organism/NowPlaying";
 import { Separator } from "@base-ui/react/separator";
-import ComingSoon from "../components/organism/ComingSoon";
+import ComingSoon from "../../components/organism/ComingSoon";
+import Slider from "./components/Slider";
 
 const HomePage = () => {
   return (
