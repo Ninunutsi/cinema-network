@@ -25,6 +25,7 @@ interface MovieBase {
   kind: string;
   runtimeMinutes: number;
   posterUrl: string;
+  isComingSoon: boolean;
   backdropUrl: string | null;
   releaseDate: string;
   isNotified: boolean;

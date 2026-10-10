@@ -1,5 +1,5 @@
 import { Popcorn, Search } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { useDebounce } from "../../hooks/useDebounce";
 
@@ -8,6 +8,7 @@ import { Input } from "../atoms/Input";
 import SearchEmpty from "../atoms/SearchEmpty";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useMovieSearchQuery } from "../../features/movies/useNowPlayingQuery";
+import SearchMovieRow from "../atoms/SearchMovieRow";
 
 interface SearchPopoverProps {
   isSearchOpen: boolean;
@@ -29,6 +30,7 @@ export const SearchPopover = ({
     data: movies = [],
     isFetching,
     isError,
+    refetch,
   } = useMovieSearchQuery(debouncedQuery);
 
   const isDebouncing = query.trim() !== debouncedQuery;
@@ -41,12 +43,25 @@ export const SearchPopover = ({
   const handleClearSearch = () => {
     setQuery("");
   };
+  const anchorRef = useRef<HTMLDivElement>(null);
 
   return (
     <div role="search">
-      <Popover open={isSearchOpen} onOpenChange={setIsSearchOpen}>
+      <Popover
+        open={isSearchOpen}
+        onOpenChange={(open, details) => {
+          const target = details.event?.target as Node | null | undefined;
+          console.log(target);
+          if (!open && target && anchorRef.current?.contains(target)) {
+            details.cancel();
+            return;
+          }
+          setIsSearchOpen(open);
+        }}
+      >
         <PopoverTrigger>
           <div
+            ref={anchorRef}
             className={`ml-auto shrink-0 overflow-hidden transition-[width] duration-200 ease-out motion-reduce:transition-none ${
               isSearchOpen ? "w-120" : "w-94"
             }`}
@@ -73,6 +88,8 @@ export const SearchPopover = ({
           align="end"
           side="bottom"
           sideOffset={7}
+          initialFocus={false}
+          finalFocus={false}
           className={`border border-background-tint bg-background p-2 transition-[width,opacity] duration-300 ease-out ${
             isSearchOpen ? "w-120 opacity-100" : "w-94 opacity-0"
           }`}
@@ -91,7 +108,7 @@ export const SearchPopover = ({
               </p>
               <button
                 type="button"
-                onClick={() => setQuery((current) => current + " ")}
+                onClick={() => void refetch()}
                 className="text-sm font-semibold text-white underline"
               >
                 Retry
@@ -115,31 +132,20 @@ export const SearchPopover = ({
             />
           ) : (
             <div className="flex flex-col gap-1">
-              {movies.slice(0, 6).map((movie) => (
-                <button
+              <div className="flex justify-between items-center px-2.5 py-2 select-none">
+                <p className="text-xs font-semibold uppercase leading-none tracking-[0.06em] text-muted">
+                  FILMS & EVENTS
+                </p>
+                <span className="text-xs font-normal leading-[130%] tracking-normal text-muted">
+                  {movies.length} results
+                </span>
+              </div>
+              {movies.map((movie) => (
+                <SearchMovieRow
                   key={movie.id}
-                  type="button"
-                  onClick={() => handleMovieSelect(movie)}
-                  className="flex w-full items-center gap-3 rounded-lg p-2 text-left transition-colors hover:bg-background-tint"
-                >
-                  <img
-                    src={movie.posterUrl}
-                    alt=""
-                    className="h-16 w-11 shrink-0 rounded-md object-cover"
-                  />
-
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-semibold text-white">
-                      {movie.title}
-                    </span>
-                    <span className="mt-1 block text-xs capitalize text-muted">
-                      {movie.kind.replace(/_/g, " ")}
-                      {movie.releaseDate
-                        ? ` · ${movie.releaseDate.slice(0, 4)}`
-                        : ""}
-                    </span>
-                  </span>
-                </button>
+                  movie={movie}
+                  onClick={handleMovieSelect}
+                />
               ))}
             </div>
           )}
