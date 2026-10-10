@@ -1,8 +1,9 @@
 import { SessionFilters } from "./Components/SessionFilters";
+import { SessionsList } from "./Components/SessionsList";
 
 const SessionsPage = () => {
   return (
-    <main className="flex flex-col gap-8 px-15">
+    <main className="flex flex gap-8 px-15">
       <aside className="flex w-80 flex-col gap-9">
         <section className="flex flex-col gap-1.5">
           <h1 className="text-2xl font-extrabold leading-none tracking-normal text-white">
@@ -16,6 +17,7 @@ const SessionsPage = () => {
 
         <SessionFilters />
       </aside>
+      <SessionsList />
     </main>
   );
 };

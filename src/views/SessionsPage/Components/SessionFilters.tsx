@@ -1,20 +1,15 @@
 import { useMemo } from "react";
-import { param, useUrlState } from "../../../hooks/useUrlState";
+import { useUrlState } from "../../../hooks/useUrlState";
+
 import { useSessionFilterOptionsQuery } from "../../../features/sessions/sessionsQueries";
 import { FilterCheckboxGroup } from "../../../components/atoms/FilterCheckboxGroup";
 import { Separator } from "../../../components/ui/separator";
-
-const sessionFilterSchema = {
-  venues: param.strings("venues[]"),
-  formats: param.strings("formats[]"),
-  languages: param.strings("languages[]"),
-  timeBands: param.strings("timeBands[]"),
-};
+import { sessionFilterSchema } from "../../../features/sessions/seassions.schema";
 
 export const SessionFilters = () => {
   const { data, isPending, isError, refetch } = useSessionFilterOptionsQuery();
 
-  const { values, toggle, setMany, activeCount } =
+  const { values, toggle, setMany, clear, activeCount } =
     useUrlState(sessionFilterSchema);
 
   const availableFormats = useMemo(() => {
@@ -77,9 +72,20 @@ export const SessionFilters = () => {
 
   return (
     <section className="flex h-auto w-80 flex-col gap-6 overflow-y-auto rounded-2xl bg-surface p-6">
-      <h3 className="text-[18px] leading-none font-extrabold text-white">
-        Filters
-      </h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-[18px] leading-none font-extrabold text-white">
+          Filters
+        </h3>
+        {activeCount > 0 && (
+          <button
+            type="button"
+            onClick={clear}
+            className="text-xs text-muted underline"
+          >
+            Clear all
+          </button>
+        )}
+      </div>
 
       <FilterCheckboxGroup
         title="Venue"
@@ -130,7 +136,7 @@ export const SessionFilters = () => {
       <Separator className="bg-background-tint" />
 
       <p className="text-center text-xs leading-[130%] font-normal text-muted">
-        {activeCount} filters active
+        {activeCount} {activeCount === 1 ? "filter" : "filters"} active
       </p>
     </section>
   );

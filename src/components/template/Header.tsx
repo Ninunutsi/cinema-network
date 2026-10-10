@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 import { Logo } from "../atoms/Logo";
-import { Profile } from "../molecules/Profile";
 import { Button } from "../ui/button";
 import { openModal } from "../../utils/modals/modalActions";
 import { SearchPopoverController } from "../../views/HomePage/components/SearchPopoverController";
@@ -54,7 +53,7 @@ export const Header = () => {
         )}
       >
         <div className="flex items-center gap-8">
-          <Link to="//">
+          <Link to="/">
             <Logo />
           </Link>
           <p className="cursor-pointer font-sans text-xs font-semibold leading-none uppercase tracking-wide text-white">
