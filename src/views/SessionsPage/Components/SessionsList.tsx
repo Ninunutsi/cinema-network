@@ -20,6 +20,7 @@ import {
   SelectValue,
 } from "../../../components/ui/select";
 import { getNextDates } from "../sessions.utils";
+import { Fragment } from "react/jsx-runtime";
 
 export const SessionsList = () => {
   const { data: options } = useSessionFilterOptionsQuery();
@@ -111,7 +112,7 @@ export const SessionsList = () => {
 
         <div className="flex flex-col gap-6">
           {data.data.map(({ movie, sessions }, index) => (
-            <>
+            <Fragment key={movie.id}>
               <MovieSessionGroup
                 key={movie.id}
                 movie={movie}
@@ -120,7 +121,7 @@ export const SessionsList = () => {
               {index < data.data.length - 1 && (
                 <Separator className="bg-background-tint" />
               )}
-            </>
+            </Fragment>
           ))}
         </div>
       </div>

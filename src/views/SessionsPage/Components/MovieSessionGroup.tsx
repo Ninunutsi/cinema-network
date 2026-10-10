@@ -39,7 +39,11 @@ export const MovieSessionGroup = ({
 
       <div className="flex gap-3 overflow-x-auto pb-1">
         {sessions.map((session) => (
-          <SessionCard key={session.id} session={session} />
+          <SessionCard
+            key={session.id}
+            session={session}
+            movieSlug={movie.slug}
+          />
         ))}
       </div>
     </article>
