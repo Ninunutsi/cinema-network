@@ -1,13 +1,10 @@
 import { useCallback, useState } from "react";
-import { Search } from "lucide-react";
 import { useAuthStore } from "../../features/auth/store/authStore";
-import { Input } from "../atoms/Input";
 import { Logo } from "../atoms/Logo";
 import { Profile } from "../molecules/Profile";
 import { Button } from "../ui/button";
 import { openModal } from "../../utils/modals/modalActions";
 import { SearchPopover } from "../molecules/SearchPopever";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 export const Header = () => {
   const isAuthenticated = useAuthStore((state) => state.user);
@@ -47,37 +44,6 @@ export const Header = () => {
 
         <div className="flex items-center gap-8">
           <div role="search">
-            {/* <Popover open={isSearchOpen} onOpenChange={setIsSearchOpen}>
-              <PopoverTrigger>
-                <div
-                  onClick={() => setIsSearchOpen(true)}
-                  className={isSearchOpen ? "w-120" : "w-94"}
-                >
-                  <Input
-                    type="search"
-                    aria-label="Search films and live events"
-                    placeholder="Search films and live events"
-                    onKeyDown={(e) => {
-                      if (e.key === "Escape") {
-                        setIsSearchOpen(false);
-                        e.currentTarget.blur();
-                      }
-                    }}
-                    className="bg-background-tint text-white transition-[width] duration-300 ease-out placeholder:text-white"
-                    startIcon={<Search className="size-4 text-white" />}
-                  />
-                </div>
-              </PopoverTrigger>
-
-              <PopoverContent
-                align="start"
-                side="bottom"
-                sideOffset={7}
-                className="w-120 bg-background border border-background-tint p-2"
-              >
-                <div>ffdsjflksdjflksdjflsd</div>
-              </PopoverContent>
-            </Popover> */}
             <SearchPopover
               setIsSearchOpen={setIsSearchOpen}
               isSearchOpen={isSearchOpen}

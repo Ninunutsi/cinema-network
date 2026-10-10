@@ -3,6 +3,7 @@ import { httpClient } from "../../api/httpclient";
 import type {
   ComingSoonMovie,
   FeaturedMovie,
+  MovieSearchResult,
   NowPlayingMovie,
 } from "./movies.types";
 
@@ -26,6 +27,17 @@ export const moviesApi = {
       "/movies/coming-soon",
       { params: limit === undefined ? undefined : { limit } },
     );
+    return unwrap(response);
+  },
+
+  async search(query: string): Promise<MovieSearchResult[]> {
+    const response = await httpClient.get<DataEnvelope<MovieSearchResult[]>>(
+      "/search",
+      {
+        params: { q: query },
+      },
+    );
+
     return unwrap(response);
   },
 };

@@ -52,3 +52,7 @@ export interface ComingSoonMovie extends MovieBase {
   isFeatured: false;
   formats: MovieFormat[];
 }
+
+export interface MovieSearchResult extends MovieBase {
+  formats: MovieFormat[];
+}
