@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../views/HomePage/HomePage";
-import SessionsPage from "../views/SessionsPage";
 import MovieDetailsPage from "../views/MovieDetailsPage/MovieDetailsPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 
@@ -8,6 +7,7 @@ import NotFound from "../views/NotFound";
 import { ROUTE_SEGMENTS } from "../config/routes.config";
 import { MainLayout } from "../layouts/MainLayout";
 import ProfilePage from "../views/ProfilePage/ProfilePage";
+import SessionsPage from "../views/SessionsPage/SessionsPage";
 
 export const router = createBrowserRouter([
   {

@@ -17,7 +17,6 @@ export interface MovieFormat {
   priceUplift: number;
 }
 
-/** Fields every movie endpoint returns. */
 interface MovieBase {
   id: number;
   slug: string;
