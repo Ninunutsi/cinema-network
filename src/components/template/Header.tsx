@@ -15,6 +15,9 @@ export const Header = () => {
 
   const { pathname } = useLocation();
   const isHomePage = pathname === "/";
+  const isMovieDetailsPage = pathname.startsWith("/movies/");
+
+  const isOverlayHeader = isHomePage || isMovieDetailsPage;
 
   const lockScroll = useCallback(
     (el: HTMLDivElement | null) => {
@@ -43,7 +46,7 @@ export const Header = () => {
       <header
         className={cn(
           "inset-x-0 top-0 z-50 flex h-27.75 items-center justify-between px-15 pt-7.5 pb-10",
-          isHomePage
+          isOverlayHeader
             ? "absolute bg-[linear-gradient(180deg,#000000_-212.35%,rgba(0,0,0,0.51)_32.09%,rgba(0,0,0,0)_93.93%)]"
             : "relative bg-background",
         )}
