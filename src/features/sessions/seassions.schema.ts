@@ -13,3 +13,7 @@ export const sessionQuerySchema = {
   sort: param.string("sort"),
   page: param.number("page"),
 };
+
+export const sessionPagingSchema = {
+  page: param.number("page"),
+};
