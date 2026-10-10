@@ -1,11 +1,10 @@
 import { useCallback } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { authApi } from "../../features/auth/api/authApi";
-
-import { useAuthStore } from "../../features/auth/store/authStore";
 import { ApiError } from "../errors/ApiError";
-import type { AuthSession, AuthUser } from "../../features/auth/types/types";
+import type { AuthSession, AuthUser } from "../../features/auth/types";
+import { authApi } from "../../features/auth/authApi";
+import { useAuthStore } from "../../features/auth/authStore";
 
 export const authKeys = {
   all: ["auth"] as const,

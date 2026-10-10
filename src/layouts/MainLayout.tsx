@@ -4,9 +4,13 @@ import Footer from "../components/template/Footer";
 
 export const MainLayout = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flex min-h-svh flex-col bg-background">
       <Header />
-      <Outlet />
+
+      <main className="flex-1">
+        <Outlet />
+      </main>
+
       <Footer />
     </div>
   );

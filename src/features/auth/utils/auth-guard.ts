@@ -3,9 +3,9 @@ import {
   selectIsAuthenticated,
   selectIsProfileComplete,
   useAuthStore,
-} from "../store/authStore";
+} from "../authStore";
 import { openModal } from "../../../utils/modals/modalActions";
-import type { AuthMode } from "../types/types";
+import type { AuthMode } from "../types";
 
 const AUTH_MODAL_KEY = "AuthModal";
 // TODO: make sure a modal is registered under this key in ModalRegistry.

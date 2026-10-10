@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-
-import { useAuthStore } from "../store/authStore";
-import { useCurrentUserQuery } from "../../../api/queries/auth-queries";
-import { setUnauthorizedHandler } from "../../../api/httpclient";
-import { handleUnauthorizedResponse } from "../utils/auth-guard";
+import { useAuthStore } from "./authStore";
+import { useCurrentUserQuery } from "../../api/queries/auth-queries";
+import { setUnauthorizedHandler } from "../../api/httpclient";
+import { handleUnauthorizedResponse } from "./utils/auth-guard";
 
 /**
  * Mount once, inside the QueryClientProvider:

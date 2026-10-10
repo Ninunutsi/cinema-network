@@ -8,6 +8,7 @@ type InputProps = ComponentProps<"input"> & {
   info?: string;
   helperText?: string;
   error?: string;
+  infoClassName?: string;
 };
 
 export const Input = ({
@@ -16,6 +17,7 @@ export const Input = ({
   endIcon,
   info,
   helperText,
+  infoClassName,
   error,
   ...props
 }: InputProps) => {
@@ -26,7 +28,12 @@ export const Input = ({
   return (
     <div className="w-full">
       {info && (
-        <p className="mb-2 text-xs font-semibold leading-none tracking-wide text-muted">
+        <p
+          className={cn(
+            "mb-2 text-xs font-semibold leading-none tracking-wide text-muted",
+            infoClassName,
+          )}
+        >
           {info}
         </p>
       )}

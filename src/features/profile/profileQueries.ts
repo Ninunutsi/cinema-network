@@ -1,0 +1,34 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useAuthStore } from "../auth/authStore";
+import { profileApi } from "./profileApi";
+import type { UpdateProfilePayload } from "./profile.types";
+
+export const profileKeys = {
+  all: ["profile"] as const,
+  venues: () => [...profileKeys.all, "venues"] as const,
+};
+
+export function useVenuesQuery() {
+  return useQuery({
+    queryKey: profileKeys.venues(),
+    queryFn: profileApi.getVenues,
+    staleTime: 10 * 60 * 1000,
+  });
+}
+
+export function useUpdateProfileMutation() {
+  const queryClient = useQueryClient();
+  const updateUser = useAuthStore((state) => state.updateUser);
+
+  return useMutation({
+    mutationFn: (payload: UpdateProfilePayload) =>
+      profileApi.updateProfile(payload),
+
+    onSuccess: async (user) => {
+      updateUser(user);
+
+      // Refresh the cached current user after saving.
+      await queryClient.invalidateQueries();
+    },
+  });
+}

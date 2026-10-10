@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { AuthSession, AuthUser } from "../types/types";
+import type { AuthSession, AuthUser } from "./types";
 
 interface AuthState {
   user: AuthUser | null;
@@ -10,8 +10,6 @@ interface AuthState {
   clearSession: () => void;
 }
 
-// NOTE: persisting a token in localStorage is simple but exposed to XSS.
-// The API returns a bearer token, so this is the pragmatic choice here.
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({

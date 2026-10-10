@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import type { ModalComponentProps } from "../ModalRegistry";
-import type { AuthMode } from "../../../features/auth/types/types";
+import type { AuthMode } from "../../../features/auth/types";
 import { openModal } from "../modalActions";
 import AuthHeader from "../../../components/atoms/AuthHeader";
 import { LoginForm } from "../../../features/auth/components/LoginForm";

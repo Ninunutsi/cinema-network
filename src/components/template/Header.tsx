@@ -1,15 +1,19 @@
 import { useCallback, useState } from "react";
-import { useAuthStore } from "../../features/auth/store/authStore";
 import { Logo } from "../atoms/Logo";
 import { Profile } from "../molecules/Profile";
 import { Button } from "../ui/button";
 import { openModal } from "../../utils/modals/modalActions";
-import { SearchPopover } from "../molecules/SearchPopever";
 import { SearchPopoverController } from "../../views/HomePage/components/SearchPopoverController";
+import { useAuthStore } from "../../features/auth/authStore";
+import { useLocation } from "react-router-dom";
+import { cn } from "cn";
 
 export const Header = () => {
   const isAuthenticated = useAuthStore((state) => state.user);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const { pathname } = useLocation();
+  const isHomePage = pathname === "/";
 
   const lockScroll = useCallback(
     (el: HTMLDivElement | null) => {
@@ -35,7 +39,14 @@ export const Header = () => {
         }`}
       />
 
-      <header className="absolute inset-x-0 top-0 z-50 flex items-center justify-between bg-[linear-gradient(180deg,#000000_-212.35%,rgba(0,0,0,0.51)_32.09%,rgba(0,0,0,0)_93.93%)] px-15 pt-7.5 pb-10">
+      <header
+        className={cn(
+          "inset-x-0 top-0 z-50 flex h-27.75 items-center justify-between px-15 pt-7.5 pb-10",
+          isHomePage
+            ? "absolute bg-[linear-gradient(180deg,#000000_-212.35%,rgba(0,0,0,0.51)_32.09%,rgba(0,0,0,0)_93.93%)]"
+            : "relative bg-background",
+        )}
+      >
         <div className="flex items-center gap-8">
           <Logo />
           <p className="cursor-pointer font-sans text-xs font-semibold leading-none uppercase tracking-wide text-white">

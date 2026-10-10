@@ -1,9 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useLoginMutation } from "../../../api/queries/auth-queries";
-import { loginSchema, type LoginFormValues } from "../schemas/auth.schemas";
+import { loginSchema, type LoginFormValues } from "../auth.schemas";
 import { applyAuthError, LOGIN_ERROR_OPTIONS } from "../utils/auth.utils";
-import { AUTH_INPUT_CLASSNAME } from "../constants/auth.constants";
+import { AUTH_INPUT_CLASSNAME } from "../auth.constants";
 import { Input } from "../../../components/atoms/Input";
 import { PasswordInput } from "../../../components/atoms/PasswordInput";
 import { Button } from "../../../components/ui/button";

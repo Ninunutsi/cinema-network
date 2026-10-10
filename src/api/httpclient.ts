@@ -1,9 +1,8 @@
 import axios, { type AxiosRequestConfig } from "axios";
 
-import { useAuthStore } from "../features/auth/store/authStore";
-
 import { env } from "../config/env";
 import { toApiError } from "./errors/ApiError";
+import { useAuthStore } from "../features/auth/authStore";
 
 /**
  * What to do when the server answers 401:

@@ -29,7 +29,7 @@ export const Profile = () => {
       <div className="flex items-center gap-3">
         <Avatar />
         <p className="font-sans text-sm font-semibold leading-none text-white">
-          Name
+          Nameds
         </p>
       </div>
       <DropdownTrigger />

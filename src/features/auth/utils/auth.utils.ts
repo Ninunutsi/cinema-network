@@ -1,10 +1,7 @@
 import type { FieldValues, Path, UseFormSetError } from "react-hook-form";
-import type {
-  LoginFormValues,
-  SignUpFormValues,
-} from "../schemas/auth.schemas";
+import type { LoginFormValues, SignUpFormValues } from "../auth.schemas";
 import { ApiError } from "../../../api/errors/ApiError";
-import type { SignUpPayload } from "../types/types";
+import type { SignUpPayload } from "../types";
 
 const UNEXPECTED_ERROR_MESSAGE = "Something went wrong. Please try again.";
 

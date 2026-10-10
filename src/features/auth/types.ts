@@ -15,10 +15,6 @@ export interface PreferredVenue {
   formats: VenueFormat[];
 }
 
-/**
- * Profile fields are nullable because a freshly registered account comes back
- * with `profileComplete: false`. Tighten these if the API never returns null.
- */
 export interface AuthUser {
   id: number;
   username: string;

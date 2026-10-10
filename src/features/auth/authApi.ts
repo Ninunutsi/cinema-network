@@ -1,13 +1,12 @@
-import { httpClient } from "../../../api/httpclient";
+import { unwrap, type DataEnvelope } from "../../api/api.types";
+import { httpClient } from "../../api/httpclient";
 import type {
   AuthSession,
   AuthUser,
   LoginPayload,
   SignUpPayload,
-} from "../types/types";
-import { unwrap, type DataEnvelope } from "../../../api/api.types";
+} from "./types";
 
-// TODO: confirm these paths against the API docs.
 export const AUTH_ENDPOINTS = {
   login: "/login",
   register: "/register",

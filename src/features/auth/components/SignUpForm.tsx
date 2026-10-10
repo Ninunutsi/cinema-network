@@ -1,14 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { useSignUpMutation } from "../../../api/queries/auth-queries";
-import { signUpSchema, type SignUpFormValues } from "../schemas/auth.schemas";
+import { signUpSchema, type SignUpFormValues } from "../auth.schemas";
 import {
   applyAuthError,
   SIGN_UP_ERROR_OPTIONS,
   toSignUpPayload,
 } from "../utils/auth.utils";
 import { AvatarUpload } from "../../../components/molecules/AvatarUpload";
-import { AUTH_INPUT_CLASSNAME } from "../constants/auth.constants";
+import { AUTH_INPUT_CLASSNAME } from "../auth.constants";
 import { Input } from "../../../components/atoms/Input";
 import { PasswordInput } from "../../../components/atoms/PasswordInput";
 import { Button } from "../../../components/ui/button";

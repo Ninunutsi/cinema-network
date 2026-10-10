@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { Camera, User } from "lucide-react";
-import { AVATAR_ACCEPTED_TYPES } from "../../features/auth/schemas/auth.schemas";
+import { AVATAR_ACCEPTED_TYPES } from "../../features/auth/auth.schemas";
 
 interface AvatarUploadProps {
   value?: File;
