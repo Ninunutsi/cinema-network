@@ -84,6 +84,11 @@ export interface SessionVenue {
   city: string;
 }
 
+export interface MovieSessionsByVenue {
+  venue: SessionVenue;
+  sessions: MovieSession[];
+}
+
 export interface SessionHall {
   id: number;
   name: string;

@@ -23,10 +23,10 @@ export const SessionTicketCard = ({
         type="button"
         disabled={disabled}
         aria-label={`Hall ${session.hall.name}, ${session.time}, ${session.price} GEL`}
-        className="relative h-20.25 w-[207px] overflow-hidden"
+        className="relative cursor-pointer h-20.25 w-51.75 overflow-hidden"
       >
-        <div className="absolute left-[117px] top-[74px] size-3.5 rounded-full bg-background-tint" />
-        <div className="absolute bottom-[74px] left-[117px] size-3.5 rounded-full bg-background-tint" />
+        <div className="absolute left-29.25 top-18.5 size-3.5 rounded-full bg-background-tint" />
+        <div className="absolute bottom-18.5 left-29.25 size-3.5 rounded-full bg-background-tint" />
 
         <TktPerf className="absolute left-30.75 top-2.5" />
 

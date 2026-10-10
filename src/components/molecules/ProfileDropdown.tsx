@@ -98,9 +98,9 @@ export const ProfileDropdown = ({
             My Profile
           </DropdownMenuItem>
 
-          <DropdownMenuItem className="flex cursor-pointer items-center gap-2 px-5 py-2.5 font-sans text-sm font-semibold leading-none hover:bg-surface hover:text-white">
-            <TicketIcon />
-            My Tickets
+          <DropdownMenuItem className="flex cursor-pointer items-center gap-2 px-5 py-2.5 font-sans text-sm font-semibold leading-none hover:bg-surface focus:bg-surface! focus:text-white! focus:**:text-white!">
+            <TicketIcon className="fill-white! text-white!" />
+            <span className="text-white!">My Tickets</span>
           </DropdownMenuItem>
         </div>
 

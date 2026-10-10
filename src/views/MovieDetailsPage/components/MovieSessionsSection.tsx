@@ -1,4 +1,4 @@
-import type { SessionVenue } from "../../../features/movies/movies.types";
+import type { MovieSessionsByVenue } from "../../../features/movies/movies.types";
 import { MovieDateSelector } from "./MovieDateSelector";
 import { VenueSessions } from "./VenueSessions";
 
@@ -6,7 +6,7 @@ interface MovieSessionsSectionProps {
   availableDates: string[];
   selectedDate: string;
   onDateChange: (date: string) => void;
-  venues: SessionVenue[] | undefined;
+  venues: MovieSessionsByVenue[] | undefined;
   isPending: boolean;
   isError: boolean;
   isUnderAge: boolean;
@@ -41,6 +41,10 @@ export const MovieSessionsSection = ({
 
       {selectedDate && isError && (
         <p className="text-red-400">Unable to load sessions.</p>
+      )}
+
+      {selectedDate && !isPending && !isError && venues?.length === 0 && (
+        <p className="text-white/60">No sessions available for this date.</p>
       )}
 
       {selectedDate && !isPending && !isError && venues?.length === 0 && (
