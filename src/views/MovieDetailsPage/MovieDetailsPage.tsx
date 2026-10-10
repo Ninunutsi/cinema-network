@@ -6,6 +6,8 @@ import {
   useMovieSessionsQuery,
 } from "../../features/movies/useNowPlayingQuery";
 import { Badge, Clock, Timer } from "lucide-react";
+import { MovieDetailItem } from "../../components/atoms/MovieDetailItem";
+import { Alert, AlertDescription, AlertTitle } from "../../components/ui/alert";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams<{ movieId: string }>();
@@ -42,7 +44,7 @@ const MovieDetailsPage = () => {
   return (
     <main className="relative min-h-screen bg-background text-white">
       {/* Hero */}
-      <section className="relative isolate h-141.75 ">
+      <section className="relative isolate h-141.75 mb-8">
         <img
           src={movie.backdropUrl}
           alt=""
@@ -115,7 +117,7 @@ const MovieDetailsPage = () => {
       </section>
 
       {/* Content below hero */}
-      <div className="mx-auto grid  grid-cols-1 gap-10 px-15 py-10 md:grid-cols-[minmax(0,1.5fr)_minmax(280px,1fr)]">
+      <div className="px-15 flex gap.2.5 justify-between">
         {/* Showtimes on the left */}
         <section className="flex min-w-0 flex-col gap-6">
           <div>
@@ -232,46 +234,37 @@ const MovieDetailsPage = () => {
 
         {/* Additional details on the right */}
         <aside className="flex flex-col gap-6">
-          <section className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
-            <h2 className="mb-5 text-xl font-bold">Movie details</h2>
+          <section className="rounded-xl w-110.25 px-6.5 flex flex-col gap-4.25">
+            <h2 className="text-[20px] font-extrabold leading-[100%] tracking-normal">
+              Details
+            </h2>
 
             <dl className="flex flex-col gap-4 text-sm">
-              <div className="flex flex-col gap-1">
-                <dt className="text-white/50">Director</dt>
-                <dd>{movie.director || "Not available"}</dd>
-              </div>
+              <MovieDetailItem label="DIRECTOR" value={movie.director} />
+              <MovieDetailItem label="MAIN CAST" value={movie.cast} />
+              <MovieDetailItem
+                label="DURATION"
+                value={`${movie.runtimeMinutes} minutes`}
+              />
+              <MovieDetailItem label="RELEASE DATE" value={movie.releaseDate} />
+              <MovieDetailItem
+                label="FORMATS"
+                value={movie.formats.map((format) => format.name).join(", ")}
+              />
+              <MovieDetailItem
+                label="FROM"
+                value={`₾${String(movie.fromPrice)}`}
+              />
 
-              <div className="flex flex-col gap-1">
-                <dt className="text-white/50">Cast</dt>
-                <dd className="leading-6">{movie.cast || "Not available"}</dd>
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <dt className="text-white/50">Runtime</dt>
-                <dd>{movie.runtimeMinutes} minutes</dd>
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <dt className="text-white/50">Release date</dt>
-                <dd>{movie.releaseDate}</dd>
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <dt className="text-white/50">Age rating</dt>
-                <dd title={movie.ageRating.description}>
-                  {movie.ageRating.code} — {movie.ageRating.description}
-                </dd>
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <dt className="text-white/50">Genres</dt>
-                <dd>{movie.genres.map((genre) => genre.name).join(", ")}</dd>
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <dt className="text-white/50">Available formats</dt>
-                <dd>{movie.formats.map((format) => format.name).join(", ")}</dd>
-              </div>
+              <Alert className="h-17.5 rounded-lg bg-warning/10 px-2.25 py-2.75">
+                <AlertTitle className="mb-1.75 font-sans text-xs font-semibold leading-none text-warning">
+                  RATING NOTE
+                </AlertTitle>
+                <AlertDescription className="flex justify-between items-start gap-1.75 font-sans text-xs font-normal leading-[130%] text-warning">
+                  <p>{movie.ageRating.code}</p>
+                  <p>{movie.ageRating.description}</p>
+                </AlertDescription>
+              </Alert>
             </dl>
           </section>
         </aside>
