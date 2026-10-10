@@ -70,8 +70,8 @@ export const SessionsPagination = ({
             aria-disabled={isFirst}
             className={
               isFirst
-                ? "pointer-events-none opacity-50 mr-2"
-                : "h-10 w-10 rounded-full border-0 hover:bg-danger hover:text-white"
+                ? "pointer-events-none mr-2 h-10 w-10 rounded-full border-0 bg-surface text-white opacity-50"
+                : "mr-2 h-10 w-10 rounded-full border-0 bg-surface text-white"
             }
           />
         </PaginationItem>
@@ -109,8 +109,8 @@ export const SessionsPagination = ({
             aria-disabled={isLast}
             className={
               isLast
-                ? "pointer-events-none opacity-50 ml-2"
-                : "h-10 w-10 rounded-full border-0 hover:bg-danger hover:text-white"
+                ? "pointer-events-none ml-2 h-10 w-10 rounded-full border-0 bg-surface text-white opacity-50"
+                : "ml-2 h-10 w-10 rounded-full border-0 bg-surface text-white"
             }
           />
         </PaginationItem>

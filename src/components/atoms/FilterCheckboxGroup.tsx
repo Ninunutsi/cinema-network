@@ -1,8 +1,9 @@
+import type { ReactNode } from "react";
 import { Checkbox } from "../ui/checkbox";
 
 interface FilterOption {
   id: string | number;
-  label: string;
+  label: ReactNode;
 }
 
 interface FilterCheckboxGroupProps {
@@ -31,11 +32,15 @@ export const FilterCheckboxGroup = ({
         <Checkbox
           checked={selectedValues.includes(option.id)}
           onCheckedChange={() => onToggle(option.id)}
-          className="border-subtle data-[state=checked]:border-danger data-[state=checked]:bg-danger data-[state=checked]:text-white"
+          className="border-subtle data-[state=checked]:border-danger data-[state=checked]:bg-danger  data-[state=checked]:text-white"
         />
-        <span className="text-sm leading-none font-semibold text-white">
-          {option.label}
-        </span>
+        {typeof option.label == "string" ? (
+          <span className="text-sm leading-none font-semibold text-white">
+            {option.label}
+          </span>
+        ) : (
+          option.label
+        )}
       </label>
     ))}
   </div>

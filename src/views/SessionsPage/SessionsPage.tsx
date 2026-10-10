@@ -13,11 +13,11 @@ const SessionsPage = () => {
           Browse showtimes across all venues
         </span>
       </section>
-      <section className="flex gap-8 ">
-        <aside className="w-80 ">
+      <section className="flex gap-8">
+        <aside className="sticky top-6 w-80 shrink-0 self-start">
           <SessionFilters />
         </aside>
-        <aside className="flex-1">
+        <aside className="min-w-0 flex-1">
           <SessionsList />
         </aside>
       </section>

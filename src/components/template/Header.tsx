@@ -56,9 +56,11 @@ export const Header = () => {
           <Link to="/">
             <Logo />
           </Link>
-          <p className="cursor-pointer font-sans text-xs font-semibold leading-none uppercase tracking-wide text-white">
-            sessions
-          </p>
+          <Link to="/sessions">
+            <p className="cursor-pointer font-sans text-xs font-semibold leading-none uppercase tracking-wide text-white">
+              sessions
+            </p>
+          </Link>
         </div>
 
         <div className="flex items-center gap-8">

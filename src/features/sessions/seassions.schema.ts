@@ -7,11 +7,9 @@ export const sessionFilterSchema = {
   timeBands: param.strings("timeBands[]"),
 };
 
-export const sessionQuerySchema = {
-  ...sessionFilterSchema,
-  date: param.string("date"),
+export const sessionDateSchema = { date: param.string("date") };
+export const sessionSortSchema = {
   sort: param.string("sort"),
-  page: param.number("page"),
 };
 
 export const sessionPagingSchema = {

@@ -1,5 +1,5 @@
 import type { MovieSessionsByVenue } from "../../../features/movies/movies.types";
-import { MovieDateSelector } from "./MovieDateSelector";
+import { MovieDateSelector } from "../../../components/atoms/MovieDateSelector";
 import { VenueSessions } from "./VenueSessions";
 
 interface MovieSessionsSectionProps {
@@ -26,6 +26,7 @@ export const MovieSessionsSection = ({
       <h2 className="text-[20px] font-extrabold leading-none">Sessions</h2>
 
       <MovieDateSelector
+        selectionMode="single"
         dates={availableDates}
         selectedDate={selectedDate}
         onDateChange={onDateChange}
