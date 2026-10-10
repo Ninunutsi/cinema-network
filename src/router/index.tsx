@@ -3,10 +3,11 @@ import HomePage from "../views/HomePage/HomePage";
 import SessionsPage from "../views/SessionsPage";
 import MovieDetailsPage from "../views/MovieDetailsPage";
 import { ProtectedRoute } from "./ProtectedRoute";
-import ProfilePage from "../views/ProfilePage";
+
 import NotFound from "../views/NotFound";
 import { ROUTE_SEGMENTS } from "../config/routes.config";
 import { MainLayout } from "../layouts/MainLayout";
+import ProfilePage from "../views/ProfilePage/ProfilePage";
 
 export const router = createBrowserRouter([
   {

@@ -7,6 +7,7 @@ import { SearchPopoverController } from "../../views/HomePage/components/SearchP
 import { useAuthStore } from "../../features/auth/authStore";
 import { useLocation } from "react-router-dom";
 import { cn } from "cn";
+import { ProfileController } from "../../views/ProfilePage/components/ProfileController";
 
 export const Header = () => {
   const isAuthenticated = useAuthStore((state) => state.user);
@@ -63,7 +64,7 @@ export const Header = () => {
           </div>
 
           {isAuthenticated ? (
-            <Profile />
+            <ProfileController />
           ) : (
             <div className="flex items-center gap-3">
               <Button

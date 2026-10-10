@@ -1,38 +1,31 @@
+import type { AuthUser } from "../../features/auth/types";
+import { ProfileDropdownController } from "../../views/ProfilePage/components/ProfileDropdownController";
 import { Avatar } from "../atoms/Avatar";
-import { Button } from "../ui/button";
-import { ChevronDown } from "lucide-react";
 
-import { useState } from "react";
-import { DropdownTrigger } from "./ProfileDropdown";
+interface ProfileProps {
+  fullName?: string | undefined | null;
+  avatarURL?: string | undefined | null;
+  status: "complete" | "incomplete";
+  user: AuthUser | undefined | null;
+}
 
-// export const DropdownTrigger = () => {
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   return (
-//     <button
-//       type="button"
-//       onClick={() => setIsOpen((open) => !open)}
-//       className="flex items-center size-4"
-//     >
-//       <ChevronDown
-//         className={`size-full transition-transform text-white ${
-//           isOpen ? "rotate-180" : "rotate-0"
-//         }`}
-//       />
-//     </button>
-//   );
-// };
-
-export const Profile = () => {
+export const Profile = ({
+  fullName,
+  avatarURL,
+  status,
+  user,
+}: ProfileProps) => {
   return (
-    <div className="flex items-center gap-6">
-      <div className="flex items-center gap-3">
-        <Avatar />
-        <p className="font-sans text-sm font-semibold leading-none text-white">
-          Nameds
+    <div className="flex w-30 items-center gap-6">
+      <div className="flex w-20 items-center gap-3">
+        <Avatar avatarURL={avatarURL} status={status} />
+
+        <p className="w-10 truncate font-sans text-sm font-semibold leading-none text-white">
+          {fullName}
         </p>
       </div>
-      <DropdownTrigger />
+
+      <ProfileDropdownController user={user} />
     </div>
   );
 };

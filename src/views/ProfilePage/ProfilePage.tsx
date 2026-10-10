@@ -1,15 +1,12 @@
-import { useCurrentUserQuery } from "../api/queries/auth-queries";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "../components/ui/tabs";
-import { ProfileForm } from "../features/profile/components/ProfileForm";
+} from "../../components/ui/tabs";
+import { ProfileForm } from "../../features/profile/components/ProfileForm";
 
 const ProfilePage = () => {
-  const userRes = useCurrentUserQuery();
-  const user = userRes.data;
   return (
     <main className="px-15">
       <section className="flex flex-col gap-7 border-b border-background-tint h-22.5 justify-between">
