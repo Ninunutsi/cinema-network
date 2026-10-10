@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../views/HomePage/HomePage";
 import SessionsPage from "../views/SessionsPage";
-import MovieDetailsPage from "../views/MovieDetailsPage";
+import MovieDetailsPage from "../views/MovieDetailsPage/MovieDetailsPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 
 import NotFound from "../views/NotFound";

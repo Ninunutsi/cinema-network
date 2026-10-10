@@ -9,6 +9,9 @@ export const movieKeys = {
   comingSoon: (limit?: number) =>
     [...movieKeys.all, "coming-soon", limit ?? "all"] as const,
   search: (query: string) => [...movieKeys.all, "search", query] as const,
+  detail: (movie: string) => [...movieKeys.all, movie] as const,
+  sessions: (movie: string, date: string) =>
+    [...movieKeys.all, "sessions", movie, date] as const,
 };
 
 export function useNowPlayingQuery(limit?: number) {
@@ -40,5 +43,23 @@ export function useMovieSearchQuery(query: string) {
     queryFn: () => moviesApi.search(query),
     enabled: query.trim().length > 0,
     staleTime: 60 * 1000,
+  });
+}
+
+export const useMovieDetailsQuery = (movie: string | undefined) => {
+  return useQuery({
+    queryKey: movieKeys.detail(movie ?? ""),
+    queryFn: () => moviesApi.getMovieDetails(movie!),
+    enabled: Boolean(movie),
+    staleTime: 60_000,
+  });
+};
+
+export function useMovieSessionsQuery(movie: string | undefined, date: string) {
+  return useQuery({
+    queryKey: movieKeys.sessions(movie ?? "", date),
+    queryFn: () => moviesApi.getMovieSessions(movie!, date),
+    enabled: Boolean(movie && date),
+    staleTime: 60_000,
   });
 }

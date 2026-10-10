@@ -3,7 +3,9 @@ import { httpClient } from "../../api/httpclient";
 import type {
   ComingSoonMovie,
   FeaturedMovie,
+  MovieDetails,
   MovieSearchResult,
+  MovieSessionsByVenue,
   NowPlayingMovie,
 } from "./movies.types";
 
@@ -35,6 +37,28 @@ export const moviesApi = {
       "/search",
       {
         params: { q: query },
+      },
+    );
+
+    return unwrap(response);
+  },
+
+  async getMovieDetails(movie: string): Promise<MovieDetails> {
+    const response = await httpClient.get<DataEnvelope<MovieDetails>>(
+      `/movies/${encodeURIComponent(movie)}`,
+    );
+
+    return unwrap(response);
+  },
+
+  async getMovieSessions(
+    movie: string,
+    date?: string,
+  ): Promise<MovieSessionsByVenue[]> {
+    const response = await httpClient.get<DataEnvelope<MovieSessionsByVenue[]>>(
+      `/movies/${encodeURIComponent(movie)}/sessions`,
+      {
+        params: date ? { date } : undefined,
       },
     );
 

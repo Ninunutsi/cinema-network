@@ -13,10 +13,11 @@ interface BaseMovieData {
 }
 
 export type SmallMovieData = BaseMovieData;
-
 export type MediumMovieData = ComingSoonMovie;
 
 export interface LargeMovieData extends BaseMovieData {
+  id: number;
+  slug: string;
   price: string;
   synopsis: string;
 }
@@ -125,15 +126,12 @@ const MovieCard = (props: MovieCardProps) => {
         <img
           src={movie.image}
           alt={movie.title}
+          loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover"
         />
       </div>
 
-      {/*
-        pb-11 reserves the footer's space (35px button + 8px gap + 1px spare),
-        and overflow-hidden clips anything that overshoots while animating,
-        so content can never run underneath the footer.
-      */}
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden pb-11">
         <div className="flex flex-col gap-1.75">
           <h3 className="truncate font-sans text-xl font-extrabold leading-none text-white">
@@ -161,7 +159,6 @@ const MovieCard = (props: MovieCardProps) => {
         </div>
       </div>
 
-      {/* Pinned to the card's bottom edge: out of the layout flow, fixed height */}
       <div className="absolute inset-x-3.5 bottom-3.5 flex h-8.75 items-center justify-between gap-2">
         <p className="whitespace-nowrap font-sans text-sm font-extrabold leading-none text-white">
           From {movie.price}

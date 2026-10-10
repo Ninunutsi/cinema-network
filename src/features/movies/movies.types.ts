@@ -34,20 +34,17 @@ interface MovieBase {
   genres: MovieGenre[];
 }
 
-/** /movies/now-playing: bookable, carries a synopsis. */
 export interface NowPlayingMovie extends MovieBase {
   synopsis: string;
   isComingSoon: false;
-  isFeatured: boolean; // featured titles are a subset of now playing
+  isFeatured: boolean;
 }
 
-/** /movies/featured: now playing, flagged for the hero. */
 export interface FeaturedMovie extends NowPlayingMovie {
   isFeatured: true;
   formats: MovieFormat[];
 }
 
-/** /movies/coming-soon: no sessions, no synopsis. */
 export interface ComingSoonMovie extends MovieBase {
   isComingSoon: true;
   isFeatured: false;
@@ -56,4 +53,66 @@ export interface ComingSoonMovie extends MovieBase {
 
 export interface MovieSearchResult extends MovieBase {
   formats: MovieFormat[];
+}
+
+export interface MovieDetails {
+  id: number;
+  slug: string;
+  title: string;
+  kind: string;
+  runtimeMinutes: number;
+  posterUrl: string;
+  backdropUrl: string;
+  releaseDate: string;
+  isComingSoon: boolean;
+  isNotified: boolean;
+  isFeatured: boolean;
+  fromPrice: number;
+  ageRating: MovieAgeRating;
+  genres: MovieGenre[];
+  formats: MovieFormat[];
+  synopsis: string;
+  director: string;
+  cast: string;
+  availableDates: string[];
+}
+
+export interface SessionVenue {
+  id: number;
+  slug: string;
+  name: string;
+  city: string;
+}
+
+export interface SessionHall {
+  id: number;
+  name: string;
+  venue: SessionVenue;
+}
+
+export interface SessionLanguage {
+  id: number;
+  slug: string;
+  name: string;
+  code: string;
+}
+
+export interface MovieSession {
+  id: number;
+  startsAt: string;
+  date: string;
+  time: string;
+  timeBand: string;
+  price: number;
+  seatsLeft: number;
+  isSoldOut: boolean;
+  hall: SessionHall;
+  venue: SessionVenue;
+  format: MovieFormat;
+  language: SessionLanguage;
+}
+
+export interface MovieSessionsByVenue {
+  venue: SessionVenue;
+  sessions: MovieSession[];
 }

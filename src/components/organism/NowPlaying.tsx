@@ -1,32 +1,25 @@
+import { useNavigate } from "react-router-dom";
 import { useNowPlayingQuery } from "../../features/movies/useNowPlayingQuery";
 import type { LargeMovieData } from "../molecules/MovieCard";
 import MovieCard from "../molecules/MovieCard";
 import { Button } from "../ui/button";
-
-const formatDuration = (minutes: number): string => {
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = minutes % 60;
-
-  return hours > 0
-    ? `${hours}h ${remainingMinutes.toString().padStart(2, "0")}m`
-    : `${remainingMinutes}m`;
-};
+import { formatRuntime } from "../../features/movies/utils";
 
 const NowPlaying = () => {
   const { data: movies, isPending, isError } = useNowPlayingQuery(8);
+  const navigate = useNavigate();
 
-  const largeMovies: (LargeMovieData & { id: number })[] = (movies ?? []).map(
-    (movie) => ({
-      id: movie.id,
-      title: movie.title,
-      genre: movie.genres.map((genre) => genre.name).join(", "),
-      duration: formatDuration(movie.runtimeMinutes),
-      ageRating: movie.ageRating.code,
-      image: movie.posterUrl,
-      price: `₾${movie.fromPrice}`,
-      synopsis: movie.synopsis,
-    }),
-  );
+  const largeMovies: LargeMovieData[] = (movies ?? []).map((movie) => ({
+    id: movie.id,
+    slug: movie.slug,
+    title: movie.title,
+    genre: movie.genres.map((genre) => genre.name).join(", "),
+    duration: formatRuntime(movie.runtimeMinutes),
+    ageRating: movie.ageRating.code,
+    image: movie.posterUrl,
+    price: `₾${movie.fromPrice}`,
+    synopsis: movie.synopsis,
+  }));
 
   return (
     <div className="flex flex-col gap-6 px-17.5">
@@ -57,9 +50,7 @@ const NowPlaying = () => {
             <MovieCard
               key={movie.id}
               movie={movie}
-              onBuyTicket={() => {
-                console.log("Buy:", movie.title);
-              }}
+              onBuyTicket={() => navigate(`/movies/${movie.slug}`)}
             />
           ))}
         </section>
