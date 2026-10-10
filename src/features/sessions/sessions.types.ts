@@ -73,14 +73,20 @@ export interface SessionMovie {
   id: number;
   slug: string;
   title: string;
-  // Add the remaining fields from the API response.
+  posterUrl: string;
+  runtimeMinutes: number;
+  ageRating: { code: string; minAge: number; description: string };
 }
 
 export interface Session {
   id: number;
   isSoldOut: boolean;
   seatsLeft: number;
-  // Add the remaining fields from the API response.
+  time: string;
+  format: { name: string };
+  language: { name: string };
+  hall: { name: string; venue: { name: string } };
+  price: number;
 }
 
 export interface MovieSessionsGroup {
