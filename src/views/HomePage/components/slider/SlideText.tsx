@@ -1,8 +1,8 @@
 import { useCallback } from "react";
-import Timer from "../../../assets/timer.svg?react";
-import { Badge } from "../../../components/ui/badge";
-import { formatRuntime } from "../../../features/movies/utils";
-import type { FeaturedMovie } from "../../../features/movies/movies.types";
+import Timer from "../../../../assets/timer.svg?react";
+import { Badge } from "../../../../components/ui/badge";
+import { formatRuntime } from "../../../../features/movies/utils";
+import type { FeaturedMovie } from "../../../../features/movies/movies.types";
 
 interface SlideTextProps {
   movie: FeaturedMovie;

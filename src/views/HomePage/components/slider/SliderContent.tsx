@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 
 import SlideText from "./SlideText";
 import SliderActions from "./SliderActions";
-import type { FeaturedMovie } from "../../../features/movies/movies.types";
+import type { FeaturedMovie } from "../../../../features/movies/movies.types";
 
 interface SliderContentProps {
   movies: FeaturedMovie[];

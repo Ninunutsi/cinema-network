@@ -1,6 +1,9 @@
-import { useComingSoonQuery } from "../../features/movies/useNowPlayingQuery";
-import MovieCard from "../molecules/MovieCard";
-import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
+import MovieCard from "../../../components/molecules/MovieCard";
+import MovieSection from "../../../components/molecules/MovieSection";
+
+import { Button } from "../../../components/ui/button";
+import { useComingSoonQuery } from "../../../features/movies/useNowPlayingQuery";
 
 const COMING_SOON_LIMIT = 6;
 const SKELETON_COUNT = 3;
@@ -12,24 +15,16 @@ const ComingSoon = () => {
     isError,
     refetch,
   } = useComingSoonQuery(COMING_SOON_LIMIT);
+  const navigate = useNavigate();
 
   if (!isPending && !isError && !movies?.length) return null;
 
   return (
-    <div className="flex flex-col gap-6 px-17.5">
-      <div className="flex items-center justify-between">
-        <h2 className="font-sans text-2xl font-extrabold leading-none tracking-normal text-white">
-          COMING SOON...
-        </h2>
-        <Button
-          variant="link"
-          className="cursor-pointer font-sans text-sm font-semibold leading-none tracking-normal text-danger hover:underline"
-        >
-          See all
-        </Button>
-      </div>
-
-      <section className=" flex snap-x snap-proximity gap-4 overflow-x-auto scroll-px-17.5  pb-2 [&>*]:shrink-0 [&>*]:snap-start">
+    <MovieSection
+      title="COMING SOON..."
+      handleSeeAll={() => navigate("/sessions")}
+    >
+      <section className="flex snap-x snap-proximity gap-4 overflow-x-auto scroll-px-17.5 pb-2 pr-19 [&>*]:shrink-0 [&>*]:snap-start">
         {isPending &&
           Array.from({ length: SKELETON_COUNT }, (_, i) => (
             <div
@@ -61,7 +56,7 @@ const ComingSoon = () => {
           />
         ))}
       </section>
-    </div>
+    </MovieSection>
   );
 };
 
