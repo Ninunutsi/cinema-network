@@ -8,6 +8,17 @@ import {
 import { Badge, Clock, Timer } from "lucide-react";
 import { MovieDetailItem } from "../../components/atoms/MovieDetailItem";
 import { Alert, AlertDescription, AlertTitle } from "../../components/ui/alert";
+import TktPerf from "../../assets/ticket-perforation.svg?react";
+import Ticket from "../../assets/ticket.svg?react";
+
+const formatShowtimeDate = (date: string) => {
+  const parsedDate = new Date(`${date}T12:00:00`);
+
+  return {
+    day: parsedDate.toLocaleDateString("en-US", { weekday: "short" }),
+    date: parsedDate.getDate(),
+  };
+};
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams<{ movieId: string }>();
@@ -116,15 +127,12 @@ const MovieDetailsPage = () => {
         </div>
       </section>
 
-      {/* Content below hero */}
       <div className="px-15 flex gap.2.5 justify-between">
-        {/* Showtimes on the left */}
         <section className="flex min-w-0 flex-col gap-6">
           <div>
-            <h2 className="text-2xl font-bold">Showtimes</h2>
-            <p className="mt-1 text-sm text-white/60">
-              Select a date and choose a session.
-            </p>
+            <h2 className="text-[20px] font-extrabold leading-[100%] tracking-normal">
+              Sessions
+            </h2>
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -134,13 +142,18 @@ const MovieDetailsPage = () => {
                 type="button"
                 aria-pressed={selectedDate === date}
                 onClick={() => setSelectedDate(date)}
-                className={`rounded-lg border px-4 py-3 text-sm transition-colors ${
+                className={`flex h-20 shrink-0 cursor-pointer justify-center items-center flex-col gap-1.5 rounded-2xl px-2.5 py-2.25 transition-[width] duration-300 ease-in-out ${
                   selectedDate === date
-                    ? "border-red-500 bg-red-500 text-white"
-                    : "border-white/15 bg-white/5 text-white/75 hover:border-white/40"
+                    ? "w-25 border-danger bg-danger text-white"
+                    : "w-20 border-background-tint bg-background-tint text-white"
                 }`}
               >
-                {date}
+                <span className="text-xs font-semibold leading-[100%] tracking-normal">
+                  {formatShowtimeDate(date).day}
+                </span>
+                <span className="text-lg font-extrabold leading-[100%] tracking-normal">
+                  {formatShowtimeDate(date).date}
+                </span>
               </button>
             ))}
           </div>
@@ -160,15 +173,9 @@ const MovieDetailsPage = () => {
           )}
 
           {venues?.map(({ venue, sessions }) => (
-            <div
-              key={venue.id}
-              className="rounded-xl border border-white/10 bg-white/[0.03] p-5"
-            >
-              <h3 className="mb-4 font-semibold">
+            <div key={venue.id} className="flex flex-col gap-4">
+              <h3 className="text-sm font-extrabold leading-[100%] tracking-normal">
                 {venue.name}
-                <span className="ml-2 text-sm font-normal text-white/50">
-                  {venue.city}
-                </span>
               </h3>
 
               {sessions.length === 0 ? (
@@ -176,45 +183,53 @@ const MovieDetailsPage = () => {
                   No sessions at this venue.
                 </p>
               ) : (
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
+                <div className="flex items-center gap-2.5 flex-wrap">
                   {sessions.map((session) => {
                     const soldOut =
                       session.isSoldOut || session.seatsLeft === 0;
                     const disabled = soldOut || isUnderAge;
 
                     return (
-                      <button
+                      <div
+                        className="flex flex-col h-33.25 rounded-[18px] p-3.75 gap-2.25 bg-background-tint"
                         key={session.id}
-                        type="button"
-                        disabled={disabled}
-                        title={
-                          isUnderAge
-                            ? movie.ageRating.description
-                            : session.language.name
-                        }
-                        className="flex flex-col gap-2 rounded-lg border border-white/10 bg-white/5 p-3 text-left transition-colors hover:border-red-500/70 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40"
                       >
-                        <span className="text-lg font-semibold">
-                          {session.time}
+                        <span className="text-xs font-semibold leading-[100%] tracking-normal text-white">
+                          Hall {session.hall.name}
                         </span>
-
-                        <div className="flex flex-wrap gap-1.5 text-xs text-white/70">
-                          <span className="rounded bg-white/10 px-2 py-1">
-                            {session.language.code}
-                          </span>
-                          <span className="rounded bg-white/10 px-2 py-1">
-                            {session.format.name}
-                          </span>
-                        </div>
-
-                        <span className="font-medium">₾{session.price}</span>
-
-                        <span className="text-xs text-white/50">
-                          {soldOut
-                            ? "Sold out"
-                            : `${session.seatsLeft} seats left`}
-                        </span>
-                      </button>
+                        <button
+                          className="w-[207px] h-20.25 relative cursor-pointer overflow-hidden"
+                          disabled={disabled}
+                        >
+                          <div className=" size-3.5 bg-background-tint absolute rounded-full left-[117px] top-[74px]" />
+                          <div className=" size-3.5 bg-background-tint absolute rounded-full left-[117px] bottom-[74px]" />
+                          <TktPerf className="absolute left-30.75 top-2.5" />
+                          <div className="w-full h-full gap-2  bg-background flex justify-between rounded-xl">
+                            <div className="flex flex-col h-20.25 w-31 gap-2 py-3.75 min-w-0">
+                              <h2 className="text-[20px] font-extrabold leading-[100%] tracking-normal text-white">
+                                {session.time}
+                              </h2>
+                              <div className="flex items-center justify-center gap-1.5 text-xs text-muted">
+                                <span className="">
+                                  {session.language.code}
+                                </span>
+                                <span className="max-w-17.5 text-xs truncate rounded-full bg-background-tint px-3 py-1">
+                                  {session.format.name}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="flex flex-col h-20.25 w-20.75 gap-2.5 py-3.75 min-w-0">
+                              <h3 className="text-lg font-extrabold leading-[100%] tracking-normal h-5 text-danger">
+                                ₾ {session.price}
+                              </h3>
+                              <span className="text-xs font-normal leading-[130%] tracking-normal text-muted flex items-start justify-center gap-1">
+                                <Ticket className="size-3 fill-muted" />{" "}
+                                {session.seatsLeft} left
+                              </span>
+                            </div>
+                          </div>
+                        </button>
+                      </div>
                     );
                   })}
                 </div>
