@@ -5,6 +5,7 @@ import { Profile } from "../molecules/Profile";
 import { Button } from "../ui/button";
 import { openModal } from "../../utils/modals/modalActions";
 import { SearchPopover } from "../molecules/SearchPopever";
+import { SearchPopoverController } from "../../views/HomePage/components/SearchPopoverController";
 
 export const Header = () => {
   const isAuthenticated = useAuthStore((state) => state.user);
@@ -44,7 +45,7 @@ export const Header = () => {
 
         <div className="flex items-center gap-8">
           <div role="search">
-            <SearchPopover
+            <SearchPopoverController
               setIsSearchOpen={setIsSearchOpen}
               isSearchOpen={isSearchOpen}
             />

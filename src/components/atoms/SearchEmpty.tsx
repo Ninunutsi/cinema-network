@@ -31,7 +31,7 @@ const SearchEmpty = ({
 
       <Button
         onClick={onButtonClick}
-        className="h-10.25 w-45.75 gap-1 rounded-full bg-background-tint px-5.5 py-3.25 text-sm font-extrabold leading-none text-white"
+        className="h-10.25 w-45.75 gap-1 rounded-full bg-background-tint hover:bg-background-tint cursor-pointer px-5.5 py-3.25 text-sm font-extrabold leading-none text-white"
       >
         {buttonText}
       </Button>

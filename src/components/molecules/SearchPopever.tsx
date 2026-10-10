@@ -1,69 +1,49 @@
-import { Popcorn, Search } from "lucide-react";
-import { useRef, useState } from "react";
-
-import { useDebounce } from "../../hooks/useDebounce";
+import { Popcorn, Search, X } from "lucide-react";
 
 import type { MovieSearchResult } from "../../features/movies/movies.types";
 import { Input } from "../atoms/Input";
 import SearchEmpty from "../atoms/SearchEmpty";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { useMovieSearchQuery } from "../../features/movies/useNowPlayingQuery";
 import SearchMovieRow from "../atoms/SearchMovieRow";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 interface SearchPopoverProps {
-  isSearchOpen: boolean;
-  setIsSearchOpen: (open: boolean) => void;
+  isOpen: boolean;
+  query: string;
+  movies: MovieSearchResult[];
+  isLoading: boolean;
+  isError: boolean;
+  isDebouncing: boolean;
+  onOpenChange: (open: boolean) => void;
+  onQueryChange: (query: string) => void;
+  onRetry: () => void;
+  onClear: () => void;
   onBrowseSessions: () => void;
   onMovieSelect: (movie: MovieSearchResult) => void;
 }
 
 export const SearchPopover = ({
-  isSearchOpen,
-  setIsSearchOpen,
+  isOpen,
+  query,
+  movies,
+  isLoading,
+  isError,
+  isDebouncing,
+  onOpenChange,
+  onQueryChange,
+  onRetry,
+  onClear,
   onBrowseSessions,
   onMovieSelect,
 }: SearchPopoverProps) => {
-  const [query, setQuery] = useState("");
-  const debouncedQuery = useDebounce(query.trim(), 300);
-
-  const {
-    data: movies = [],
-    isFetching,
-    isError,
-    refetch,
-  } = useMovieSearchQuery(debouncedQuery);
-
-  const isDebouncing = query.trim() !== debouncedQuery;
-
-  const handleMovieSelect = (movie: MovieSearchResult) => {
-    onMovieSelect(movie);
-    setIsSearchOpen(false);
-  };
-
-  const handleClearSearch = () => {
-    setQuery("");
-  };
-  const anchorRef = useRef<HTMLDivElement>(null);
+  const isSearching = isDebouncing || isLoading;
 
   return (
     <div role="search">
-      <Popover
-        open={isSearchOpen}
-        onOpenChange={(open, details) => {
-          const target = details.event?.target as Node | null | undefined;
-          console.log(target);
-          if (!open && target && anchorRef.current?.contains(target)) {
-            details.cancel();
-            return;
-          }
-          setIsSearchOpen(open);
-        }}
-      >
+      <Popover open={isOpen} onOpenChange={onOpenChange}>
         <PopoverTrigger>
           <div
-            ref={anchorRef}
             className={`ml-auto shrink-0 overflow-hidden transition-[width] duration-200 ease-out motion-reduce:transition-none ${
-              isSearchOpen ? "w-120" : "w-94"
+              isOpen ? "w-120" : "w-94"
             }`}
           >
             <Input
@@ -71,13 +51,28 @@ export const SearchPopover = ({
               aria-label="Search films and live events"
               placeholder="Search films and live events"
               value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={(event) => onQueryChange(event.target.value)}
               onKeyDown={(event) => {
                 if (event.key === "Escape") {
-                  setIsSearchOpen(false);
+                  onOpenChange(false);
                   event.currentTarget.blur();
                 }
               }}
+              endIcon={
+                query && (
+                  <button
+                    type="button"
+                    aria-label="Clear search"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      onClear();
+                    }}
+                    className="pointer-events-auto cursor-pointer size-6 bg-background-tint flex justify-center items-center rounded-full text-white/70 hover:text-white"
+                  >
+                    <X className="size-2.5" />
+                  </button>
+                )
+              }
               className="bg-background-tint text-white placeholder:text-white"
               startIcon={<Search className="size-4 text-white" />}
             />
@@ -91,14 +86,14 @@ export const SearchPopover = ({
           initialFocus={false}
           finalFocus={false}
           className={`border border-background-tint bg-background p-2 transition-[width,opacity] duration-300 ease-out ${
-            isSearchOpen ? "w-120 opacity-100" : "w-94 opacity-0"
+            isOpen ? "w-120 opacity-100" : "w-94 opacity-0"
           }`}
           style={{
-            pointerEvents: isSearchOpen ? "auto" : "none",
+            pointerEvents: isOpen ? "auto" : "none",
           }}
         >
-          {isDebouncing || isFetching ? (
-            <p className="py-8 text-center text-sm text-muted">
+          {isSearching ? (
+            <p className="py-8 text-center text-sm text-white font-semibold">
               Searching movies...
             </p>
           ) : isError ? (
@@ -106,9 +101,10 @@ export const SearchPopover = ({
               <p className="text-center text-sm text-muted">
                 Something went wrong. Please try again.
               </p>
+
               <button
                 type="button"
-                onClick={() => void refetch()}
+                onClick={onRetry}
                 className="text-sm font-semibold text-white underline"
               >
                 Retry
@@ -125,26 +121,28 @@ export const SearchPopover = ({
           ) : movies.length === 0 ? (
             <SearchEmpty
               icon={Search}
-              title="No movies found"
-              description="Try searching for another movie title"
-              buttonText="Clear search"
-              onButtonClick={handleClearSearch}
+              title={`No results for “${query}”`}
+              description="Check the spelling or try another film or live event."
+              buttonText="Browse all sessions"
+              onButtonClick={onBrowseSessions}
             />
           ) : (
             <div className="flex flex-col gap-1">
-              <div className="flex justify-between items-center px-2.5 py-2 select-none">
+              <div className="flex items-center justify-between px-2.5 py-2 select-none">
                 <p className="text-xs font-semibold uppercase leading-none tracking-[0.06em] text-muted">
                   FILMS & EVENTS
                 </p>
+
                 <span className="text-xs font-normal leading-[130%] tracking-normal text-muted">
                   {movies.length} results
                 </span>
               </div>
+
               {movies.map((movie) => (
                 <SearchMovieRow
                   key={movie.id}
                   movie={movie}
-                  onClick={handleMovieSelect}
+                  onClick={onMovieSelect}
                 />
               ))}
             </div>

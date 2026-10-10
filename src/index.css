@@ -136,3 +136,8 @@ body {
 html {
   scrollbar-gutter: stable;
 }
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
