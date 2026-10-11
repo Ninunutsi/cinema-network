@@ -20,15 +20,22 @@ export const SessionTicketCard = ({
 
   return (
     <div className="flex h-33.25 flex-col gap-2.25 rounded-[18px] bg-background-tint p-3.75 ">
-      <div className=" flex items-center gap-2">
+      <div className=" flex items-center gap-2  relative">
         <span className="text-xs font-semibold leading-none text-white">
           Hall {session.hall.name}
         </span>
-        {hasStarted && (
-          <span className=" text-xs font-semibold  text-danger ">
-            Session started
-          </span>
-        )}
+        <div className="flex flex-col absolute right-0">
+          {hasStarted && (
+            <span className=" text-xs font-semibold  text-warning text-end ">
+              Session closed
+            </span>
+          )}
+          {isUnderAge && (
+            <span className=" text-xs font-semibold  text-danger text-end ">
+              Ages 16+. No child tickets.
+            </span>
+          )}
+        </div>
       </div>
       <button
         type="button"

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useCurrentUserQuery } from "../../api/queries/auth-queries";
+import { useCurrentUserQuery } from "../../features/auth/authQueries";
 import type { MovieDetails } from "../../features/movies/movies.types";
 import { useMountEffect } from "../../hooks/useMountEffect";
 import { useModalStore } from "../../store/modalStore";

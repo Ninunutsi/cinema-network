@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { useSignUpMutation } from "../../../api/queries/auth-queries";
+import { useSignUpMutation } from "../authQueries";
 import { signUpSchema, type SignUpFormValues } from "../auth.schemas";
 import {
   applyAuthError,

@@ -1,40 +1,39 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../views/HomePage/HomePage";
-import MovieDetailsPage from "../views/MovieDetailsPage/MovieDetailsPage";
 import { ProtectedRoute } from "./ProtectedRoute";
-
 import NotFound from "../views/NotFound";
 import { ROUTE_SEGMENTS } from "../config/routes.config";
 import { MainLayout } from "../layouts/MainLayout";
-import ProfilePage from "../views/ProfilePage/ProfilePage";
-import SessionsPage from "../views/SessionsPage/SessionsPage";
+
+const page = <T extends { default: React.ComponentType }>(
+  load: () => Promise<T>,
+) => ({
+  lazy: async () => ({ Component: (await load()).default }),
+});
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
-      // Public routes
       {
         index: true,
         element: <HomePage />,
       },
       {
         path: ROUTE_SEGMENTS.SESSIONS,
-        element: <SessionsPage />,
+        ...page(() => import("../views/SessionsPage/SessionsPage")),
       },
       {
         path: ROUTE_SEGMENTS.MOVIE,
-        element: <MovieDetailsPage />,
+        ...page(() => import("../views/MovieDetailsPage/MovieDetailsPage")),
       },
-
-      // Protected routes
       {
         element: <ProtectedRoute />,
         children: [
           {
             path: ROUTE_SEGMENTS.PROFILE,
-            element: <ProfilePage />,
+            ...page(() => import("../views/ProfilePage/ProfilePage")),
           },
         ],
       },

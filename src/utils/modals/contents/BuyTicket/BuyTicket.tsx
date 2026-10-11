@@ -5,7 +5,7 @@ import {
   TabsTrigger,
 } from "../../../../components/ui/tabs";
 import { Separator } from "../../../../components/ui/separator";
-import { useCurrentUserQuery } from "../../../../api/queries/auth-queries";
+import { useCurrentUserQuery } from "../../../../features/auth/authQueries";
 import BookingConfirmation from "./BookingConfirmation";
 import BuyTicketHeader from "../../../../components/molecules/BuyTicketHeader";
 import CheckoutStep from "./CheckoutStep";

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
-import { useCurrentUserQuery } from "../../../../../api/queries/auth-queries";
+import { useCurrentUserQuery } from "../../../../../features/auth/authQueries";
 import { releaseSeatHold } from "../../../../../features/booking/bookingApi";
 
 import type {

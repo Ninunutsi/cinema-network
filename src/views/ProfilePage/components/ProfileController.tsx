@@ -1,4 +1,4 @@
-import { useCurrentUserQuery } from "../../../api/queries/auth-queries";
+import { useCurrentUserQuery } from "../../../features/auth/authQueries";
 import { Profile } from "../../../components/molecules/Profile";
 
 export const ProfileController = () => {

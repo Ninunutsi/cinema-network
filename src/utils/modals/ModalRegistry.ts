@@ -1,4 +1,7 @@
-import { lazy, type ComponentType } from "react";
+import type { ComponentType } from "react";
+import AuthModal from "./contents/AuthModal";
+import BuyTicket from "./contents/BuyTicket/BuyTicket";
+import RefundConfirmationModal from "./contents/RefundConfirmationModal";
 
 export interface ModalComponentProps {
   onClose: () => void;
@@ -6,7 +9,7 @@ export interface ModalComponentProps {
 }
 
 export interface ModalRegistryItem {
-  component: React.LazyExoticComponent<ComponentType<any>>;
+  component: ComponentType<any>;
   kind: "dialog";
   fromParams: (params: Record<string, string>) => Record<string, unknown>;
   className?: string;
@@ -14,17 +17,17 @@ export interface ModalRegistryItem {
 
 export const modalRegistry: Record<string, ModalRegistryItem> = {
   AuthModal: {
-    component: lazy(() => import("./contents/AuthModal")),
+    component: AuthModal,
     kind: "dialog",
     fromParams: (p) => ({ mode: p.mode === "signup" ? "signup" : "login" }),
   },
   buyTicket: {
-    component: lazy(() => import("./contents/BuyTicket/BuyTicket")),
+    component: BuyTicket,
     kind: "dialog",
     fromParams: (p) => ({ sessionId: Number(p.sessionId) }),
   },
   RefundConfirmationModal: {
-    component: lazy(() => import("./contents/RefundConfirmationModal")),
+    component: RefundConfirmationModal,
     kind: "dialog",
     fromParams: (p) => ({
       order: p.orderId,

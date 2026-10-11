@@ -9,11 +9,8 @@ interface ErrorResponseBody {
   errors?: Record<string, string[]>;
 }
 
-/** The only error type the rest of the app has to deal with. */
 export class ApiError extends Error {
-  /** HTTP status, or 0 when the server could not be reached. */
   readonly status: number;
-  /** First validation message per field, from a 422 response. */
   readonly fieldErrors: Record<string, string>;
 
   constructor(
@@ -38,7 +35,6 @@ function firstMessagePerField(
   return result;
 }
 
-/** Normalizes anything thrown by axios (or elsewhere) into an ApiError. */
 export function toApiError(error: unknown): ApiError {
   if (error instanceof ApiError) return error;
   if (!axios.isAxiosError(error)) return new ApiError(DEFAULT_ERROR_MESSAGE, 0);

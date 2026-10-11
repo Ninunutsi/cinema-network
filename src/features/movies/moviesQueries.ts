@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { moviesApi } from "./moviesApi";
 
 export const movieKeys = {
@@ -44,6 +49,7 @@ export function useMovieSearchQuery(query: string) {
     queryKey: movieKeys.search(query),
     queryFn: () => moviesApi.search(query),
     enabled: query.trim().length > 0,
+    placeholderData: keepPreviousData,
     staleTime: 60 * 1000,
   });
 }

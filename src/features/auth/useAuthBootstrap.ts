@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAuthStore } from "./authStore";
-import { useCurrentUserQuery } from "../../api/queries/auth-queries";
+import { useCurrentUserQuery } from "./authQueries";
 import { setUnauthorizedHandler } from "../../api/httpclient";
 import { handleUnauthorizedResponse } from "./utils/auth-guard";
 

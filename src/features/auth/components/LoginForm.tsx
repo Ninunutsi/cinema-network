@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useLoginMutation } from "../../../api/queries/auth-queries";
+import { useLoginMutation } from "../authQueries";
 import { loginSchema, type LoginFormValues } from "../auth.schemas";
 import { applyAuthError, LOGIN_ERROR_OPTIONS } from "../utils/auth.utils";
 import { AUTH_INPUT_CLASSNAME } from "../auth.constants";

@@ -1,17 +1,17 @@
 import { useCallback } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { ApiError } from "../errors/ApiError";
-import type { AuthSession, AuthUser } from "../../features/auth/types";
-import { authApi } from "../../features/auth/authApi";
-import { useAuthStore } from "../../features/auth/authStore";
+import { ApiError } from "../../api/errors/ApiError";
+import type { AuthSession, AuthUser } from "./types";
+import { authApi } from "./authApi";
+import { useAuthStore } from "./authStore";
+import { ticketKeys } from "../tickets/ticketsQueries";
 
 export const authKeys = {
   all: ["auth"] as const,
   me: () => [...authKeys.all, "me"] as const,
 };
 
-/** A stale token (401) is not an error here: the user simply becomes a guest. */
 async function fetchCurrentUserOrGuest(): Promise<AuthUser | null> {
   try {
     return await authApi.me();
@@ -24,7 +24,6 @@ async function fetchCurrentUserOrGuest(): Promise<AuthUser | null> {
   }
 }
 
-/** Refreshes the stored user (including `profileComplete`) when a token exists. */
 export function useCurrentUserQuery() {
   const hasToken = useAuthStore((state) => state.token !== null);
 
@@ -72,10 +71,12 @@ export function useLogoutMutation() {
 
   return useMutation({
     mutationFn: authApi.logout,
-    // The token must be dropped whether or not the server call succeeded.
-    onSettled: () => {
+    onSettled: async () => {
+      await queryClient.cancelQueries({ queryKey: authKeys.me() });
+      await queryClient.cancelQueries({ queryKey: ticketKeys.all });
       clearSession();
-      queryClient.clear();
+      queryClient.setQueryData(authKeys.me(), null);
+      queryClient.removeQueries({ queryKey: ticketKeys.all });
     },
   });
 }

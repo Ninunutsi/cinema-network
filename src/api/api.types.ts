@@ -1,6 +1,5 @@
 import type { AxiosResponse } from "axios";
 
-/** Every successful API response wraps its payload as `{ data: ... }`. */
 export interface DataEnvelope<T> {
   data: T;
 }

@@ -30,6 +30,8 @@ export const SearchPopoverController = ({
 
   const handleMovieSelect = (movie: MovieSearchResult) => {
     setIsSearchOpen(false);
+    navigate(`movies/${movie.slug}`);
+    setQuery("");
   };
 
   const handleOpenChange = (

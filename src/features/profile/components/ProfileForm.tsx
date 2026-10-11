@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Input } from "../../../components/atoms/Input";
 import { Button } from "../../../components/ui/button";
-import { useCurrentUserQuery } from "../../../api/queries/auth-queries";
+import { useCurrentUserQuery } from "../../auth/authQueries";
 import { useAuthStore } from "../../auth/authStore";
 
 import { profileSchema, type ProfileFormValues } from "../profile.schema";
