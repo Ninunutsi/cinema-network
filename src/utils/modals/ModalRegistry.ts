@@ -22,7 +22,6 @@ export const modalRegistry: Record<string, ModalRegistryItem> = {
     component: lazy(() => import("./contents/BuyTicket/BuyTicket")),
     kind: "dialog",
     fromParams: (p) => ({ sessionId: Number(p.sessionId) }),
-    // className: "w-fit sm:max-w-none",
   },
   RefundConfirmationModal: {
     component: lazy(() => import("./contents/RefundConfirmationModal")),

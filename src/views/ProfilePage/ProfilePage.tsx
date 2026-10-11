@@ -20,7 +20,7 @@ const ProfilePage = () => {
       >
         <TabsList
           variant="line"
-          className="h-auto w-fit max-w-full gap-8 rounded-none border-b border-background-tint px-0"
+          className="h-auto w-full justify-start gap-8 rounded-none border-b border-background-tint px-0"
         >
           <TabsTrigger
             value="personal-information"

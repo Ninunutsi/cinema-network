@@ -16,3 +16,18 @@ const formatter = new Intl.DateTimeFormat("en-US", {
 
 export const formatReleaseDate = (isoDate: string): string =>
   formatter.format(new Date(isoDate));
+
+const sessionDateFormatter = new Intl.DateTimeFormat("en-GB", {
+  weekday: "short",
+  day: "numeric",
+  month: "short",
+  timeZone: "UTC",
+});
+
+export const formatSessionDate = (date: string, time: string): string => {
+  const formattedDate = sessionDateFormatter.format(
+    new Date(`${date.slice(0, 10)}T00:00:00Z`),
+  );
+
+  return `${formattedDate} · ${time.slice(0, 5)}`;
+};
