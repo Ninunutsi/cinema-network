@@ -36,21 +36,11 @@ const RefundConfirmationModal = ({
   };
 
   return (
-    <div className="w-full max-w-md rounded-3xl border border-white/10 bg-[#1e2031] p-6 text-white shadow-2xl sm:p-8">
+    <div className="w-full max-w-md rounded-3xl  shadow-2xl  text-white">
       <div className="mb-6 flex items-center justify-between">
         <div className="flex size-12 items-center justify-center rounded-2xl bg-danger/10">
           <Ticket className="size-6 text-danger" />
         </div>
-
-        <button
-          type="button"
-          onClick={onClose}
-          disabled={refundMutation.isPending}
-          aria-label="Close modal"
-          className="rounded-full p-2 text-muted transition-colors hover:bg-white/10 hover:text-white disabled:opacity-40"
-        >
-          <X className="size-5" />
-        </button>
       </div>
 
       <h2 className="text-xl font-bold">Cancel your movie plans?</h2>
@@ -61,7 +51,7 @@ const RefundConfirmationModal = ({
       </p>
 
       <div className="mt-5 flex gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-        <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-warning" />
+        <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-muted" />
         <p className="text-sm leading-5 text-muted">
           Your booking will be refunded if the request is accepted. Your tickets
           will no longer be available for this booking.
@@ -85,8 +75,7 @@ const RefundConfirmationModal = ({
           className="flex-1 rounded-full border border-white/15 px-5 py-3 text-sm font-semibold transition-colors hover:bg-white/5 disabled:opacity-40"
         >
           <span className="inline-flex items-center justify-center gap-2">
-            <ArrowLeft className="size-4" />
-            Keep my tickets
+            Keep ticket
           </span>
         </button>
 
