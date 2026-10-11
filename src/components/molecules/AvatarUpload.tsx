@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
-import { Camera, User } from "lucide-react";
+import { useRef, useState, type ChangeEvent } from "react";
+import { ImagePlus, Upload, X } from "lucide-react";
+
 import { AVATAR_ACCEPTED_TYPES } from "../../features/auth/auth.schemas";
+import { Button } from "../ui/button";
 
 interface AvatarUploadProps {
   value?: File;
@@ -16,71 +18,101 @@ export function AvatarUpload({
   disabled,
 }: AvatarUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [previewUrl, setPreviewUrl] = useState<string>();
+  const [preview, setPreview] = useState<{
+    file: File;
+    url: string;
+  }>();
 
-  // Create a preview URL for the selected file and release it when it changes/unmounts.
-  useEffect(() => {
-    if (!value) {
-      setPreviewUrl(undefined);
-      return;
-    }
-    const url = URL.createObjectURL(value);
-    setPreviewUrl(url);
-    return () => URL.revokeObjectURL(url);
-  }, [value]);
+  const previewUrl = preview?.file === value ? preview?.url : undefined;
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.files?.[0]);
-    // Reset so selecting the same file again still fires onChange.
+    const file = event.target.files?.[0];
+
+    if (file) {
+      setPreview((current) => {
+        if (current) URL.revokeObjectURL(current.url);
+
+        return {
+          file,
+          url: URL.createObjectURL(file),
+        };
+      });
+
+      onChange(file);
+    }
+
     event.target.value = "";
   };
 
+  const handleRemove = () => {
+    setPreview((current) => {
+      if (current) URL.revokeObjectURL(current.url);
+      return undefined;
+    });
+
+    onChange(undefined);
+  };
+
   return (
-    <div className="flex flex-col items-center gap-2">
-      <button
-        type="button"
-        disabled={disabled}
-        onClick={() => inputRef.current?.click()}
-        aria-label="Upload avatar"
-        className="group relative flex size-24 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-dashed border-muted-foreground bg-white/5"
-      >
-        {previewUrl ? (
-          <img
-            src={previewUrl}
-            alt="Avatar preview"
-            className="size-full object-cover"
-          />
-        ) : (
-          <User size={36} className="text-muted-foreground" />
-        )}
-        <span className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
-          <Camera size={20} className="text-white" />
-        </span>
-      </button>
+    <div className="space-y-2">
+      <div className="flex items-center gap-4">
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={() => inputRef.current?.click()}
+          aria-label="Choose avatar image"
+          className="flex size-10 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-lg  bg-surface transition-colors hover:border-primary disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {previewUrl ? (
+            <img
+              src={previewUrl}
+              alt="Avatar preview"
+              className="size-full object-cover"
+            />
+          ) : (
+            <Upload
+              size={12}
+              strokeWidth={1.5}
+              className="text-muted-foreground"
+            />
+          )}
+        </button>
+
+        <div className="min-w-0 flex-1 space-y-1 flex items-center justify-between">
+          <div>
+            <p className="text-xs font-semibold text-foreground">
+              Upload avatar (optional)
+            </p>
+
+            <p className="text-xs text-muted-foreground">JPG, PNG or WEBP</p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 pt-1">
+            {value && (
+              <Button
+                variant="default"
+                size="sm"
+                disabled={disabled}
+                onClick={handleRemove}
+                className="h-4 gap-1 px-2 text-xs cursor-pointer text-muted bg-background hover:bg-background"
+              >
+                <X size={14} />
+                Remove
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
 
       <input
         ref={inputRef}
         type="file"
         accept={AVATAR_ACCEPTED_TYPES.join(",")}
         onChange={handleFileChange}
+        disabled={disabled}
         className="hidden"
         data-testid="avatar-input"
       />
-
-      <div className="flex items-center gap-3 text-xs">
-        <span className="text-muted-foreground">
-          {value ? value.name : "Upload avatar (optional)"}
-        </span>
-        {value && (
-          <button
-            type="button"
-            onClick={() => onChange(undefined)}
-            className="cursor-pointer text-danger hover:underline"
-          >
-            Remove
-          </button>
-        )}
-      </div>
 
       {error && (
         <p role="alert" className="text-xs text-danger">

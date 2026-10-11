@@ -3,14 +3,14 @@ import { ProfileDropdownController } from "../../views/ProfilePage/components/Pr
 import { Avatar } from "../atoms/Avatar";
 
 interface ProfileProps {
-  fullName?: string | undefined | null;
+  username?: string | undefined | null;
   avatarURL?: string | undefined | null;
   status: "complete" | "incomplete";
   user: AuthUser | undefined | null;
 }
 
 export const Profile = ({
-  fullName,
+  username,
   avatarURL,
   status,
   user,
@@ -21,7 +21,7 @@ export const Profile = ({
         <Avatar avatarURL={avatarURL} status={status} />
 
         <p className="w-10 truncate font-sans text-sm font-semibold leading-none text-white">
-          {fullName}
+          {username}
         </p>
       </div>
 

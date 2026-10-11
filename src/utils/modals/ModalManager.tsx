@@ -33,6 +33,8 @@ export function ModalManager() {
             onOpenChange={(open) => !open && onClose()}
           >
             <DialogContent
+              showCloseButton={meta.showCloseButton}
+              closeButtonClassName="top-4 right-4 cursor-pointer"
               className={cn(
                 "bg-background w-fit sm:max-w-none p-8",
                 meta.className,

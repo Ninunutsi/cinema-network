@@ -8,7 +8,7 @@ export const ProfileController = () => {
 
   return (
     <Profile
-      fullName={user?.fullName}
+      username={user?.username}
       avatarURL={user?.avatar}
       status={userStatus}
       user={user}

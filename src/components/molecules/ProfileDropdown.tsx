@@ -12,9 +12,10 @@ import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import ProfileIcon from "../../assets/profile.svg?react";
 import LogOutIcon from "../../assets/log-out.svg?react";
 import TicketIcon from "../../assets/ticket.svg?react";
+import { cn } from "cn";
 
 interface ProfileDropdownProps {
-  username?: string;
+  fullName?: string | undefined | null;
   email?: string;
   avatarURL?: string | undefined | null;
   profileComplete: boolean;
@@ -25,7 +26,7 @@ interface ProfileDropdownProps {
 }
 
 export const ProfileDropdown = ({
-  username,
+  fullName,
   email,
   avatarURL,
   profileComplete,
@@ -60,8 +61,13 @@ export const ProfileDropdown = ({
           />
 
           <div className="flex min-w-0 flex-col gap-0.5">
-            <p className="truncate font-sans text-sm font-semibold leading-none text-white">
-              {username}
+            <p
+              className={cn(
+                "truncate font-sans text-sm font-semibold leading-none",
+                fullName ? "text-white" : "text-warning",
+              )}
+            >
+              {fullName || "Name not provided"}
             </p>
             <p className="truncate font-sans text-xs font-normal leading-[130%] text-muted">
               {email}

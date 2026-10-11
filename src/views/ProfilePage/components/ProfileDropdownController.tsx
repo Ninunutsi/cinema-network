@@ -27,7 +27,7 @@ export const ProfileDropdownController = ({
 
   return (
     <ProfileDropdown
-      username={user?.username}
+      fullName={user?.fullName}
       email={user?.email}
       avatarURL={user?.avatar}
       profileComplete={Boolean(user?.profileComplete)}

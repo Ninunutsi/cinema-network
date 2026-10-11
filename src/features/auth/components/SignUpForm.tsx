@@ -47,9 +47,10 @@ export function SignUpForm({ onSuccess, onSwitchToLogin }: SignUpFormProps) {
 
   const onSubmit = async (values: SignUpFormValues) => {
     clearErrors("root.serverError");
+
     try {
       await signUp.mutateAsync(toSignUpPayload(values));
-      onSuccess();
+      onSwitchToLogin();
     } catch (error) {
       applyAuthError(error, setError, SIGN_UP_ERROR_OPTIONS);
     }
