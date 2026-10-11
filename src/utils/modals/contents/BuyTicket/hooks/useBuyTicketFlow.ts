@@ -42,6 +42,7 @@ import {
   useCreateSeatHoldMutation,
 } from "../../../../../features/booking/bookingQueries";
 import { MAX_SEATS, useSeatStore } from "../../../../../store/SeatStore";
+import { ticketKeys } from "../../../../../features/tickets/ticketsQueries";
 
 const NO_TICKET_TYPES: SessionTicketType[] = [];
 const HOLD_GONE_STATUSES = [404, 410];
@@ -208,6 +209,7 @@ export const useBuyTicketFlow = (sessionId: number) => {
         resetSeats();
         setOrder(data);
         queryClient.invalidateQueries({ queryKey: sessionKeys.all });
+        queryClient.invalidateQueries({ queryKey: ticketKeys.all });
       },
       onError: handleOrderError,
     });

@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "../components/template/Header";
 import Footer from "../components/template/Footer";
+import { ModalManager } from "../utils/modals/ModalManager";
 
 export const MainLayout = () => {
   return (
@@ -9,6 +10,7 @@ export const MainLayout = () => {
 
       <main className="flex-1">
         <Outlet />
+        <ModalManager />
       </main>
 
       <Footer />

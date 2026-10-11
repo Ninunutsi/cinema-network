@@ -13,6 +13,8 @@ import HoldTimerChip from "../../../../components/atoms/HoldTimerChip";
 import OrderSidebar from "./OrderSidebar";
 import SeatsStep from "./SeatsStep";
 import { useBuyTicketFlow } from "./hooks/useBuyTicketFlow";
+import { useNavigate } from "react-router-dom";
+import { dismissTopModal } from "../../modalActions";
 
 const triggerClass = [
   "h-full cursor-pointer rounded-full px-4",
@@ -26,8 +28,8 @@ interface BuyTicketProps {
   onClose: () => void;
 }
 
-const BuyTicket = ({ sessionId }: BuyTicketProps) => {
-  // const navigate = useNavigate();
+const BuyTicket = ({ sessionId, onClose }: BuyTicketProps) => {
+  const navigate = useNavigate();
   const { data: user } = useCurrentUserQuery();
   const flow = useBuyTicketFlow(sessionId);
   const { actions, hold, session } = flow;
@@ -36,10 +38,10 @@ const BuyTicket = ({ sessionId }: BuyTicketProps) => {
     return (
       <BookingConfirmation
         order={flow.order}
-        onClose={() => ""}
+        onClose={dismissTopModal}
         onViewTickets={() => {
-          // closeModal();
-          // navigate("/my-tickets");
+          navigate("/profile?tab=my-tickets", { replace: true });
+          dismissTopModal();
         }}
       />
     );
