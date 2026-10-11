@@ -61,7 +61,9 @@ const NowPlaying = () => {
             <MovieCard
               key={movie.id}
               movie={movie}
-              onBuyTicket={() => navigate(`/movies/${movie.slug}`)}
+              onBuyTicket={() => {
+                navigate(`/movies/${movie.slug}`);
+              }}
             />
           ))}
         </section>

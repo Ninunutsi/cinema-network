@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MovieCard from "../../../components/molecules/MovieCard";
 import MovieSection from "../../../components/molecules/MovieSection";
 
@@ -48,12 +48,19 @@ const ComingSoon = () => {
         )}
 
         {movies?.map((movie) => (
-          <MovieCard
+          <Link
             key={movie.id}
-            variant="medium"
-            movie={movie}
-            onNotify={() => console.log("Notify:", movie.id)}
-          />
+            to={`/movies/${movie.slug}`}
+            className="shrink-0"
+            aria-label={`View details for ${movie.title}`}
+          >
+            <MovieCard
+              key={movie.id}
+              variant="medium"
+              movie={movie}
+              onNotify={() => console.log("Notify:", movie.id)}
+            />
+          </Link>
         ))}
       </section>
     </MovieSection>

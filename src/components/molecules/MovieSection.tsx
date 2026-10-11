@@ -6,6 +6,7 @@ interface MovieSectionProps {
   children: ReactNode;
   className?: string;
   handleSeeAll?: () => void;
+  showlink?: boolean;
 }
 
 const MovieSection = ({
@@ -13,6 +14,7 @@ const MovieSection = ({
   children,
   className,
   handleSeeAll,
+  showlink = true,
 }: MovieSectionProps) => {
   return (
     <div className={`flex flex-col gap-6 px-17.5 ${className ?? ""}`}>
@@ -21,13 +23,15 @@ const MovieSection = ({
           {title}
         </h2>
 
-        <Button
-          variant="link"
-          className="cursor-pointer font-sans text-sm font-semibold leading-none text-danger hover:underline"
-          onClick={handleSeeAll}
-        >
-          See all
-        </Button>
+        {showlink && (
+          <Button
+            variant="link"
+            className="cursor-pointer font-sans text-sm font-semibold leading-none text-danger hover:underline"
+            onClick={handleSeeAll}
+          >
+            See all
+          </Button>
+        )}
       </div>
 
       <div className="relative min-w-0">

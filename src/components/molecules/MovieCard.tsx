@@ -45,7 +45,7 @@ const MovieCard = (props: MovieCardProps) => {
     const { movie } = props;
 
     return (
-      <div className="flex h-21.75 w-82.25 gap-3 rounded-2xl bg-background-tint p-2.5">
+      <div className="flex h-21.75 w-82.25 gap-3 rounded-2xl items-center bg-background-tint p-2.5">
         <img
           src={movie.image}
           alt={movie.title}
@@ -61,7 +61,7 @@ const MovieCard = (props: MovieCardProps) => {
             {movie.genre} · {movie.duration}
           </p>
 
-          <Badge className="w-fit bg-danger-tint px-3 py-1.5 font-sans text-xs font-semibold leading-none tracking-normal text-danger">
+          <Badge className="w-fit bg-danger-tint px-2 py-1 font-sans text-xs font-semibold leading-none tracking-normal text-danger">
             {movie.ageRating}
           </Badge>
         </div>
@@ -106,7 +106,11 @@ const MovieCard = (props: MovieCardProps) => {
 
           <Button
             variant="outline"
-            onClick={onNotify}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              onNotify();
+            }}
             disabled={movie.isNotified}
             className="h-auto w-fit cursor-pointer rounded-full bg-transparent px-2.5 py-1.5 text-xs text-white hover:bg-transparent disabled:cursor-default disabled:opacity-60"
           >
