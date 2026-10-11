@@ -71,7 +71,13 @@ const MovieDetailsPage = () => {
           isPending={isSessionsPending}
           isError={isSessionsError}
           isUnderAge={isUnderAge}
-          onTicketClick={() => openModal("buyTicket")}
+          onTicketClick={(sessionId) => {
+            if (!currentUser) {
+              openModal("AuthModal", { mode: "login" });
+              return;
+            }
+            openModal("buyTicket", { sessionId: String(sessionId) });
+          }}
         />
 
         <MovieDetailsSidebar movie={movie} />

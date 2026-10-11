@@ -21,7 +21,7 @@ export const modalRegistry: Record<string, ModalRegistryItem> = {
   buyTicket: {
     component: lazy(() => import("./contents/BuyTicket/BuyTicket")),
     kind: "dialog",
-    fromParams: (p) => ({ ticketID: p.ticketID }),
+    fromParams: (p) => ({ sessionId: Number(p.sessionId) }),
     // className: "w-fit sm:max-w-none",
   },
 };
