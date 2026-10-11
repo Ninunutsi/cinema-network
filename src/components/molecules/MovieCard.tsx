@@ -14,7 +14,7 @@ interface BaseMovieData {
 }
 
 export type SmallMovieData = BaseMovieData;
-export type MediumMovieData = ComingSoonMovie;
+type MediumMovieData = ComingSoonMovie;
 
 export interface LargeMovieData extends BaseMovieData {
   id: number;
@@ -22,8 +22,6 @@ export interface LargeMovieData extends BaseMovieData {
   price: string;
   synopsis: string;
 }
-
-export type MovieCardData = SmallMovieData | MediumMovieData | LargeMovieData;
 
 type MovieCardProps =
   | {

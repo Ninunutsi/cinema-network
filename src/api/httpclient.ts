@@ -4,7 +4,7 @@ import { env } from "../config/env";
 import { toApiError } from "./errors/ApiError";
 import { useAuthStore } from "../features/auth/authStore";
 
-export type UnauthorizedStrategy = "prompt" | "throw";
+type UnauthorizedStrategy = "prompt" | "throw";
 
 declare module "axios" {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

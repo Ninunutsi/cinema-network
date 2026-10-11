@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export interface ModalEntry {
+interface ModalEntry {
   id: string;
   key: string;
   props?: Record<string, unknown>;

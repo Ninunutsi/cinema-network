@@ -1,10 +1,10 @@
-export interface OrderContact {
+interface OrderContact {
   fullName: string;
   email: string;
   mobileNumber: string;
 }
 
-export interface OrderTicket {
+interface OrderTicket {
   id: number;
   seatCode: string;
   ticketType: {

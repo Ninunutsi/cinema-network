@@ -1,6 +1,6 @@
 export type TicketType = "adult" | "student" | "child";
 
-export interface HoldSeatRequest {
+interface HoldSeatRequest {
   seatId: number;
   ticketType: TicketType;
 }
@@ -54,13 +54,13 @@ export interface CreateOrderRequest {
   cvv: string;
 }
 
-export interface OrderContact {
+interface OrderContact {
   fullName: string;
   email: string;
   mobileNumber: string;
 }
 
-export interface OrderTicket {
+interface OrderTicket {
   id: number;
   seatCode: string;
   ticketType: {
@@ -70,27 +70,27 @@ export interface OrderTicket {
   price: number;
 }
 
-export interface OrderFormat {
+interface OrderFormat {
   id: number;
   slug: string;
   name: string;
   priceUplift: number;
 }
 
-export interface OrderLanguage {
+interface OrderLanguage {
   id: number;
   slug: string;
   name: string;
   code: string;
 }
 
-export interface OrderGenre {
+interface OrderGenre {
   id: number;
   slug: string;
   name: string;
 }
 
-export interface OrderMovie {
+interface OrderMovie {
   id: number;
   slug: string;
   title: string;
@@ -111,7 +111,7 @@ export interface OrderMovie {
   formats: OrderFormat[];
 }
 
-export interface OrderVenue {
+interface OrderVenue {
   id: number;
   slug: string;
   name: string;
@@ -119,7 +119,7 @@ export interface OrderVenue {
   formats: OrderFormat[];
 }
 
-export interface OrderSession {
+interface OrderSession {
   id: number;
   startsAt: string;
   date: string;

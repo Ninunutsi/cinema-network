@@ -12,7 +12,7 @@ import type { TicketOption } from "./buy-tickets.types";
 
 const TICKET_TYPES: readonly string[] = ["adult", "student", "child"];
 
-export const isTicketType = (slug: string): slug is TicketType =>
+const isTicketType = (slug: string): slug is TicketType =>
   TICKET_TYPES.includes(slug);
 
 export const roundMoney = (amount: number) => Math.round(amount * 100) / 100;

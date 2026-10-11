@@ -7,7 +7,7 @@ import {
 import { moviesApi } from "./moviesApi";
 import { toast } from "sonner";
 
-export const movieKeys = {
+const movieKeys = {
   all: ["movies"] as const,
   nowPlaying: (limit?: number) =>
     [...movieKeys.all, "now-playing", limit ?? "all"] as const,

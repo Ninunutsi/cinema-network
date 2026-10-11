@@ -1,11 +1,11 @@
-export interface SessionFormat {
+interface SessionFormat {
   id: number;
   slug: string;
   name: string;
   priceUplift: number;
 }
 
-export interface SessionVenue {
+interface SessionVenue {
   id: number;
   slug: string;
   name: string;
@@ -13,19 +13,19 @@ export interface SessionVenue {
   formats: SessionFormat[];
 }
 
-export interface SessionLanguage {
+interface SessionLanguage {
   id: number;
   slug: string;
   name: string;
   code: string;
 }
 
-export interface SessionTimeBand {
+interface SessionTimeBand {
   id: string;
   label: string;
 }
 
-export interface SessionSortOption {
+interface SessionSortOption {
   id: string;
   label: string;
 }
@@ -39,7 +39,7 @@ export interface SessionTicketType {
   blockedFromRatingAge: number | null;
 }
 
-export interface SessionAgeRating {
+interface SessionAgeRating {
   code: string;
   minAge: number;
   description: string;
@@ -69,7 +69,7 @@ export interface SessionsParams {
   page?: number;
 }
 
-export interface SessionMovie {
+interface SessionMovie {
   id: number;
   slug: string;
   title: string;
@@ -134,7 +134,7 @@ export interface SessionDetails {
   };
 }
 
-export type SeatState = "available" | "sold" | "held" | "unavailable";
+type SeatState = "available" | "sold" | "held" | "unavailable";
 
 export interface SessionSeat {
   id: number;
@@ -145,7 +145,7 @@ export interface SessionSeat {
   isMine: boolean;
 }
 
-export interface SessionSeatRow {
+interface SessionSeatRow {
   label: string;
   seats: SessionSeat[];
 }

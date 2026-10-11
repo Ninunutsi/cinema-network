@@ -5,7 +5,7 @@ import type { UpdateProfilePayload } from "./profile.types";
 import { authKeys } from "../auth/authQueries";
 import { toast } from "sonner";
 
-export const profileKeys = {
+const profileKeys = {
   all: ["profile"] as const,
   venues: () => [...profileKeys.all, "venues"] as const,
 };

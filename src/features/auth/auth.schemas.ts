@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-export const MIN_PASSWORD_LENGTH = 3;
-export const MIN_USERNAME_LENGTH = 3;
-export const AVATAR_MAX_SIZE_BYTES = 2 * 1024 * 1024;
+const MIN_PASSWORD_LENGTH = 3;
+const MIN_USERNAME_LENGTH = 3;
+const AVATAR_MAX_SIZE_BYTES = 2 * 1024 * 1024;
 export const AVATAR_ACCEPTED_TYPES = [
   "image/jpeg",
   "image/png",

@@ -7,7 +7,7 @@ import type {
   SignUpPayload,
 } from "./types";
 
-export const AUTH_ENDPOINTS = {
+const AUTH_ENDPOINTS = {
   login: "/login",
   register: "/register",
   logout: "/logout",

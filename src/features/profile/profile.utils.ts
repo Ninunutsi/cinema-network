@@ -37,32 +37,3 @@ export const getAge = (dateOfBirth: string): number => {
 
   return age;
 };
-
-export const isAgeEligibleForRating = (
-  dateOfBirth: string,
-  minimumAge: number,
-): boolean => {
-  const age = getAge(dateOfBirth);
-
-  return age >= minimumAge;
-};
-
-export const isProfileComplete = (profile: {
-  fullName: string | null;
-  email: string;
-  mobileNumber: string | null;
-  dateOfBirth: string | null;
-}): boolean => {
-  return (
-    profile.fullName !== null &&
-    profile.fullName.trim().length >= 3 &&
-    profile.fullName.trim().length <= 50 &&
-    profile.email.trim().length > 0 &&
-    profile.mobileNumber !== null &&
-    /^5\d{8}$/.test(profile.mobileNumber) &&
-    profile.dateOfBirth !== null &&
-    isValidCalendarDate(profile.dateOfBirth) &&
-    profile.dateOfBirth <= getTodayDate() &&
-    getAge(profile.dateOfBirth) >= 12
-  );
-};

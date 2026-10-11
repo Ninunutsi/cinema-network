@@ -12,7 +12,7 @@ interface UseCountdownOptions {
 const TICK_MS = 250;
 const noop = () => {};
 
-export const formatCountdown = (totalSeconds: number) => {
+const formatCountdown = (totalSeconds: number) => {
   const h = Math.floor(totalSeconds / 3600);
   const m = Math.floor((totalSeconds % 3600) / 60);
   const s = totalSeconds % 60;

@@ -28,6 +28,3 @@ export const useAuthStore = create<AuthState>()(
 
 export const selectIsAuthenticated = (state: AuthState) =>
   state.token !== null && state.user !== null;
-
-export const selectIsProfileComplete = (state: AuthState) =>
-  state.user?.profileComplete === true;

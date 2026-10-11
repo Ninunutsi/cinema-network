@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useState } from "react";
 
-export interface SelectOption {
+interface SelectOption {
   value: string;
   label: string;
 }

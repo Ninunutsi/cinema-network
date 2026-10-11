@@ -1,6 +1,6 @@
 export type AuthMode = "login" | "signup";
 
-export interface VenueFormat {
+interface VenueFormat {
   id: number;
   slug: string;
   name: string;

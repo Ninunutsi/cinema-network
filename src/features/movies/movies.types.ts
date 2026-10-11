@@ -1,16 +1,16 @@
-export interface MovieGenre {
+interface MovieGenre {
   id: number;
   slug: string;
   name: string;
 }
 
-export interface MovieAgeRating {
+interface MovieAgeRating {
   code: string;
   minAge: number;
   description: string;
 }
 
-export interface MovieFormat {
+interface MovieFormat {
   id: number;
   slug: string;
   name: string;
@@ -76,7 +76,7 @@ export interface MovieDetails {
   availableDates: string[];
 }
 
-export interface SessionVenue {
+interface SessionVenue {
   id: number;
   slug: string;
   name: string;
@@ -88,20 +88,20 @@ export interface MovieSessionsByVenue {
   sessions: MovieSession[];
 }
 
-export interface SessionHall {
+interface SessionHall {
   id: number;
   name: string;
   venue: SessionVenue;
 }
 
-export interface SessionLanguage {
+interface SessionLanguage {
   id: number;
   slug: string;
   name: string;
   code: string;
 }
 
-export interface MovieSession {
+interface MovieSession {
   id: number;
   startsAt: string;
   date: string;
