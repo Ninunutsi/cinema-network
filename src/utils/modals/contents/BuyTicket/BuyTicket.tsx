@@ -69,7 +69,7 @@ const BuyTicketTabs = () => {
 const BuyTicket = () => {
   return (
     <div className="flex h-auto min-h-150 w-276.5 max-w-full flex-col gap-8">
-      {/* <BuyTicketHeader />
+      <BuyTicketHeader />
 
       <div className="flex min-h-0 flex-1 gap-8">
         <BuyTicketTabs />
@@ -96,8 +96,8 @@ const BuyTicket = () => {
                 <SelectedSeat />
                 <SelectedSeat />
                 <SelectedSeat />
-                <SummaryTicket />
-                const SummaryTicket = () => (
+                {/* <SummaryTicket /> */}
+                {/* const SummaryTicket = () => (
   <TicketCard
     className="w-80.25 rounded-2xl p-3.75"
     title="THE ODYSSEY"
@@ -107,7 +107,7 @@ const BuyTicket = () => {
       { label: "Tickets", value: "2 x Adult, 1 x Child" },
     ]}
   />
-);
+); */}
               </div>
             </div>
 
@@ -126,8 +126,8 @@ const BuyTicket = () => {
             </div>
           </div>
         </div>
-      </div> */}
-      <BookingConfirmation />
+      </div>
+      {/* <BookingConfirmation /> */}
     </div>
   );
 };

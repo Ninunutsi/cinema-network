@@ -5,11 +5,13 @@ import type { MovieSessionsByVenue } from "../../../features/movies/movies.types
 interface SessionTicketCardProps {
   session: MovieSessionsByVenue["sessions"][number];
   isUnderAge: boolean;
+  onTicketClick: () => void;
 }
 
 export const SessionTicketCard = ({
   session,
   isUnderAge,
+  onTicketClick,
 }: SessionTicketCardProps) => {
   const disabled = session.isSoldOut || session.seatsLeft === 0 || isUnderAge;
 
@@ -21,6 +23,7 @@ export const SessionTicketCard = ({
 
       <button
         type="button"
+        onClick={onTicketClick}
         disabled={disabled}
         aria-label={`Hall ${session.hall.name}, ${session.time}, ${session.price} GEL`}
         className="relative cursor-pointer h-20.25 w-51.75 overflow-hidden"

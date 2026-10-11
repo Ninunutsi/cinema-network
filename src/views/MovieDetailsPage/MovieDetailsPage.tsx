@@ -12,6 +12,7 @@ import { useMountEffect } from "../../hooks/useMountEffect";
 import { useRecentlyViewed } from "../HomePage/useRecentlyViewed";
 import { toRecentlyViewedMovie } from "../HomePage/recentlyViewed.utils";
 import type { MovieDetails } from "../../features/movies/movies.types";
+import { openModal } from "../../utils/modals/modalActions";
 
 const RecentlyViewedTracker = ({ movie }: { movie: MovieDetails }) => {
   const { addMovie } = useRecentlyViewed();
@@ -70,6 +71,7 @@ const MovieDetailsPage = () => {
           isPending={isSessionsPending}
           isError={isSessionsError}
           isUnderAge={isUnderAge}
+          onTicketClick={() => openModal("buyTicket")}
         />
 
         <MovieDetailsSidebar movie={movie} />

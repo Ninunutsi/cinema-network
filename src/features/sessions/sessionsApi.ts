@@ -1,7 +1,9 @@
 import { unwrap, type DataEnvelope } from "../../api/api.types";
 import { httpClient } from "../../api/httpclient";
 import type {
+  SessionDetails,
   SessionFilterOptions,
+  SessionSeatMap,
   SessionsParams,
   SessionsResponse,
 } from "./sessions.types";
@@ -29,5 +31,20 @@ export const sessionsApi = {
     });
 
     return response.data;
+  },
+  async getSession(sessionId: number): Promise<SessionDetails> {
+    const response = await httpClient.get<DataEnvelope<SessionDetails>>(
+      `/sessions/${sessionId}`,
+    );
+
+    return unwrap(response);
+  },
+
+  async getSeatMap(sessionId: number): Promise<SessionSeatMap> {
+    const response = await httpClient.get<DataEnvelope<SessionSeatMap>>(
+      `/sessions/${sessionId}/seats`,
+    );
+
+    return unwrap(response);
   },
 };

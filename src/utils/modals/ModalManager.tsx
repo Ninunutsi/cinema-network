@@ -4,9 +4,29 @@ import { modalRegistry } from "./ModalRegistry";
 import { closeModal } from "./modalActions";
 import { Dialog, DialogContent, DialogTitle } from "../../components/ui/dialog";
 import { cn } from "cn";
+import { useMountEffect } from "../../hooks/useMountEffect";
 
 export function ModalManager() {
   const stack = useModalStore((s) => s.stack);
+
+  useMountEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      if (event.state?.modal) return;
+
+      const currentStack = useModalStore.getState().stack;
+
+      if (currentStack.length > 0) {
+        const topModal = currentStack[currentStack.length - 1];
+        useModalStore.getState().popById(topModal.id);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  });
 
   return (
     <>
@@ -16,15 +36,6 @@ export function ModalManager() {
 
         const Component = meta.component;
         const onClose = () => closeModal(entry.id);
-        const body = (
-          <Suspense
-            fallback={
-              <div className="p-6 text-sm text-muted-foreground">Loading…</div>
-            }
-          >
-            <Component {...entry.props} onClose={onClose} />
-          </Suspense>
-        );
 
         return (
           <Dialog
@@ -39,7 +50,16 @@ export function ModalManager() {
               )}
             >
               <DialogTitle className="sr-only">{entry.key}</DialogTitle>
-              {body}
+
+              <Suspense
+                fallback={
+                  <div className="p-6 text-sm text-muted-foreground">
+                    Loading…
+                  </div>
+                }
+              >
+                <Component {...entry.props} onClose={onClose} />
+              </Suspense>
             </DialogContent>
           </Dialog>
         );

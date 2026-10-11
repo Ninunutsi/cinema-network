@@ -103,3 +103,64 @@ export interface SessionsResponse {
     totalSessions: number;
   };
 }
+
+export interface SessionDetails {
+  id: number;
+  startsAt: string;
+  date: string;
+  time: string;
+  timeBand: string;
+  price: number;
+  seatsLeft: number;
+  isSoldOut: boolean;
+  hall: {
+    id: number;
+    name: string;
+    venue: SessionVenue;
+  };
+  venue: SessionVenue;
+  format: SessionFormat;
+  language: SessionLanguage;
+  movie: SessionMovie & {
+    kind: string;
+    backdropUrl: string;
+    releaseDate: string;
+    isComingSoon: boolean;
+    isNotified: boolean;
+    isFeatured: boolean;
+    fromPrice: number;
+    genres: { id: number; slug: string; name: string }[];
+    formats: SessionFormat[];
+  };
+}
+
+export type SeatState = "available" | "sold" | "held" | "unavailable";
+
+export interface SessionSeat {
+  id: number;
+  code: string;
+  label: string;
+  state: SeatState;
+  aisleAfter: boolean;
+  isMine: boolean;
+}
+
+export interface SessionSeatRow {
+  label: string;
+  seats: SessionSeat[];
+}
+
+export interface SessionSeatSection {
+  name: string;
+  rows: SessionSeatRow[];
+}
+
+export interface SessionSeatMap {
+  sessionId: number;
+  hall: {
+    id: number;
+    name: string;
+    venue: SessionVenue;
+  };
+  sections: SessionSeatSection[];
+}

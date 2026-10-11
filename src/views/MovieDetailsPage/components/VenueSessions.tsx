@@ -5,12 +5,14 @@ interface VenueSessionsProps {
   venue: MovieSessionsByVenue["venue"];
   sessions: MovieSessionsByVenue["sessions"];
   isUnderAge: boolean;
+  onTicketClick: () => void;
 }
 
 export const VenueSessions = ({
   venue,
   sessions,
   isUnderAge,
+  onTicketClick,
 }: VenueSessionsProps) => {
   return (
     <div className="flex flex-col gap-4">
@@ -23,6 +25,7 @@ export const VenueSessions = ({
           {sessions.map((session) => (
             <SessionTicketCard
               key={session.id}
+              onTicketClick={onTicketClick}
               session={session}
               isUnderAge={isUnderAge}
             />

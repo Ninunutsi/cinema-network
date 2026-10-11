@@ -10,6 +10,7 @@ interface MovieSessionsSectionProps {
   isPending: boolean;
   isError: boolean;
   isUnderAge: boolean;
+  onTicketClick: () => void;
 }
 
 export const MovieSessionsSection = ({
@@ -20,6 +21,7 @@ export const MovieSessionsSection = ({
   isPending,
   isError,
   isUnderAge,
+  onTicketClick,
 }: MovieSessionsSectionProps) => {
   return (
     <section className="flex min-w-0 flex-col gap-6">
@@ -60,6 +62,7 @@ export const MovieSessionsSection = ({
             venue={venue}
             sessions={sessions}
             isUnderAge={isUnderAge}
+            onTicketClick={onTicketClick}
           />
         ))}
     </section>
