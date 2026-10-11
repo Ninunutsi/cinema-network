@@ -25,9 +25,17 @@ export function openModal(
     return;
   }
 
-  const depth = stack.length + 1;
+  const url = new URL(window.location.href);
 
-  window.history.pushState({ modal: true, depth }, "", window.location.href);
+  if (key === "buyTicket" && params.sessionId) {
+    url.searchParams.set("buyTicket", params.sessionId);
+  }
+
+  window.history.pushState(
+    { modal: true, depth: stack.length + 1 },
+    "",
+    url.toString(),
+  );
 
   push({
     key,
@@ -92,11 +100,4 @@ export function syncStackToHistory(state: ModalHistoryState) {
   stack.slice(depth).forEach((entry) => {
     popById(entry.id);
   });
-}
-
-export function dismissTopModal() {
-  const { stack, popById } = useModalStore.getState();
-  const top = stack[stack.length - 1];
-
-  if (top) popById(top.id);
 }

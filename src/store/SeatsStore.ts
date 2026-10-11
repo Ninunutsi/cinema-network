@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { TicketType } from "../features/booking/booking.types";
+import type { HeldSeat, TicketType } from "../features/booking/booking.types";
 
 export const MAX_SEATS = 3;
 export const DEFAULT_TICKET_TYPE: TicketType = "adult";
@@ -8,10 +8,10 @@ interface SeatState {
   selectedIds: number[];
   ticketTypes: Record<number, TicketType>;
   limitReached: boolean;
-
   toggleSeat: (seatId: number) => void;
   setTicketType: (seatId: number, ticketType: TicketType) => void;
   removeSeats: (seatIds: number[]) => void;
+  restoreSeats: (seats: Pick<HeldSeat, "seatId" | "ticketType">[]) => void;
   reset: () => void;
 }
 
@@ -24,7 +24,7 @@ const initialState = {
 const omitSeats = (
   ticketTypes: Record<number, TicketType>,
   seatIds: number[],
-): Record<number, TicketType> =>
+) =>
   Object.fromEntries(
     Object.entries(ticketTypes).filter(([id]) => !seatIds.includes(Number(id))),
   );
@@ -54,7 +54,10 @@ export const useSeatsStore = create<SeatState>((set) => ({
 
   setTicketType: (seatId, ticketType) =>
     set((state) => ({
-      ticketTypes: { ...state.ticketTypes, [seatId]: ticketType },
+      ticketTypes: {
+        ...state.ticketTypes,
+        [seatId]: ticketType,
+      },
     })),
 
   removeSeats: (seatIds) =>
@@ -63,6 +66,15 @@ export const useSeatsStore = create<SeatState>((set) => ({
       ticketTypes: omitSeats(state.ticketTypes, seatIds),
       limitReached: false,
     })),
+
+  restoreSeats: (seats) =>
+    set({
+      selectedIds: seats.map((seat) => seat.seatId),
+      ticketTypes: Object.fromEntries(
+        seats.map((seat) => [seat.seatId, seat.ticketType.slug]),
+      ),
+      limitReached: false,
+    }),
 
   reset: () => set(initialState),
 }));

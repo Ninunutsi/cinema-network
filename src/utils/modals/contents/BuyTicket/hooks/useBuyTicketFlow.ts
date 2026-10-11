@@ -2,7 +2,10 @@ import { useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { useCurrentUserQuery } from "../../../../../features/auth/authQueries";
-import { releaseSeatHold } from "../../../../../features/booking/bookingApi";
+import {
+  getSeatHold,
+  releaseSeatHold,
+} from "../../../../../features/booking/bookingApi";
 
 import type {
   BookingErrorResponse,
@@ -38,14 +41,20 @@ import {
   useSessionSeatMapQuery,
 } from "../../../../../features/sessions/sessionsQueries";
 import {
+  bookingKeys,
   useCreateOrderMutation,
   useCreateSeatHoldMutation,
 } from "../../../../../features/booking/bookingQueries";
 import { MAX_SEATS, useSeatsStore } from "../../../../../store/SeatsStore";
 import { ticketKeys } from "../../../../../features/tickets/ticketsQueries";
+import {
+  clearSavedHoldId,
+  getSavedHoldId,
+  saveHoldId,
+} from "../../../../../features/booking/holdStorage";
 
 const NO_TICKET_TYPES: SessionTicketType[] = [];
-const HOLD_GONE_STATUSES = [404, 410];
+const HOLD_GONE_STATUSES = [403, 404, 410];
 
 const MESSAGES = {
   holdExpired: "Your hold time expired. Please re-select your seats.",
@@ -87,6 +96,12 @@ export const useBuyTicketFlow = (sessionId: number) => {
 
   const [step, setStep] = useState<BuyStep>("seats");
   const [hold, setHold] = useState<SeatHold | null>(null);
+
+  const [savedHoldId, setSavedHoldId] = useState<string | undefined>(
+    () => getSavedHoldId(sessionId) ?? undefined,
+  );
+
+  const restoreSeats = useSeatsStore((state) => state.restoreSeats);
   const [order, setOrder] = useState<Order | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<CheckoutFieldErrors>({});
@@ -116,6 +131,69 @@ export const useBuyTicketFlow = (sessionId: number) => {
     resetSeats();
   });
 
+  useMountEffect(() => {
+    let cancelled = false;
+
+    const restoreHold = async () => {
+      const holdId = getSavedHoldId(sessionId);
+
+      if (!holdId) return;
+
+      setSavedHoldId(holdId);
+
+      try {
+        const response = await queryClient.fetchQuery({
+          queryKey: bookingKeys.hold(holdId),
+          queryFn: () => getSeatHold(holdId),
+          retry: false,
+        });
+
+        if (cancelled) return;
+
+        const restoredHold = response.data;
+
+        if (!restoredHold.isLive) {
+          clearSavedHoldId(sessionId);
+          setSavedHoldId(undefined);
+          updateHold(null);
+          resetSeats();
+          setStep("seats");
+          setNotice(MESSAGES.holdExpired);
+          invalidateSeatMap();
+          return;
+        }
+
+        updateHold(restoredHold);
+        restoreSeats(restoredHold.seats);
+        setStep("checkout");
+        setNotice(null);
+      } catch (error) {
+        if (cancelled) return;
+
+        if (
+          isAxiosError(error) &&
+          HOLD_GONE_STATUSES.includes(error.response?.status ?? 0)
+        ) {
+          clearSavedHoldId(sessionId);
+          setSavedHoldId(undefined);
+          updateHold(null);
+          resetSeats();
+          setStep("seats");
+          setNotice(MESSAGES.holdExpired);
+          invalidateSeatMap();
+        } else {
+          setNotice(MESSAGES.holdFailed);
+        }
+      }
+    };
+
+    void restoreHold();
+
+    return () => {
+      cancelled = true;
+    };
+  });
+
   const expireHold = () => {
     updateHold(null);
     resetSeats();
@@ -123,6 +201,8 @@ export const useBuyTicketFlow = (sessionId: number) => {
     setStep("seats");
     setNotice(MESSAGES.holdExpired);
     invalidateSeatMap();
+    clearSavedHoldId(sessionId);
+    setSavedHoldId(undefined);
   };
 
   const handleHoldError = (error: unknown) => {
@@ -160,8 +240,10 @@ export const useBuyTicketFlow = (sessionId: number) => {
       },
       {
         onSuccess: ({ data }) => {
-          setNotice(null);
+          saveHoldId(sessionId, data.holdId);
+          setSavedHoldId(data.holdId);
           updateHold(data);
+          setNotice(null);
           setStep("checkout");
         },
         onError: handleHoldError,
@@ -169,14 +251,27 @@ export const useBuyTicketFlow = (sessionId: number) => {
     );
   };
 
-  const backToSeats = () => {
-    if (holdRef.current) {
-      releaseSeatHold(holdRef.current.holdId).catch(() => undefined);
+  const backToSeats = async () => {
+    const currentHold = holdRef.current;
+
+    if (currentHold) {
+      restoreSeats(currentHold.seats);
+
+      try {
+        await releaseSeatHold(currentHold.holdId);
+      } catch {
+        // The hold may already have expired or been released.
+      }
     }
+
+    clearSavedHoldId(sessionId);
+    setSavedHoldId(undefined);
     updateHold(null);
     setFieldErrors({});
     setNotice(null);
     setStep("seats");
+
+    await invalidateSeatMap();
   };
 
   const handleOrderError = (error: unknown) => {
@@ -205,6 +300,11 @@ export const useBuyTicketFlow = (sessionId: number) => {
 
     createOrder.mutate(toCreateOrderRequest(hold.holdId, values), {
       onSuccess: ({ data }) => {
+        clearSavedHoldId(sessionId);
+        setSavedHoldId(undefined);
+        updateHold(null);
+        resetSeats();
+        setOrder(data);
         updateHold(null);
         resetSeats();
         setOrder(data);
@@ -213,6 +313,19 @@ export const useBuyTicketFlow = (sessionId: number) => {
       },
       onError: handleOrderError,
     });
+  };
+
+  const closeBuyTicket = () => {
+    const holdId = holdRef.current?.holdId ?? savedHoldId;
+
+    clearSavedHoldId(sessionId);
+    setSavedHoldId(undefined);
+    updateHold(null);
+    resetSeats();
+
+    if (holdId) {
+      void releaseSeatHold(holdId).catch(() => undefined);
+    }
   };
 
   const clearFieldError = (field: CheckoutField) =>
@@ -255,6 +368,7 @@ export const useBuyTicketFlow = (sessionId: number) => {
         setTicketType(seatId, type),
       removeSeat: (seatId: number) => removeSeats([seatId]),
       proceedToCheckout,
+      closeBuyTicket,
       backToSeats,
       pay,
       clearFieldError,

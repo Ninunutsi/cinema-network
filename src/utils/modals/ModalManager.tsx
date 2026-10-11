@@ -10,11 +10,43 @@ export function ModalManager() {
   const stack = useModalStore((s) => s.stack);
 
   useMountEffect(() => {
-    const handlePopState = (event: PopStateEvent) =>
+    const url = new URL(window.location.href);
+    const sessionId = url.searchParams.get("buyTicket");
+
+    if (sessionId && /^\d+$/.test(sessionId)) {
+      const { stack, push } = useModalStore.getState();
+
+      if (!stack.some((entry) => entry.key === "buyTicket")) {
+        const params = { sessionId };
+        const meta = modalRegistry.buyTicket;
+
+        window.history.replaceState(
+          {
+            ...window.history.state,
+            modal: true,
+            depth: 1,
+          },
+          "",
+          url.toString(),
+        );
+
+        push({
+          key: "buyTicket",
+          urlParams: params,
+          props: meta.fromParams(params),
+        });
+      }
+    }
+
+    const handlePopState = (event: PopStateEvent) => {
       syncStackToHistory(event.state);
+    };
 
     window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
   });
 
   return (
