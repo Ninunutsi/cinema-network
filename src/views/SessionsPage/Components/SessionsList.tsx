@@ -46,8 +46,10 @@ export const SessionsList = () => {
     page: currentPage,
   });
 
-  const onMovieClick = (movieSlug: string) => {
-    navigate(`/movies/${movieSlug}`);
+  const onSessionClick = (movieSlug: string, sessionId: number) => {
+    navigate(`/movies/${movieSlug}`, {
+      state: { sessionId, date: selectedDate },
+    });
   };
 
   const handlePageChange = (page: number) => {
@@ -115,10 +117,12 @@ export const SessionsList = () => {
           {data.data.map(({ movie, sessions }, index) => (
             <Fragment key={movie.id}>
               <MovieSessionGroup
-                key={movie.id}
                 movie={movie}
                 sessions={sessions}
-                onMovieClick={() => onMovieClick(movie.slug)}
+                // onMovieClick={() => onMovieClick(movie.slug)}
+                onSessionClick={(sessionId) =>
+                  onSessionClick(movie.slug, sessionId)
+                }
               />
               {index < data.data.length - 1 && (
                 <Separator className="bg-background-tint" />

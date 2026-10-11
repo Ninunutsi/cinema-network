@@ -34,3 +34,8 @@ export function closeModal(id: string) {
 
   useModalStore.getState().popById(id);
 }
+
+export function closeModalByKey(key: string) {
+  const entry = useModalStore.getState().stack.find((e) => e.key === key);
+  if (entry) closeModal(entry.id);
+}

@@ -5,16 +5,16 @@ import type { Session } from "../../../features/sessions/sessions.types";
 
 interface SessionCardProps {
   session: Session;
-  onMovieClick: () => void;
+  onSessionClick: (sessionId: number) => void;
 }
 
-export const SessionCard = ({ session, onMovieClick }: SessionCardProps) => {
+export const SessionCard = ({ session, onSessionClick }: SessionCardProps) => {
   const { time, format, language, hall, seatsLeft, price } = session;
 
   return (
     <Button
       variant="ghost"
-      onClick={onMovieClick}
+      onClick={() => onSessionClick(session.id)}
       disabled={session.isSoldOut}
       className="flex h-26 w-63 shrink-0 cursor-pointer flex-col gap-1.5 rounded-2xl bg-surface p-3.75 hover:bg-surface! disabled:cursor-not-allowed disabled:opacity-50"
     >
