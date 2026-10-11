@@ -12,7 +12,6 @@
 - **Movie notifications** — Access notification functionality for upcoming movies.
 - **Refund flow** — Handle booking refund confirmation.
 - **URL-aware modals** — Support browser navigation and restore the active ticket-booking modal after a page refresh.
-- **Responsive UI** — Reusable components and consistent styling across the application.
 
 ## Tech Stack
 
