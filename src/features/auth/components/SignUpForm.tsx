@@ -1,18 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { useSignUpMutation } from "../authQueries";
-import { signUpSchema, type SignUpFormValues } from "../auth.schemas";
+import { useSignUpMutation } from "@/features/auth/authQueries";
+import { signUpSchema, type SignUpFormValues } from "@/features/auth/auth.schemas";
 import {
   applyAuthError,
   SIGN_UP_ERROR_OPTIONS,
   toSignUpPayload,
-} from "../utils/auth.utils";
-import { AvatarUpload } from "../../../components/molecules/AvatarUpload";
-import { AUTH_INPUT_CLASSNAME } from "../auth.constants";
-import { Input } from "../../../components/atoms/Input";
-import { PasswordInput } from "../../../components/atoms/PasswordInput";
-import { Button } from "../../../components/ui/button";
-import { AuthFormFooter } from "../../../components/atoms/AuthFormFooter";
+} from "@/features/auth/utils/auth.utils";
+import { AvatarUpload } from "@/components/molecules/AvatarUpload";
+import { AUTH_INPUT_CLASSNAME } from "@/features/auth/auth.constants";
+import { Input } from "@/components/atoms/Input";
+import { PasswordInput } from "@/components/atoms/PasswordInput";
+import { Button } from "@/components/ui/button";
+import { AuthFormFooter } from "@/components/atoms/AuthFormFooter";
 
 interface SignUpFormProps {
   onSwitchToLogin: () => void;

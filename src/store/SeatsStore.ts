@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { HeldSeat, TicketType } from "../features/booking/booking.types";
+import type { HeldSeat, TicketType } from "@/features/booking/booking.types";
 
 export const MAX_SEATS = 3;
 export const DEFAULT_TICKET_TYPE: TicketType = "adult";

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 interface MovieSectionProps {
   title: string;

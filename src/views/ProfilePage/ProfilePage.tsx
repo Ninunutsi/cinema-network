@@ -3,10 +3,10 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "../../components/ui/tabs";
-import { ProfileForm } from "../../features/profile/components/ProfileForm";
+} from "@/components/ui/tabs";
+import { ProfileForm } from "@/features/profile/components/ProfileForm";
 import TicketsList from "./components/TicketsList";
-import { useUrlState, param } from "../../hooks/useUrlState";
+import { useUrlState, param } from "@/hooks/useUrlState";
 
 const profileUrlSchema = {
   tab: param.string("tab"),

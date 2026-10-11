@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import type { SmallMovieData } from "../../components/molecules/MovieCard";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+import type { SmallMovieData } from "@/components/molecules/MovieCard";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 const RECENTLY_VIEWED_KEY = "recently-viewed-movies";
 const MAX_RECENTLY_VIEWED = 10;

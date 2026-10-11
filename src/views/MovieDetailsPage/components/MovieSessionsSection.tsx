@@ -1,5 +1,5 @@
-import type { MovieSessionsByVenue } from "../../../features/movies/movies.types";
-import { MovieDateSelector } from "../../../components/atoms/MovieDateSelector";
+import type { MovieSessionsByVenue } from "@/features/movies/movies.types";
+import { MovieDateSelector } from "@/components/atoms/MovieDateSelector";
 import { VenueSessions } from "./VenueSessions";
 
 interface MovieSessionsSectionProps {

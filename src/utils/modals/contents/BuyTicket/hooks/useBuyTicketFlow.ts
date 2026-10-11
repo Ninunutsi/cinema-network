@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
-import { useCurrentUserQuery } from "../../../../../features/auth/authQueries";
+import { useCurrentUserQuery } from "@/features/auth/authQueries";
 import {
   getSeatHold,
   releaseSeatHold,
-} from "../../../../../features/booking/bookingApi";
+} from "@/features/booking/bookingApi";
 
 import type {
   BookingErrorResponse,
@@ -13,45 +13,45 @@ import type {
   Order,
   SeatHold,
   TicketType,
-} from "../../../../../features/booking/booking.types";
+} from "@/features/booking/booking.types";
 
 import type {
   SessionSeatMap,
   SessionTicketType,
-} from "../../../../../features/sessions/sessions.types";
-import { useMountEffect } from "../../../../../hooks/useMountEffect";
-import type { BuyStep } from "../buy-tickets.types";
+} from "@/features/sessions/sessions.types";
+import { useMountEffect } from "@/hooks/useMountEffect";
+import type { BuyStep } from "@/utils/modals/contents/BuyTicket/buy-tickets.types";
 import {
   createTicketOptions,
   getErrorMessage,
   markSeatsSold,
-} from "../buy-ticket.utils";
+} from "@/utils/modals/contents/BuyTicket/buy-ticket.utils";
 import {
   mapServerErrors,
   toCreateOrderRequest,
   type CheckoutField,
   type CheckoutFieldErrors,
   type CheckoutFormValues,
-} from "../checkout.schemas";
+} from "@/utils/modals/contents/BuyTicket/checkout.schemas";
 import { useSelectedSeats } from "./useSelectedSeats";
 import {
   sessionKeys,
   useSessionFilterOptionsQuery,
   useSessionQuery,
   useSessionSeatMapQuery,
-} from "../../../../../features/sessions/sessionsQueries";
+} from "@/features/sessions/sessionsQueries";
 import {
   bookingKeys,
   useCreateOrderMutation,
   useCreateSeatHoldMutation,
-} from "../../../../../features/booking/bookingQueries";
-import { MAX_SEATS, useSeatsStore } from "../../../../../store/SeatsStore";
-import { ticketKeys } from "../../../../../features/tickets/ticketsQueries";
+} from "@/features/booking/bookingQueries";
+import { MAX_SEATS, useSeatsStore } from "@/store/SeatsStore";
+import { ticketKeys } from "@/features/tickets/ticketsQueries";
 import {
   clearSavedHoldId,
   getSavedHoldId,
   saveHoldId,
-} from "../../../../../features/booking/holdStorage";
+} from "@/features/booking/holdStorage";
 
 const NO_TICKET_TYPES: SessionTicketType[] = [];
 const HOLD_GONE_STATUSES = [403, 404, 410];

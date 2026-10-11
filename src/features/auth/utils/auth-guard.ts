@@ -1,7 +1,7 @@
-import { useModalStore } from "../../../store/modalStore";
-import { selectIsAuthenticated, useAuthStore } from "../authStore";
-import { openModal } from "../../../utils/modals/modalActions";
-import type { AuthMode } from "../types";
+import { useModalStore } from "@/store/modalStore";
+import { selectIsAuthenticated, useAuthStore } from "@/features/auth/authStore";
+import { openModal } from "@/utils/modals/modalActions";
+import type { AuthMode } from "@/features/auth/types";
 
 const AUTH_MODAL_KEY = "AuthModal";
 

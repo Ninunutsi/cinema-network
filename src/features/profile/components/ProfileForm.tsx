@@ -1,22 +1,22 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Input } from "../../../components/atoms/Input";
-import { Button } from "../../../components/ui/button";
-import { useCurrentUserQuery } from "../../auth/authQueries";
-import { useAuthStore } from "../../auth/authStore";
+import { Input } from "@/components/atoms/Input";
+import { Button } from "@/components/ui/button";
+import { useCurrentUserQuery } from "@/features/auth/authQueries";
+import { useAuthStore } from "@/features/auth/authStore";
 
-import { profileSchema, type ProfileFormValues } from "../profile.schema";
-import { getAge } from "../profile.utils";
-import { useUpdateProfileMutation, useVenuesQuery } from "../profileQueries";
+import { profileSchema, type ProfileFormValues } from "@/features/profile/profile.schema";
+import { getAge } from "@/features/profile/profile.utils";
+import { useUpdateProfileMutation, useVenuesQuery } from "@/features/profile/profileQueries";
 
 import type {
   UpdateProfilePayload,
   UserProfile,
   Venue,
-} from "../profile.types";
-import { DatePicker } from "../../../components/atoms/DatePicker";
-import { SelectDropdown } from "../../../components/atoms/SelectDropdown";
+} from "@/features/profile/profile.types";
+import { DatePicker } from "@/components/atoms/DatePicker";
+import { SelectDropdown } from "@/components/atoms/SelectDropdown";
 
 export const ProfileForm = () => {
   const { data: user, isPending, isError } = useCurrentUserQuery();

@@ -1,5 +1,5 @@
 import { Timer } from "lucide-react";
-import type { MovieDetails } from "../../../features/movies/movies.types";
+import type { MovieDetails } from "@/features/movies/movies.types";
 
 interface MovieDetailsHeroProps {
   movie: MovieDetails;

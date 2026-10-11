@@ -6,12 +6,12 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Avatar } from "../atoms/Avatar";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import ProfileIcon from "../../assets/profile.svg?react";
-import LogOutIcon from "../../assets/log-out.svg?react";
-import TicketIcon from "../../assets/ticket.svg?react";
+} from "@/components/ui/dropdown-menu";
+import { Avatar } from "@/components/atoms/Avatar";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import ProfileIcon from "@/assets/profile.svg?react";
+import LogOutIcon from "@/assets/log-out.svg?react";
+import TicketIcon from "@/assets/ticket.svg?react";
 import { cn } from "cn";
 
 interface ProfileDropdownProps {

@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import MovieCard from "../../../components/molecules/MovieCard";
-import MovieSection from "../../../components/molecules/MovieSection";
+import MovieCard from "@/components/molecules/MovieCard";
+import MovieSection from "@/components/molecules/MovieSection";
 
-import { Button } from "../../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   useComingSoonQuery,
   useNotifyMovieMutation,
-} from "../../../features/movies/moviesQueries";
+} from "@/features/movies/moviesQueries";
 
 const COMING_SOON_LIMIT = 6;
 const SKELETON_COUNT = 3;

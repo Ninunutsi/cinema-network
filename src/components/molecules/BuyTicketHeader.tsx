@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import type { SessionDetails } from "../../features/sessions/sessions.types";
-import { formatSessionDate } from "../../utils/modals/contents/BuyTicket/buy-ticket.utils";
+import type { SessionDetails } from "@/features/sessions/sessions.types";
+import { formatSessionDate } from "@/utils/modals/contents/BuyTicket/buy-ticket.utils";
 
 interface BuyTicketHeaderProps {
   session: SessionDetails;

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Input } from "../../../../components/atoms/Input";
+import { Input } from "@/components/atoms/Input";
 import {
   checkoutSchema,
   digitsOnly,

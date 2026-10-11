@@ -1,6 +1,6 @@
-import type { AuthUser } from "../../features/auth/types";
-import { ProfileDropdownController } from "../../views/ProfilePage/components/ProfileDropdownController";
-import { Avatar } from "../atoms/Avatar";
+import type { AuthUser } from "@/features/auth/types";
+import { ProfileDropdownController } from "@/views/ProfilePage/components/ProfileDropdownController";
+import { Avatar } from "@/components/atoms/Avatar";
 
 interface ProfileProps {
   username?: string | undefined | null;

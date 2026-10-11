@@ -1,4 +1,4 @@
-import type { MovieSessionsByVenue } from "../../../features/movies/movies.types";
+import type { MovieSessionsByVenue } from "@/features/movies/movies.types";
 import { SessionTicketCard } from "./SessionTicketCard";
 
 interface VenueSessionsProps {

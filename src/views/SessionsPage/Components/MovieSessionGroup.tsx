@@ -1,5 +1,5 @@
-import { Badge } from "../../../components/ui/badge";
-import type { MovieSessionsGroup } from "../../../features/sessions/sessions.types";
+import { Badge } from "@/components/ui/badge";
+import type { MovieSessionsGroup } from "@/features/sessions/sessions.types";
 import { SessionCard } from "./SessionCard";
 
 interface MovieSessionGroupProps {

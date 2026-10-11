@@ -3,14 +3,14 @@ import { useParams } from "react-router-dom";
 import {
   useMovieDetailsQuery,
   useMovieSessionsQuery,
-} from "../../features/movies/moviesQueries";
+} from "@/features/movies/moviesQueries";
 import { MovieDetailsHero } from "./components/MovieDetailsHero";
 import { MovieSessionsSection } from "./components/MovieSessionsSection";
 import { MovieDetailsSidebar } from "./components/MovieDetailsSidebar";
-import { useMountEffect } from "../../hooks/useMountEffect";
-import { useRecentlyViewed } from "../HomePage/useRecentlyViewed";
-import { toRecentlyViewedMovie } from "../HomePage/recentlyViewed.utils";
-import type { MovieDetails } from "../../features/movies/movies.types";
+import { useMountEffect } from "@/hooks/useMountEffect";
+import { useRecentlyViewed } from "@/views/HomePage/useRecentlyViewed";
+import { toRecentlyViewedMovie } from "@/views/HomePage/recentlyViewed.utils";
+import type { MovieDetails } from "@/features/movies/movies.types";
 import { useBuyTicketIntent } from "./useBuyTicketIntent";
 
 const RecentlyViewedTracker = ({ movie }: { movie: MovieDetails }) => {

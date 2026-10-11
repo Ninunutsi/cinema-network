@@ -1,5 +1,5 @@
-import { Logo } from "../atoms/Logo";
-import { Separator } from "../ui/separator";
+import { Logo } from "@/components/atoms/Logo";
+import { Separator } from "@/components/ui/separator";
 
 const Footer = () => {
   return (

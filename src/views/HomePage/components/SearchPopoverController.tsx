@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import type { MovieSearchResult } from "../../../features/movies/movies.types";
-import { useDebounce } from "../../../hooks/useDebounce";
-import { useMovieSearchQuery } from "../../../features/movies/moviesQueries";
-import { SearchPopover } from "../../../components/molecules/SearchPopever";
+import type { MovieSearchResult } from "@/features/movies/movies.types";
+import { useDebounce } from "@/hooks/useDebounce";
+import { useMovieSearchQuery } from "@/features/movies/moviesQueries";
+import { SearchPopover } from "@/components/molecules/SearchPopever";
 import { useNavigate } from "react-router-dom";
 
 interface SearchPopoverControllerProps {

@@ -1,6 +1,6 @@
 import SeatSection from "./SeatSection";
-import type { ApiSeat, ApiSection } from "../../types/seatMap.types";
-import { useSeatsStore } from "../../store/SeatsStore";
+import type { ApiSeat, ApiSection } from "@/types/seatMap.types";
+import { useSeatsStore } from "@/store/SeatsStore";
 
 type SeatMapProps = { sections: ApiSection[] };
 

@@ -1,7 +1,7 @@
 import { Fragment } from "react";
-import type { ApiRow, ApiSeat } from "../../types/seatMap.types";
-import type { SeatVariant } from "../atoms/SingleSeat";
-import Seat from "../atoms/SingleSeat";
+import type { ApiRow, ApiSeat } from "@/types/seatMap.types";
+import type { SeatVariant } from "@/components/atoms/SingleSeat";
+import Seat from "@/components/atoms/SingleSeat";
 
 type SeatRowProps = {
   row: ApiRow;

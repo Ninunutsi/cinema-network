@@ -2,18 +2,18 @@ import { useMemo } from "react";
 import type {
   SessionSeatMap,
   SessionTicketType,
-} from "../../../../../features/sessions/sessions.types";
-import type { SelectedSeatView } from "../buy-tickets.types";
+} from "@/features/sessions/sessions.types";
+import type { SelectedSeatView } from "@/utils/modals/contents/BuyTicket/buy-tickets.types";
 import {
   buildSeatLookup,
   calcSeatPrice,
   getTicketTypeIssue,
   roundMoney,
-} from "../buy-ticket.utils";
+} from "@/utils/modals/contents/BuyTicket/buy-ticket.utils";
 import {
   DEFAULT_TICKET_TYPE,
   useSeatsStore,
-} from "../../../../../store/SeatsStore";
+} from "@/store/SeatsStore";
 
 interface Params {
   seatMap: SessionSeatMap | undefined;

@@ -1,10 +1,10 @@
-import { MovieDetailItem } from "../../../components/atoms/MovieDetailItem";
+import { MovieDetailItem } from "@/components/atoms/MovieDetailItem";
 import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from "../../../components/ui/alert";
-import type { MovieDetails } from "../../../features/movies/movies.types";
+} from "@/components/ui/alert";
+import type { MovieDetails } from "@/features/movies/movies.types";
 
 interface MovieDetailsSidebarProps {
   movie: MovieDetails;

@@ -1,5 +1,5 @@
-import type { MovieSearchResult } from "../../features/movies/movies.types";
-import { Button } from "../ui/button";
+import type { MovieSearchResult } from "@/features/movies/movies.types";
+import { Button } from "@/components/ui/button";
 
 interface SearchMovieRowProps {
   movie: MovieSearchResult;

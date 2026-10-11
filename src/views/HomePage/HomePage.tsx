@@ -1,7 +1,7 @@
 import NowPlaying from "./components/NowPlaying";
 
 import Slider from "./components/slider/Slider";
-import { Separator } from "../../components/ui/separator";
+import { Separator } from "@/components/ui/separator";
 import ComingSoon from "./components/ComingSoon";
 import RecentlyViewed from "./components/RecentlyViewed";
 import { useRecentlyViewed } from "./useRecentlyViewed";

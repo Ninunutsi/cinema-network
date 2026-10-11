@@ -3,7 +3,7 @@ import type {
   HeldSeat,
   SeatHold,
   TicketType,
-} from "../../../../features/booking/booking.types";
+} from "@/features/booking/booking.types";
 import type {
   BuyStep,
   SelectedSeatView,
@@ -11,8 +11,8 @@ import type {
 } from "./buy-tickets.types";
 import { formatGel } from "./buy-ticket.utils";
 
-import SelectedSeat from "../../../../components/molecules/SelectedSeat";
-import { MAX_SEATS } from "../../../../store/SeatsStore";
+import SelectedSeat from "@/components/molecules/SelectedSeat";
+import { MAX_SEATS } from "@/store/SeatsStore";
 
 const textClass = "font-sans leading-none tracking-normal text-white";
 

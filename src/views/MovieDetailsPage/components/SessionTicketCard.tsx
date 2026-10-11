@@ -1,7 +1,7 @@
 import { cn } from "cn";
-import TktPerf from "../../../assets/ticket-perforation.svg?react";
-import Ticket from "../../../assets/ticket.svg?react";
-import type { MovieSessionsByVenue } from "../../../features/movies/movies.types";
+import TktPerf from "@/assets/ticket-perforation.svg?react";
+import Ticket from "@/assets/ticket.svg?react";
+import type { MovieSessionsByVenue } from "@/features/movies/movies.types";
 
 interface SessionTicketCardProps {
   session: MovieSessionsByVenue["sessions"][number];

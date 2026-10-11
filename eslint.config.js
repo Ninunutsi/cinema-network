@@ -3,6 +3,7 @@ import globals from "globals";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
+import noRelativeImportPaths from "eslint-plugin-no-relative-import-paths";
 
 export default [
   {
@@ -20,10 +21,19 @@ export default [
     plugins: {
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
+      "no-relative-import-paths": noRelativeImportPaths,
     },
 
     rules: {
       "@typescript-eslint/no-explicit-any": "error",
+      "no-relative-import-paths/no-relative-import-paths": [
+        "error",
+        {
+          allowSameFolder: true,
+          rootDir: "src",
+          prefix: "@",
+        },
+      ],
 
       "@typescript-eslint/no-unused-vars": [
         "error",

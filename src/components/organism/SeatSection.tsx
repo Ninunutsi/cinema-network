@@ -1,5 +1,5 @@
-import type { ApiSeat, ApiSection } from "../../types/seatMap.types";
-import SeatRow from "../molecules/SeatsRow";
+import type { ApiSeat, ApiSection } from "@/types/seatMap.types";
+import SeatRow from "@/components/molecules/SeatsRow";
 
 type SeatSectionProps = {
   section: ApiSection;

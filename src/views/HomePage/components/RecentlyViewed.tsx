@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import MovieSection from "../../../components/molecules/MovieSection";
-import MovieCard from "../../../components/molecules/MovieCard";
-import { useRecentlyViewed } from "../useRecentlyViewed";
+import MovieSection from "@/components/molecules/MovieSection";
+import MovieCard from "@/components/molecules/MovieCard";
+import { useRecentlyViewed } from "@/views/HomePage/useRecentlyViewed";
 
 const RecentlyViewed = () => {
   const { movies } = useRecentlyViewed();

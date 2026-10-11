@@ -3,7 +3,7 @@ import {
   useNavigate,
   useRouteError,
 } from "react-router-dom";
-import { ErrorFallback } from "../components/template/ErrorFallback";
+import { ErrorFallback } from "@/components/template/ErrorFallback";
 
 export const RouteErrorPage = () => {
   const error = useRouteError();

@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes } from "react";
-import HeldVector from "../../assets/held-vector.svg?react";
+import HeldVector from "@/assets/held-vector.svg?react";
 
 export type SeatVariant = "available" | "selected" | "held" | "sold";
 

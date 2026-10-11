@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAuthStore } from "../auth/authStore";
+import { useAuthStore } from "@/features/auth/authStore";
 import { profileApi } from "./profileApi";
 import type { UpdateProfilePayload } from "./profile.types";
-import { authKeys } from "../auth/authQueries";
+import { authKeys } from "@/features/auth/authQueries";
 import { toast } from "sonner";
 
 const profileKeys = {

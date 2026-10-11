@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { Input as ShadcnInput } from "../ui/input";
+import { Input as ShadcnInput } from "@/components/ui/input";
 import { cn } from "cn";
 
 type InputProps = ComponentProps<"input"> & {

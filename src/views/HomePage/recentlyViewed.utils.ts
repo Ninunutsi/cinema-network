@@ -2,9 +2,9 @@ import type {
   ComingSoonMovie,
   MovieDetails,
   NowPlayingMovie,
-} from "../../features/movies/movies.types";
-import type { LargeMovieData } from "../../components/molecules/MovieCard";
-import { formatRuntime } from "../../features/movies/utils";
+} from "@/features/movies/movies.types";
+import type { LargeMovieData } from "@/components/molecules/MovieCard";
+import { formatRuntime } from "@/features/movies/utils";
 import type { RecentlyViewedMovie } from "./useRecentlyViewed";
 
 type RecentlyViewedSource =

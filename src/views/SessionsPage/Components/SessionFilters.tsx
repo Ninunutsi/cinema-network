@@ -1,15 +1,15 @@
 import { useMemo } from "react";
-import { useUrlState } from "../../../hooks/useUrlState";
+import { useUrlState } from "@/hooks/useUrlState";
 
-import { useSessionFilterOptionsQuery } from "../../../features/sessions/sessionsQueries";
-import { FilterCheckboxGroup } from "../../../components/atoms/FilterCheckboxGroup";
-import { Separator } from "../../../components/ui/separator";
+import { useSessionFilterOptionsQuery } from "@/features/sessions/sessionsQueries";
+import { FilterCheckboxGroup } from "@/components/atoms/FilterCheckboxGroup";
+import { Separator } from "@/components/ui/separator";
 import {
   sessionDateSchema,
   sessionFilterSchema,
-} from "../../../features/sessions/seassions.schema";
-import { getNextDates } from "../sessions.utils";
-import { MovieDateSelector } from "../../../components/atoms/MovieDateSelector";
+} from "@/features/sessions/seassions.schema";
+import { getNextDates } from "@/views/SessionsPage/sessions.utils";
+import { MovieDateSelector } from "@/components/atoms/MovieDateSelector";
 
 export const SessionFilters = () => {
   const { data, isPending, isError, refetch } = useSessionFilterOptionsQuery();

@@ -2,12 +2,12 @@ import { isAxiosError } from "axios";
 import type {
   BookingErrorResponse,
   TicketType,
-} from "../../../../features/booking/booking.types";
+} from "@/features/booking/booking.types";
 import type {
   SessionSeat,
   SessionSeatMap,
   SessionTicketType,
-} from "../../../../features/sessions/sessions.types";
+} from "@/features/sessions/sessions.types";
 import type { TicketOption } from "./buy-tickets.types";
 
 const TICKET_TYPES: readonly string[] = ["adult", "student", "child"];

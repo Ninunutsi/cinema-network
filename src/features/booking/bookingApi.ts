@@ -1,4 +1,4 @@
-import { httpClient } from "../../api/httpclient";
+import { httpClient } from "@/api/httpclient";
 import type {
   CreateHoldRequest,
   CreateHoldResponse,

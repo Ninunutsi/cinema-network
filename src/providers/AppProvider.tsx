@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 
-import { queryClient } from "../api/queryClient";
-import { useAuthBootstrap } from "../features/auth/useAuthBootstrap";
+import { queryClient } from "@/api/queryClient";
+import { useAuthBootstrap } from "@/features/auth/useAuthBootstrap";
 
 function AuthBootstrap() {
   useAuthBootstrap();

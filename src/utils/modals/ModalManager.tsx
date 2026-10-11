@@ -1,10 +1,10 @@
 import { Suspense } from "react";
-import { useModalStore } from "../../store/modalStore";
+import { useModalStore } from "@/store/modalStore";
 import { modalRegistry } from "./ModalRegistry";
 import { closeModal, syncStackToHistory } from "./modalActions";
-import { Dialog, DialogContent, DialogTitle } from "../../components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "cn";
-import { useMountEffect } from "../../hooks/useMountEffect";
+import { useMountEffect } from "@/hooks/useMountEffect";
 
 export function ModalManager() {
   const stack = useModalStore((s) => s.stack);

@@ -1,6 +1,6 @@
-import { unwrap, type DataEnvelope } from "../../api/api.types";
-import { httpClient } from "../../api/httpclient";
-import type { AuthUser, PreferredVenue } from "../auth/types";
+import { unwrap, type DataEnvelope } from "@/api/api.types";
+import { httpClient } from "@/api/httpclient";
+import type { AuthUser, PreferredVenue } from "@/features/auth/types";
 import type { UpdateProfilePayload } from "./profile.types";
 
 export const profileApi = {

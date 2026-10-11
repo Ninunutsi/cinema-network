@@ -1,8 +1,8 @@
 import axios, { type AxiosRequestConfig } from "axios";
 
-import { env } from "../config/env";
+import { env } from "@/config/env";
 import { toApiError } from "./errors/ApiError";
-import { useAuthStore } from "../features/auth/authStore";
+import { useAuthStore } from "@/features/auth/authStore";
 
 type UnauthorizedStrategy = "prompt" | "throw";
 

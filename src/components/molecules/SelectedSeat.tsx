@@ -3,10 +3,10 @@ import { X } from "lucide-react";
 import type {
   SelectedSeatView,
   TicketOption,
-} from "../../utils/modals/contents/BuyTicket/buy-tickets.types";
-import type { TicketType } from "../../features/booking/booking.types";
-import { formatGel } from "../../utils/modals/contents/BuyTicket/buy-ticket.utils";
-import { Separator } from "../ui/separator";
+} from "@/utils/modals/contents/BuyTicket/buy-tickets.types";
+import type { TicketType } from "@/features/booking/booking.types";
+import { formatGel } from "@/utils/modals/contents/BuyTicket/buy-ticket.utils";
+import { Separator } from "@/components/ui/separator";
 
 interface SelectedSeatProps {
   seat: SelectedSeatView;

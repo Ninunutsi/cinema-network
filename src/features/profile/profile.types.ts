@@ -1,4 +1,4 @@
-import type { AuthUser, PreferredVenue } from "../auth/types";
+import type { AuthUser, PreferredVenue } from "@/features/auth/types";
 
 export type UserProfile = AuthUser;
 export type Venue = PreferredVenue;

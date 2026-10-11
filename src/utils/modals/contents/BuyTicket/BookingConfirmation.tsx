@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
-import type { Order } from "../../../../features/booking/booking.types";
-import TicketCard from "../../../../components/molecules/TicketCard";
-import { Button } from "../../../../components/ui/button";
+import type { Order } from "@/features/booking/booking.types";
+import TicketCard from "@/components/molecules/TicketCard";
+import { Button } from "@/components/ui/button";
 import { formatGel } from "./buy-ticket.utils";
 
 interface BookingConfirmationProps {

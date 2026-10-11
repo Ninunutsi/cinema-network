@@ -1,4 +1,4 @@
-import { useModalStore } from "../../store/modalStore";
+import { useModalStore } from "@/store/modalStore";
 import { modalRegistry } from "./ModalRegistry";
 
 type ModalHistoryState = {

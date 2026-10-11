@@ -1,4 +1,4 @@
-import HeldVector from "../../assets/held-vector.svg?react";
+import HeldVector from "@/assets/held-vector.svg?react";
 
 type SeatStatusVariant = "available" | "selected" | "sold" | "held";
 

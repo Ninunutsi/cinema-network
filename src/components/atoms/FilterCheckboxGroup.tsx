@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Checkbox } from "../ui/checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface FilterOption {
   id: string | number;

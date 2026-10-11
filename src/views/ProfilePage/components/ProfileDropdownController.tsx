@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useLogoutMutation } from "../../../features/auth/authQueries";
-import type { AuthUser } from "../../../features/auth/types";
-import { ProfileDropdown } from "../../../components/molecules/ProfileDropdown";
+import { useLogoutMutation } from "@/features/auth/authQueries";
+import type { AuthUser } from "@/features/auth/types";
+import { ProfileDropdown } from "@/components/molecules/ProfileDropdown";
 
 interface ProfileDropdownControllerProps {
   user: AuthUser | undefined | null;

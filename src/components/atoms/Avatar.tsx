@@ -3,8 +3,8 @@ import {
   AvatarBadge,
   AvatarFallback,
   AvatarImage,
-} from "../ui/avatar";
-import fallbackAvatar from "../../assets/avatar.svg";
+} from "@/components/ui/avatar";
+import fallbackAvatar from "@/assets/avatar.svg";
 import { cn } from "cn";
 
 export const Avatar = ({

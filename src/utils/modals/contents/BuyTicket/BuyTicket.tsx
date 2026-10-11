@@ -3,13 +3,13 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "../../../../components/ui/tabs";
-import { Separator } from "../../../../components/ui/separator";
-import { useCurrentUserQuery } from "../../../../features/auth/authQueries";
+} from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
+import { useCurrentUserQuery } from "@/features/auth/authQueries";
 import BookingConfirmation from "./BookingConfirmation";
-import BuyTicketHeader from "../../../../components/molecules/BuyTicketHeader";
+import BuyTicketHeader from "@/components/molecules/BuyTicketHeader";
 import CheckoutStep from "./CheckoutStep";
-import HoldTimerChip from "../../../../components/atoms/HoldTimerChip";
+import HoldTimerChip from "@/components/atoms/HoldTimerChip";
 import OrderSidebar from "./OrderSidebar";
 import SeatsStep from "./SeatsStep";
 import { useBuyTicketFlow } from "./hooks/useBuyTicketFlow";

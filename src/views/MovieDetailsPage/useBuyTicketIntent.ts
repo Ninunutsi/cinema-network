@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useCurrentUserQuery } from "../../features/auth/authQueries";
-import type { MovieDetails } from "../../features/movies/movies.types";
-import { useMountEffect } from "../../hooks/useMountEffect";
-import { useModalStore } from "../../store/modalStore";
-import { openModal } from "../../utils/modals/modalActions";
+import { useCurrentUserQuery } from "@/features/auth/authQueries";
+import type { MovieDetails } from "@/features/movies/movies.types";
+import { useMountEffect } from "@/hooks/useMountEffect";
+import { useModalStore } from "@/store/modalStore";
+import { openModal } from "@/utils/modals/modalActions";
 
 type IncomingState = { sessionId?: number; date?: string } | null;
 

@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
-import { cn } from "../../lib/utils";
-import { Separator } from "../ui/separator";
-import type { TicketDetail } from "../atoms/TicketDetailRow";
-import TicketDetailRow from "../atoms/TicketDetailRow";
+import { cn } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
+import type { TicketDetail } from "@/components/atoms/TicketDetailRow";
+import TicketDetailRow from "@/components/atoms/TicketDetailRow";
 
 type TicketCardProps = {
   title: string;

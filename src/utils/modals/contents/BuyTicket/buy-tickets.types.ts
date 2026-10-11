@@ -1,4 +1,4 @@
-import type { TicketType } from "../../../../features/booking/booking.types";
+import type { TicketType } from "@/features/booking/booking.types";
 
 export type BuyStep = "seats" | "checkout";
 

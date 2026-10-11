@@ -2,7 +2,7 @@ import { useState } from "react";
 import { isAxiosError } from "axios";
 import { CheckCircle2, Ticket } from "lucide-react";
 
-import { useRefundOrderMutation } from "../../../features/tickets/ticketsQueries";
+import { useRefundOrderMutation } from "@/features/tickets/ticketsQueries";
 
 interface RefundConfirmationModalProps {
   onClose: () => void;

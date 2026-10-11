@@ -1,10 +1,10 @@
 import { Popcorn, Search, X } from "lucide-react";
 
-import type { MovieSearchResult } from "../../features/movies/movies.types";
-import { Input } from "../atoms/Input";
-import SearchEmpty from "../atoms/SearchEmpty";
-import SearchMovieRow from "../atoms/SearchMovieRow";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import type { MovieSearchResult } from "@/features/movies/movies.types";
+import { Input } from "@/components/atoms/Input";
+import SearchEmpty from "@/components/atoms/SearchEmpty";
+import SearchMovieRow from "@/components/atoms/SearchMovieRow";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface SearchPopoverProps {
   isOpen: boolean;

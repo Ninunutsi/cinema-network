@@ -1,11 +1,11 @@
 import { useCallback } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner"; // NEW
-import { ApiError } from "../../api/errors/ApiError";
+import { ApiError } from "@/api/errors/ApiError";
 import type { AuthSession, AuthUser } from "./types";
 import { authApi } from "./authApi";
 import { useAuthStore } from "./authStore";
-import { ticketKeys } from "../tickets/ticketsQueries";
+import { ticketKeys } from "@/features/tickets/ticketsQueries";
 
 export const authKeys = {
   all: ["auth"] as const,

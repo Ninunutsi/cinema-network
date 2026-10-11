@@ -1,8 +1,8 @@
-import { Badge } from "../ui/badge";
-import Notify from "../../assets/notify.svg?react";
-import { Button } from "../ui/button";
-import type { ComingSoonMovie } from "../../features/movies/movies.types";
-import { formatReleaseDate, formatRuntime } from "../../features/movies/utils";
+import { Badge } from "@/components/ui/badge";
+import Notify from "@/assets/notify.svg?react";
+import { Button } from "@/components/ui/button";
+import type { ComingSoonMovie } from "@/features/movies/movies.types";
+import { formatReleaseDate, formatRuntime } from "@/features/movies/utils";
 import { Check } from "lucide-react";
 
 interface BaseMovieData {

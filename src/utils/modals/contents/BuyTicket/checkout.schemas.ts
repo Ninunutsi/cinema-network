@@ -2,7 +2,7 @@ import { z } from "zod";
 import type {
   BookingErrorResponse,
   CreateOrderRequest,
-} from "../../../../features/booking/booking.types";
+} from "@/features/booking/booking.types";
 
 export const checkoutSchema = z.object({
   fullName: z

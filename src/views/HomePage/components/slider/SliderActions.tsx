@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Ticket from "../../../../assets/ticket.svg?react";
-import { Button } from "../../../../components/ui/button";
+import Ticket from "@/assets/ticket.svg?react";
+import { Button } from "@/components/ui/button";
 
 interface SliderActionsProps {
   ticketsUrl: string;

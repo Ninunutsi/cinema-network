@@ -1,18 +1,18 @@
 import { useState } from "react";
-import type { TicketsFilter } from "../../../features/tickets/types";
-import { useTicketsQuery } from "../../../features/tickets/ticketsQueries";
+import type { TicketsFilter } from "@/features/tickets/types";
+import { useTicketsQuery } from "@/features/tickets/ticketsQueries";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "../../../components/ui/tabs";
-import { openModal } from "../../../utils/modals/modalActions";
-import { Button } from "../../../components/ui/button";
+} from "@/components/ui/tabs";
+import { openModal } from "@/utils/modals/modalActions";
+import { Button } from "@/components/ui/button";
 import {
   formatRefundDeadline,
   formatSessionDate,
-} from "../../../features/movies/utils";
+} from "@/features/movies/utils";
 
 const tabs: { label: string; value: TicketsFilter }[] = [
   { label: "Upcoming", value: "upcoming" },

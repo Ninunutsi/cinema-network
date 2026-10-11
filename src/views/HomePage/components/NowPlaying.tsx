@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 
 import MovieCard, {
   type LargeMovieData,
-} from "../../../components/molecules/MovieCard";
-import MovieSection from "../../../components/molecules/MovieSection";
-import { useNowPlayingQuery } from "../../../features/movies/moviesQueries";
-import { formatRuntime } from "../../../features/movies/utils";
+} from "@/components/molecules/MovieCard";
+import MovieSection from "@/components/molecules/MovieSection";
+import { useNowPlayingQuery } from "@/features/movies/moviesQueries";
+import { formatRuntime } from "@/features/movies/utils";
 
 const NOW_PLAYING_LIMIT = 8;
 const SKELETON_COUNT = 6;

@@ -1,7 +1,7 @@
-import Ticket from "../../../assets/ticket.svg?react";
-import { Badge } from "../../../components/ui/badge";
-import { Button } from "../../../components/ui/button";
-import type { Session } from "../../../features/sessions/sessions.types";
+import Ticket from "@/assets/ticket.svg?react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import type { Session } from "@/features/sessions/sessions.types";
 
 interface SessionCardProps {
   session: Session;

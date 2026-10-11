@@ -1,5 +1,5 @@
-import { unwrap, type DataEnvelope } from "../../api/api.types";
-import { httpClient } from "../../api/httpclient";
+import { unwrap, type DataEnvelope } from "@/api/api.types";
+import { httpClient } from "@/api/httpclient";
 import type {
   ComingSoonMovie,
   FeaturedMovie,

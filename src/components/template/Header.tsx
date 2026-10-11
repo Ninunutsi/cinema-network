@@ -1,12 +1,12 @@
 import { useCallback, useState } from "react";
-import { Logo } from "../atoms/Logo";
-import { Button } from "../ui/button";
-import { openModal } from "../../utils/modals/modalActions";
-import { SearchPopoverController } from "../../views/HomePage/components/SearchPopoverController";
-import { useAuthStore } from "../../features/auth/authStore";
+import { Logo } from "@/components/atoms/Logo";
+import { Button } from "@/components/ui/button";
+import { openModal } from "@/utils/modals/modalActions";
+import { SearchPopoverController } from "@/views/HomePage/components/SearchPopoverController";
+import { useAuthStore } from "@/features/auth/authStore";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "cn";
-import { ProfileController } from "../../views/ProfilePage/components/ProfileController";
+import { ProfileController } from "@/views/ProfilePage/components/ProfileController";
 
 export const Header = () => {
   const isAuthenticated = useAuthStore((state) => state.user);

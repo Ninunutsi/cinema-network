@@ -1,4 +1,4 @@
-import { param } from "../../hooks/useUrlState";
+import { param } from "@/hooks/useUrlState";
 
 export const sessionFilterSchema = {
   venues: param.strings("venues[]"),

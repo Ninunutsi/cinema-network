@@ -1,9 +1,9 @@
-import type { ModalComponentProps } from "../ModalRegistry";
-import type { AuthMode } from "../../../features/auth/types";
-import { switchTopModal } from "../modalActions";
-import AuthHeader from "../../../components/atoms/AuthHeader";
-import { LoginForm } from "../../../features/auth/components/LoginForm";
-import { SignUpForm } from "../../../features/auth/components/SignUpForm";
+import type { ModalComponentProps } from "@/utils/modals/ModalRegistry";
+import type { AuthMode } from "@/features/auth/types";
+import { switchTopModal } from "@/utils/modals/modalActions";
+import AuthHeader from "@/components/atoms/AuthHeader";
+import { LoginForm } from "@/features/auth/components/LoginForm";
+import { SignUpForm } from "@/features/auth/components/SignUpForm";
 
 interface AuthModalProps extends ModalComponentProps {
   mode?: AuthMode;

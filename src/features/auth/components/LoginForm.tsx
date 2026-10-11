@@ -1,13 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useLoginMutation } from "../authQueries";
-import { loginSchema, type LoginFormValues } from "../auth.schemas";
-import { applyAuthError, LOGIN_ERROR_OPTIONS } from "../utils/auth.utils";
-import { AUTH_INPUT_CLASSNAME } from "../auth.constants";
-import { Input } from "../../../components/atoms/Input";
-import { PasswordInput } from "../../../components/atoms/PasswordInput";
-import { Button } from "../../../components/ui/button";
-import { AuthFormFooter } from "../../../components/atoms/AuthFormFooter";
+import { useLoginMutation } from "@/features/auth/authQueries";
+import { loginSchema, type LoginFormValues } from "@/features/auth/auth.schemas";
+import { applyAuthError, LOGIN_ERROR_OPTIONS } from "@/features/auth/utils/auth.utils";
+import { AUTH_INPUT_CLASSNAME } from "@/features/auth/auth.constants";
+import { Input } from "@/components/atoms/Input";
+import { PasswordInput } from "@/components/atoms/PasswordInput";
+import { Button } from "@/components/ui/button";
+import { AuthFormFooter } from "@/components/atoms/AuthFormFooter";
 
 interface LoginFormProps {
   onSuccess: () => void;

@@ -1,6 +1,6 @@
-import SeatStatus from "../../../../components/atoms/SeatStatus";
-import SeatMap from "../../../../components/organism/SeatMap";
-import type { SessionSeatSection } from "../../../../features/sessions/sessions.types";
+import SeatStatus from "@/components/atoms/SeatStatus";
+import SeatMap from "@/components/organism/SeatMap";
+import type { SessionSeatSection } from "@/features/sessions/sessions.types";
 import ZoomableSeatMap from "./ZoomableSeatMap";
 
 interface SeatsStepProps {

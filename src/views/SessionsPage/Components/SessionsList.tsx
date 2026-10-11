@@ -1,25 +1,25 @@
-import { useUrlState } from "../../../hooks/useUrlState";
+import { useUrlState } from "@/hooks/useUrlState";
 import {
   useSessionFilterOptionsQuery,
   useSessionsQuery,
-} from "../../../features/sessions/sessionsQueries";
+} from "@/features/sessions/sessionsQueries";
 import {
   sessionDateSchema,
   sessionFilterSchema,
   sessionPagingSchema,
   sessionSortSchema,
-} from "../../../features/sessions/seassions.schema";
+} from "@/features/sessions/seassions.schema";
 import { MovieSessionGroup } from "./MovieSessionGroup";
 import { SessionsPagination } from "./Sessionspagination";
-import { Separator } from "../../../components/ui/separator";
+import { Separator } from "@/components/ui/separator";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../components/ui/select";
-import { getNextDates } from "../sessions.utils";
+} from "@/components/ui/select";
+import { getNextDates } from "@/views/SessionsPage/sessions.utils";
 import { Fragment } from "react/jsx-runtime";
 import { useNavigate } from "react-router-dom";
 
