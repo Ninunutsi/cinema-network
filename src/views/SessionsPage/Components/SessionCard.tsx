@@ -1,22 +1,20 @@
-import { useNavigate } from "react-router-dom";
 import Ticket from "../../../assets/ticket.svg?react";
 import { Badge } from "../../../components/ui/badge";
 import { Button } from "../../../components/ui/button";
 import type { Session } from "../../../features/sessions/sessions.types";
 
 interface SessionCardProps {
-  movieSlug: string;
   session: Session;
+  onMovieClick: () => void;
 }
 
-export const SessionCard = ({ session, movieSlug }: SessionCardProps) => {
+export const SessionCard = ({ session, onMovieClick }: SessionCardProps) => {
   const { time, format, language, hall, seatsLeft, price } = session;
-  const navigate = useNavigate();
 
   return (
     <Button
       variant="ghost"
-      onClick={() => navigate(`/movies/${movieSlug}`)}
+      onClick={onMovieClick}
       disabled={session.isSoldOut}
       className="flex h-26 w-63 shrink-0 cursor-pointer flex-col gap-1.5 rounded-2xl bg-surface p-3.75 hover:bg-surface! disabled:cursor-not-allowed disabled:opacity-50"
     >

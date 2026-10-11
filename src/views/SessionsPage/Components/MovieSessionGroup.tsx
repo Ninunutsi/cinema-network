@@ -5,11 +5,13 @@ import { SessionCard } from "./SessionCard";
 interface MovieSessionGroupProps {
   movie: MovieSessionsGroup["movie"];
   sessions: MovieSessionsGroup["sessions"];
+  onMovieClick: () => void;
 }
 
 export const MovieSessionGroup = ({
   movie,
   sessions,
+  onMovieClick,
 }: MovieSessionGroupProps) => {
   return (
     <article className="flex flex-col gap-3.75">
@@ -40,9 +42,9 @@ export const MovieSessionGroup = ({
       <div className="flex gap-3 overflow-x-auto pb-1">
         {sessions.map((session) => (
           <SessionCard
+            onMovieClick={onMovieClick}
             key={session.id}
             session={session}
-            movieSlug={movie.slug}
           />
         ))}
       </div>

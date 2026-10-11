@@ -3,6 +3,7 @@ import type { MovieSearchResult } from "../../../features/movies/movies.types";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { useMovieSearchQuery } from "../../../features/movies/useNowPlayingQuery";
 import { SearchPopover } from "../../../components/molecules/SearchPopever";
+import { useNavigate } from "react-router-dom";
 
 interface SearchPopoverControllerProps {
   isSearchOpen: boolean;
@@ -16,6 +17,7 @@ export const SearchPopoverController = ({
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query.trim(), 300);
   const anchorRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const {
     data: movies = [],
@@ -65,7 +67,10 @@ export const SearchPopoverController = ({
         onQueryChange={setQuery}
         onRetry={() => void refetch()}
         onClear={handleClear}
-        onBrowseSessions={() => ""}
+        onBrowseSessions={() => {
+          navigate("/sessions");
+          setIsSearchOpen(false);
+        }}
         onMovieSelect={handleMovieSelect}
       />
     </div>

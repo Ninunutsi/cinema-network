@@ -21,6 +21,7 @@ import {
 } from "../../../components/ui/select";
 import { getNextDates } from "../sessions.utils";
 import { Fragment } from "react/jsx-runtime";
+import { useNavigate } from "react-router-dom";
 
 export const SessionsList = () => {
   const { data: options } = useSessionFilterOptionsQuery();
@@ -30,17 +31,13 @@ export const SessionsList = () => {
   const { values: paging, set: setPaging } = useUrlState(sessionPagingSchema, {
     resetKeys: [],
   });
+  const navigate = useNavigate();
 
   const currentPage = Math.max(1, Math.floor(paging.page ?? 1));
   // The server defaults to “today”, but its today can differ from mine.
   // So SessionsList should always send the selected date:
-  const { values: dateValues, set: setDate } = useUrlState(sessionDateSchema);
-  const defaultDate = getNextDates(7)[0];
+  const { values: dateValues } = useUrlState(sessionDateSchema);
   const selectedDate = dateValues.date ?? getNextDates(7)[0];
-
-  if (!dateValues.date) {
-    setDate("date", defaultDate);
-  }
 
   const { data, isPending, isError, isPlaceholderData } = useSessionsQuery({
     ...filters,
@@ -48,6 +45,10 @@ export const SessionsList = () => {
     sort: sorting.sort,
     page: currentPage,
   });
+
+  const onMovieClick = (movieSlug: string) => {
+    navigate(`/movies/${movieSlug}`);
+  };
 
   const handlePageChange = (page: number) => {
     setPaging("page", page === 1 ? undefined : page);
@@ -117,6 +118,7 @@ export const SessionsList = () => {
                 key={movie.id}
                 movie={movie}
                 sessions={sessions}
+                onMovieClick={() => onMovieClick(movie.slug)}
               />
               {index < data.data.length - 1 && (
                 <Separator className="bg-background-tint" />

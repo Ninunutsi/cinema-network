@@ -74,7 +74,7 @@ const DEFAULT_RESET_KEYS = ["page"];
 
 export function useUrlState<S extends UrlSchema>(
   schema: S,
-  { replace = true, resetKeys = DEFAULT_RESET_KEYS }: UseUrlStateOptions = {},
+  { replace = false, resetKeys = DEFAULT_RESET_KEYS }: UseUrlStateOptions = {},
 ) {
   const [searchParams, setSearchParams] = useSearchParams();
   const resetKeysId = resetKeys.join(",");
