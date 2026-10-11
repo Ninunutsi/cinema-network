@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { isAxiosError } from "axios";
-import { ArrowLeft, CheckCircle2, Ticket, X } from "lucide-react";
+import { CheckCircle2, Ticket } from "lucide-react";
 
 import { useRefundOrderMutation } from "../../../features/tickets/ticketsQueries";
 
