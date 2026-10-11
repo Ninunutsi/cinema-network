@@ -11,7 +11,7 @@ import BuyTicketHeader from "../../../../components/molecules/BuyTicketHeader";
 import CheckoutStep from "./CheckoutStep";
 import HoldTimerChip from "../../../../components/atoms/HoldTimerChip";
 import OrderSidebar from "./OrderSidebar";
-import SeatsStep from "../../../../components/molecules/SeatsStep";
+import SeatsStep from "./SeatsStep";
 import { useBuyTicketFlow } from "./hooks/useBuyTicketFlow";
 
 const triggerClass = [
