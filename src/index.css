@@ -141,3 +141,39 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
   appearance: none;
 }
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+*:hover {
+  scrollbar-color: #f9741600 transparent;
+}
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  background: #f9741600;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fb923c00;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
