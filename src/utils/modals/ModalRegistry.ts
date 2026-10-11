@@ -10,25 +10,23 @@ export interface ModalComponentProps {
 
 export interface ModalRegistryItem {
   component: ComponentType<any>;
-  kind: "dialog";
   fromParams: (params: Record<string, string>) => Record<string, unknown>;
   className?: string;
+  showCloseButton?: boolean;
 }
 
 export const modalRegistry: Record<string, ModalRegistryItem> = {
   AuthModal: {
     component: AuthModal,
-    kind: "dialog",
     fromParams: (p) => ({ mode: p.mode === "signup" ? "signup" : "login" }),
   },
   buyTicket: {
     component: BuyTicket,
-    kind: "dialog",
     fromParams: (p) => ({ sessionId: Number(p.sessionId) }),
+    showCloseButton: false,
   },
   RefundConfirmationModal: {
     component: RefundConfirmationModal,
-    kind: "dialog",
     fromParams: (p) => ({
       order: p.orderId,
       movieTitle: p.movieTitle ?? "this booking",

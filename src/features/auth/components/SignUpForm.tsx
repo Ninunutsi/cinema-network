@@ -29,7 +29,7 @@ export function SignUpForm({ onSuccess, onSwitchToLogin }: SignUpFormProps) {
     setError,
     clearErrors,
     trigger,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, touchedFields, dirtyFields },
   } = useForm<SignUpFormValues>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -42,13 +42,15 @@ export function SignUpForm({ onSuccess, onSwitchToLogin }: SignUpFormProps) {
     mode: "onTouched",
   });
 
+  const isFieldValid = (field: keyof SignUpFormValues) =>
+    Boolean(touchedFields[field] && dirtyFields[field] && !errors[field]);
+
   const onSubmit = async (values: SignUpFormValues) => {
     clearErrors("root.serverError");
     try {
       await signUp.mutateAsync(toSignUpPayload(values));
       onSuccess();
     } catch (error) {
-      // Duplicate username/email etc. land on the specific field.
       applyAuthError(error, setError, SIGN_UP_ERROR_OPTIONS);
     }
   };
@@ -81,6 +83,7 @@ export function SignUpForm({ onSuccess, onSwitchToLogin }: SignUpFormProps) {
         placeholder="Choose a username"
         className={AUTH_INPUT_CLASSNAME}
         error={errors.username?.message}
+        valid={isFieldValid("username")}
         {...register("username")}
       />
 
@@ -91,6 +94,7 @@ export function SignUpForm({ onSuccess, onSwitchToLogin }: SignUpFormProps) {
         placeholder="you@example.com"
         className={AUTH_INPUT_CLASSNAME}
         error={errors.email?.message}
+        valid={isFieldValid("email")}
         {...register("email")}
       />
 
@@ -100,7 +104,12 @@ export function SignUpForm({ onSuccess, onSwitchToLogin }: SignUpFormProps) {
         placeholder="Create a password"
         className={AUTH_INPUT_CLASSNAME}
         error={errors.password?.message}
-        {...register("password")}
+        valid={isFieldValid("password")}
+        {...register("password", {
+          onChange: () => {
+            if (touchedFields.confirmPassword) void trigger("confirmPassword");
+          },
+        })}
       />
 
       <PasswordInput
@@ -109,6 +118,7 @@ export function SignUpForm({ onSuccess, onSwitchToLogin }: SignUpFormProps) {
         placeholder="Repeat your password"
         className={AUTH_INPUT_CLASSNAME}
         error={errors.confirmPassword?.message}
+        valid={isFieldValid("confirmPassword")}
         {...register("confirmPassword")}
       />
 

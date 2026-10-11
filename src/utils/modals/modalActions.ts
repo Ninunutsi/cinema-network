@@ -1,7 +1,10 @@
 import { useModalStore } from "../../store/modalStore";
 import { modalRegistry } from "./ModalRegistry";
 
-type ModalHistoryState = { modal?: boolean; depth?: number } | null;
+type ModalHistoryState = {
+  modal?: boolean;
+  depth?: number;
+} | null;
 
 const closing = new Set<string>();
 
@@ -13,8 +16,8 @@ export function openModal(
   if (!meta) return;
 
   const { stack, push } = useModalStore.getState();
-
   const top = stack[stack.length - 1];
+
   if (
     top?.key === key &&
     JSON.stringify(top.urlParams) === JSON.stringify(params)
@@ -22,18 +25,53 @@ export function openModal(
     return;
   }
 
-  window.history.pushState(
-    { ...window.history.state, modal: true, depth: stack.length + 1 },
+  const depth = stack.length + 1;
+
+  window.history.pushState({ modal: true, depth }, "", window.location.href);
+
+  push({
+    key,
+    urlParams: params,
+    props: meta.fromParams(params),
+  });
+}
+
+export function switchTopModal(
+  key: keyof typeof modalRegistry & string,
+  params: Record<string, string> = {},
+) {
+  const meta = modalRegistry[key];
+  if (!meta) return;
+
+  const { stack, setStack } = useModalStore.getState();
+  const top = stack[stack.length - 1];
+
+  if (!top) {
+    openModal(key, params);
+    return;
+  }
+
+  setStack([
+    ...stack.slice(0, -1),
+    {
+      ...top,
+      key,
+      urlParams: params,
+      props: meta.fromParams(params),
+    },
+  ]);
+
+  window.history.replaceState(
+    { modal: true, depth: stack.length },
     "",
     window.location.href,
   );
-
-  push({ key, urlParams: params, props: meta.fromParams(params) });
 }
 
 export function closeModal(id: string) {
-  const modal = useModalStore.getState().stack.find((e) => e.id === id);
-  if (!modal || closing.has(id)) return; // already closing
+  const modal = useModalStore.getState().stack.find((entry) => entry.id === id);
+
+  if (!modal || closing.has(id)) return;
 
   if (window.history.state?.modal) {
     closing.add(id);
@@ -46,14 +84,19 @@ export function closeModal(id: string) {
 
 export function syncStackToHistory(state: ModalHistoryState) {
   const depth = state?.modal ? (state.depth ?? 1) : 0;
+
   closing.clear();
 
   const { stack, popById } = useModalStore.getState();
-  stack.slice(depth).forEach((entry) => popById(entry.id));
+
+  stack.slice(depth).forEach((entry) => {
+    popById(entry.id);
+  });
 }
 
 export function dismissTopModal() {
   const { stack, popById } = useModalStore.getState();
   const top = stack[stack.length - 1];
+
   if (top) popById(top.id);
 }

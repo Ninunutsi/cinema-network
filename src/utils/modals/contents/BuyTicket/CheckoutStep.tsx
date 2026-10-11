@@ -35,7 +35,7 @@ const CheckoutStep = ({
     setValue,
     setError,
     clearErrors,
-    formState: { errors },
+    formState: { errors, touchedFields, dirtyFields },
   } = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
@@ -44,7 +44,7 @@ const CheckoutStep = ({
       expiry: "",
       cvv: "",
     },
-    mode: "onSubmit",
+    mode: "onTouched",
   });
 
   useEffect(() => {
@@ -75,6 +75,14 @@ const CheckoutStep = ({
     cvv: register("cvv"),
   };
 
+  const isFieldValid = (field: CheckoutField) =>
+    Boolean(
+      touchedFields[field] &&
+      dirtyFields[field] &&
+      !errors[field] &&
+      !serverErrors[field],
+    );
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -87,6 +95,7 @@ const CheckoutStep = ({
         autoComplete="name"
         className="bg-white/10 rounded-xl text-white"
         error={fieldError("fullName")}
+        valid={isFieldValid("fullName")}
         onChange={(event) => {
           fields.fullName.onChange(event);
           handleFieldChange("fullName");
@@ -100,6 +109,7 @@ const CheckoutStep = ({
         className="bg-white/10 rounded-xl text-white"
         autoComplete="email"
         error={fieldError("email")}
+        valid={isFieldValid("email")}
         onChange={(event) => {
           fields.email.onChange(event);
           handleFieldChange("email");
@@ -115,6 +125,7 @@ const CheckoutStep = ({
         autoComplete="tel"
         placeholder="5XX XXX XXX"
         error={fieldError("mobileNumber")}
+        valid={isFieldValid("mobileNumber")}
         onChange={(event) => {
           fields.mobileNumber.onChange(event);
           handleFieldChange("mobileNumber");
@@ -129,6 +140,7 @@ const CheckoutStep = ({
         autoComplete="cc-number"
         placeholder="1234123412341234"
         error={fieldError("cardNumber")}
+        valid={isFieldValid("cardNumber")}
         onChange={(event) => {
           setValue("cardNumber", digitsOnly(event.target.value, 16), {
             shouldDirty: true,
@@ -146,6 +158,7 @@ const CheckoutStep = ({
           placeholder="MM/YY"
           className="bg-white/10 rounded-xl text-white"
           error={fieldError("expiry")}
+          valid={isFieldValid("expiry")}
           onChange={(event) => {
             setValue("expiry", formatExpiryInput(event.target.value), {
               shouldDirty: true,
@@ -163,6 +176,7 @@ const CheckoutStep = ({
           className="bg-white/10 rounded-xl text-white"
           placeholder="123"
           error={fieldError("cvv")}
+          valid={isFieldValid("cvv")}
           onChange={(event) => {
             setValue("cvv", digitsOnly(event.target.value, 3), {
               shouldDirty: true,

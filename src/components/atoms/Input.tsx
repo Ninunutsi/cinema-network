@@ -8,6 +8,7 @@ type InputProps = ComponentProps<"input"> & {
   info?: string;
   helperText?: string;
   error?: string;
+  valid?: boolean;
   infoClassName?: string;
 };
 
@@ -19,11 +20,13 @@ export const Input = ({
   helperText,
   infoClassName,
   error,
+  valid,
   ...props
 }: InputProps) => {
   const hasStartIcon = Boolean(startIcon);
   const hasEndIcon = Boolean(endIcon);
   const message = error ?? helperText;
+  const showValid = Boolean(valid) && !error;
 
   return (
     <div className="w-full">
@@ -50,9 +53,11 @@ export const Input = ({
           aria-invalid={Boolean(error)}
           className={cn(
             "h-10 w-full rounded-full border-none bg-transparent shadow-none outline-none",
+            "autofill:bg-transparent autofill:shadow-[inset_0_0_0_1000px_var(--color-background)] autofill:[-webkit-text-fill-color:var(--color-foreground)]",
             "aria-invalid:border-none aria-invalid:ring-1 aria-invalid:ring-danger",
             "focus:border-none focus:outline-none",
             "focus-visible:border-none focus-visible:outline-none focus-visible:ring-0",
+            showValid && "ring-1 ring-green-500 focus-visible:ring-1",
             hasStartIcon && "pl-10",
             hasEndIcon && "pr-10",
             className,
@@ -70,7 +75,7 @@ export const Input = ({
         <p
           className={cn(
             "mt-0.5 text-xs font-semibold",
-            error ? "text-danger" : "text-muted ",
+            error ? "text-danger" : "text-muted",
           )}
         >
           {message}

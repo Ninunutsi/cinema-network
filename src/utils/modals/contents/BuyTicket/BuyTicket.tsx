@@ -21,14 +21,14 @@ const triggerClass = [
   "font-sans text-xs font-semibold leading-none tracking-normal",
   "data-active:bg-danger data-active:text-white data-active:shadow-none",
   "dark:data-active:border-transparent dark:data-active:bg-danger dark:data-active:text-white",
+  "disabled:opacity-100! disabled:cursor-default",
 ].join(" ");
 
 interface BuyTicketProps {
   sessionId: number;
-  onClose: () => void;
 }
 
-const BuyTicket = ({ sessionId, onClose }: BuyTicketProps) => {
+const BuyTicket = ({ sessionId }: BuyTicketProps) => {
   const navigate = useNavigate();
   const { data: user } = useCurrentUserQuery();
   const flow = useBuyTicketFlow(sessionId);

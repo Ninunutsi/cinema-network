@@ -22,12 +22,15 @@ export function LoginForm({ onSuccess, onSwitchToSignUp }: LoginFormProps) {
     handleSubmit,
     setError,
     clearErrors,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, touchedFields, dirtyFields },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
     mode: "onTouched",
   });
+
+  const isFieldValid = (field: keyof LoginFormValues) =>
+    Boolean(touchedFields[field] && dirtyFields[field] && !errors[field]);
 
   const onSubmit = async (values: LoginFormValues) => {
     clearErrors("root.serverError");
@@ -35,7 +38,6 @@ export function LoginForm({ onSuccess, onSwitchToSignUp }: LoginFormProps) {
       await login.mutateAsync(values);
       onSuccess();
     } catch (error) {
-      // On failure the modal stays open and the entered values are kept.
       applyAuthError(error, setError, LOGIN_ERROR_OPTIONS);
     }
   };
@@ -53,6 +55,7 @@ export function LoginForm({ onSuccess, onSwitchToSignUp }: LoginFormProps) {
         placeholder="you@example.com"
         className={AUTH_INPUT_CLASSNAME}
         error={errors.email?.message}
+        valid={isFieldValid("email")}
         {...register("email")}
       />
 
@@ -61,6 +64,7 @@ export function LoginForm({ onSuccess, onSwitchToSignUp }: LoginFormProps) {
         autoComplete="current-password"
         placeholder="Enter your password"
         className={AUTH_INPUT_CLASSNAME}
+        valid={isFieldValid("password")}
         error={errors.password?.message}
         {...register("password")}
       />
