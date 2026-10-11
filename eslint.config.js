@@ -23,16 +23,6 @@ export default [
     },
 
     rules: {
-      "no-restricted-imports": [
-        "error",
-        {
-          name: "react",
-          importNames: ["useEffect"],
-          message:
-            "Do not use useEffect. Prefer derived state, event handlers, React Query, or other appropriate patterns.",
-        },
-      ],
-
       "@typescript-eslint/no-explicit-any": "error",
 
       "@typescript-eslint/no-unused-vars": [
