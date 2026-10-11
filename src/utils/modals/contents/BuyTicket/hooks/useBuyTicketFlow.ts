@@ -41,7 +41,7 @@ import {
   useCreateOrderMutation,
   useCreateSeatHoldMutation,
 } from "../../../../../features/booking/bookingQueries";
-import { MAX_SEATS, useSeatStore } from "../../../../../store/SeatStore";
+import { MAX_SEATS, useSeatsStore } from "../../../../../store/SeatsStore";
 import { ticketKeys } from "../../../../../features/tickets/ticketsQueries";
 
 const NO_TICKET_TYPES: SessionTicketType[] = [];
@@ -73,10 +73,10 @@ export const useBuyTicketFlow = (sessionId: number) => {
   const ticketTypes = filterOptionsQuery.data?.ticketTypes ?? NO_TICKET_TYPES;
   const movieMinAge = session?.movie.ageRating.minAge ?? 0;
 
-  const limitReached = useSeatStore((state) => state.limitReached);
-  const setTicketType = useSeatStore((state) => state.setTicketType);
-  const removeSeats = useSeatStore((state) => state.removeSeats);
-  const resetSeats = useSeatStore((state) => state.reset);
+  const limitReached = useSeatsStore((state) => state.limitReached);
+  const setTicketType = useSeatsStore((state) => state.setTicketType);
+  const removeSeats = useSeatsStore((state) => state.removeSeats);
+  const resetSeats = useSeatsStore((state) => state.reset);
 
   const { seats, subtotal } = useSelectedSeats({
     seatMap,

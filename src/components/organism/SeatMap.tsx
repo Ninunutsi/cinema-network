@@ -1,12 +1,12 @@
 import SeatSection from "./SeatSection";
 import type { ApiSeat, ApiSection } from "../../types/seatMap.types";
-import { useSeatStore } from "../../store/SeatStore";
+import { useSeatsStore } from "../../store/SeatsStore";
 
 type SeatMapProps = { sections: ApiSection[] };
 
 const SeatMap = ({ sections }: SeatMapProps) => {
-  const selectedIds = useSeatStore((s) => s.selectedIds);
-  const toggleSeat = useSeatStore((s) => s.toggleSeat);
+  const selectedIds = useSeatsStore((s) => s.selectedIds);
+  const toggleSeat = useSeatsStore((s) => s.toggleSeat);
 
   const handleSeatSelect = (seat: ApiSeat) => toggleSeat(seat.id);
 

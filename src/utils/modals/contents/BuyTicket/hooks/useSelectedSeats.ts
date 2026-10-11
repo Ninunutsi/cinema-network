@@ -12,8 +12,8 @@ import {
 } from "../buy-ticket.utils";
 import {
   DEFAULT_TICKET_TYPE,
-  useSeatStore,
-} from "../../../../../store/SeatStore";
+  useSeatsStore,
+} from "../../../../../store/SeatsStore";
 
 interface Params {
   seatMap: SessionSeatMap | undefined;
@@ -28,8 +28,8 @@ export const useSelectedSeats = ({
   basePrice,
   movieMinAge,
 }: Params) => {
-  const selectedIds = useSeatStore((state) => state.selectedIds);
-  const ticketTypeBySeat = useSeatStore((state) => state.ticketTypes);
+  const selectedIds = useSeatsStore((state) => state.selectedIds);
+  const ticketTypeBySeat = useSeatsStore((state) => state.ticketTypes);
 
   const seats = useMemo<SelectedSeatView[]>(() => {
     const lookup = buildSeatLookup(seatMap);

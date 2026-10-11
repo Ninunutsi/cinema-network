@@ -29,7 +29,7 @@ const omitSeats = (
     Object.entries(ticketTypes).filter(([id]) => !seatIds.includes(Number(id))),
   );
 
-export const useSeatStore = create<SeatState>((set) => ({
+export const useSeatsStore = create<SeatState>((set) => ({
   ...initialState,
 
   toggleSeat: (seatId) =>
