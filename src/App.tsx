@@ -1,9 +1,9 @@
-import ComingSoon from "./components/organism/ComingSoon";
 import NowPlaying from "./views/HomePage/components/NowPlaying";
-import Slider from "./components/organism/Slider";
 import Footer from "./components/template/Footer";
 import { Header } from "./components/template/Header";
 import { Separator } from "./components/ui/separator";
+import Slider from "./views/HomePage/components/slider/Slider";
+import ComingSoon from "./views/HomePage/components/ComingSoon";
 
 function App() {
   return (

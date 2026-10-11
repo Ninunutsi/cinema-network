@@ -27,10 +27,7 @@ export default function AuthModal({ mode = "login", onClose }: AuthModalProps) {
             onSwitchToSignUp={() => switchTo("signup")}
           />
         ) : (
-          <SignUpForm
-            onSuccess={onClose}
-            onSwitchToLogin={() => switchTo("login")}
-          />
+          <SignUpForm onSwitchToLogin={() => switchTo("login")} />
         )}
       </div>
     </div>

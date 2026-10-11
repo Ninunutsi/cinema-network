@@ -15,11 +15,10 @@ import { Button } from "../../../components/ui/button";
 import { AuthFormFooter } from "../../../components/atoms/AuthFormFooter";
 
 interface SignUpFormProps {
-  onSuccess: () => void;
   onSwitchToLogin: () => void;
 }
 
-export function SignUpForm({ onSuccess, onSwitchToLogin }: SignUpFormProps) {
+export function SignUpForm({ onSwitchToLogin }: SignUpFormProps) {
   const signUp = useSignUpMutation();
 
   const {

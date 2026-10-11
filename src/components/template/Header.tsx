@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { openModal } from "../../utils/modals/modalActions";
 import { SearchPopoverController } from "../../views/HomePage/components/SearchPopoverController";
 import { useAuthStore } from "../../features/auth/authStore";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { cn } from "cn";
 import { ProfileController } from "../../views/ProfilePage/components/ProfileController";
 
@@ -15,8 +15,6 @@ export const Header = () => {
   const { pathname } = useLocation();
   const isHomePage = pathname === "/";
   const isMovieDetailsPage = pathname.startsWith("/movies/");
-
-  const navigate = useNavigate();
 
   const isOverlayHeader = isHomePage || isMovieDetailsPage;
 

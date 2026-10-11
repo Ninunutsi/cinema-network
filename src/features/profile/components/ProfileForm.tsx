@@ -7,7 +7,7 @@ import { useCurrentUserQuery } from "../../auth/authQueries";
 import { useAuthStore } from "../../auth/authStore";
 
 import { profileSchema, type ProfileFormValues } from "../profile.schema";
-import { getAge, getTodayDate, isProfileComplete } from "../profile.utils";
+import { getAge } from "../profile.utils";
 import { useUpdateProfileMutation, useVenuesQuery } from "../profileQueries";
 
 import type {

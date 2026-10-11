@@ -1,5 +1,5 @@
 import { useCallback, useSyncExternalStore } from "react";
-import type { CarouselApi } from "../components/ui/carousel";
+import type { CarouselApi } from "../../components/ui/carousel";
 
 export const useCarouselIndex = (api: CarouselApi | undefined): number => {
   const subscribe = useCallback(

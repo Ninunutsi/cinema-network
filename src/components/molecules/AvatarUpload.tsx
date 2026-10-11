@@ -1,5 +1,5 @@
 import { useRef, useState, type ChangeEvent } from "react";
-import { ImagePlus, Upload, X } from "lucide-react";
+import { Upload, X } from "lucide-react";
 
 import { AVATAR_ACCEPTED_TYPES } from "../../features/auth/auth.schemas";
 import { Button } from "../ui/button";
