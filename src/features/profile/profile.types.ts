@@ -7,5 +7,5 @@ export interface UpdateProfilePayload {
   fullName: string;
   mobileNumber: string;
   dateOfBirth: string;
-  preferredVenue?: number;
+  preferredVenueId?: number;
 }

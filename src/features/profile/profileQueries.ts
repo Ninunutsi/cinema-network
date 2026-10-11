@@ -27,7 +27,6 @@ export function useUpdateProfileMutation() {
     onSuccess: async (user) => {
       updateUser(user);
 
-      // Refresh the cached current user after saving.
       await queryClient.invalidateQueries();
     },
   });

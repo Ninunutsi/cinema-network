@@ -68,7 +68,10 @@ export const Input = ({
 
       {message && (
         <p
-          className={cn("mt-0.5 text-xs", error ? "text-danger" : "text-muted")}
+          className={cn(
+            "mt-0.5 text-xs font-semibold",
+            error ? "text-danger" : "text-muted ",
+          )}
         >
           {message}
         </p>

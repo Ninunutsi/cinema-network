@@ -95,7 +95,7 @@ const ProfileFormFields = ({
       mobileNumber: data.mobileNumber,
       dateOfBirth: data.dateOfBirth,
       ...(data.preferredVenue
-        ? { preferredVenue: Number(data.preferredVenue) }
+        ? { preferredVenueId: Number(data.preferredVenue) }
         : {}),
     };
 
@@ -137,6 +137,7 @@ const ProfileFormFields = ({
           type="email"
           infoClassName="mb-2.5 text-white"
           readOnly
+          helperText="Set at registration and cannot be changed"
           {...register("email")}
           className="cursor-not-allowed  bg-background-tint text-muted placeholder:text-muted text-xs placeholder:text-xs pl-4 font-semibold rounded-2xl"
         />
