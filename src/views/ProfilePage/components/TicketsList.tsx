@@ -9,7 +9,10 @@ import {
 } from "../../../components/ui/tabs";
 import { openModal } from "../../../utils/modals/modalActions";
 import { Button } from "../../../components/ui/button";
-import { formatSessionDate } from "../../../features/movies/utils";
+import {
+  formatRefundDeadline,
+  formatSessionDate,
+} from "../../../features/movies/utils";
 
 const tabs: { label: string; value: TicketsFilter }[] = [
   { label: "Upcoming", value: "upcoming" },
@@ -171,33 +174,40 @@ const TicketsList = () => {
                           {order.reference}
                         </span>
                       </div>
-
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold text-muted">
-                          Total paid
-                        </span>
-                        <span className="text-2xl font-extrabold leading-none">
-                          ₾{order.totalPrice.toFixed(2)}
+                      <div className="flex flex-col gap-2.5">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold text-muted">
+                            Total paid
+                          </span>
+                          <span className="text-2xl font-extrabold leading-none">
+                            ₾{order.totalPrice.toFixed(2)}
+                          </span>
+                        </div>
+                        <Button
+                          disabled={!order.isRefundable || tab.value === "past"}
+                          title={
+                            order.isRefundable
+                              ? "Refund this booking"
+                              : "This booking is not eligible for a refund."
+                          }
+                          onClick={() =>
+                            openModal("RefundConfirmationModal", {
+                              orderId: order.reference,
+                              movieTitle: order.session.movie.title,
+                            })
+                          }
+                          className="h-8.75 w-full cursor-pointer gap-1 rounded-full bg-white/10 px-5.5 py-2.5 text-sm font-extrabold hover:bg-white/20"
+                        >
+                          Refund
+                        </Button>
+                        <span className="text-center text-xs font-normal leading-[130%] tracking-normal text-muted">
+                          Refundable until{" "}
+                          {formatRefundDeadline(
+                            order.session.date,
+                            order.session.time,
+                          )}
                         </span>
                       </div>
-
-                      <Button
-                        disabled={!order.isRefundable || tab.value === "past"}
-                        title={
-                          order.isRefundable
-                            ? "Refund this booking"
-                            : "This booking is not eligible for a refund."
-                        }
-                        onClick={() =>
-                          openModal("RefundConfirmationModal", {
-                            orderId: order.reference,
-                            movieTitle: order.session.movie.title,
-                          })
-                        }
-                        className="h-8.75 w-full cursor-pointer gap-1 rounded-full bg-white/10 px-5.5 py-2.5 text-sm font-extrabold hover:bg-white/20"
-                      >
-                        Refund
-                      </Button>
                     </div>
                   </article>
                 ))}

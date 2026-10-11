@@ -31,3 +31,14 @@ export const formatSessionDate = (date: string, time: string): string => {
 
   return `${formattedDate} · ${time.slice(0, 5)}`;
 };
+
+export const formatRefundDeadline = (date: string, time: string): string => {
+  const sessionStart = new Date(`${date.slice(0, 10)}T${time.slice(0, 5)}:00Z`);
+
+  const deadline = new Date(sessionStart.getTime() - 2 * 60 * 60 * 1000);
+
+  const deadlineTime = deadline.toISOString().slice(11, 16);
+  const deadlineDate = sessionDateFormatter.format(deadline);
+
+  return `${deadlineTime}, ${deadlineDate}`;
+};

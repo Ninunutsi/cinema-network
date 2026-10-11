@@ -17,6 +17,10 @@ export const ProfileDropdownController = ({
     navigate("/profile");
   };
 
+  const handleTicketsClick = () => {
+    navigate("/profile?tab=my-tickets");
+  };
+
   const handleLogout = () => {
     logout.mutate();
   };
@@ -29,6 +33,7 @@ export const ProfileDropdownController = ({
       profileComplete={Boolean(user?.profileComplete)}
       isLoggingOut={logout.isPending}
       onProfileClick={handleProfileClick}
+      onTicketsClick={handleTicketsClick}
       onLogout={handleLogout}
     />
   );

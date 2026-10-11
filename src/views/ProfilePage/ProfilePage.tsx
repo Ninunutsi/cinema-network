@@ -6,8 +6,32 @@ import {
 } from "../../components/ui/tabs";
 import { ProfileForm } from "../../features/profile/components/ProfileForm";
 import TicketsList from "./components/TicketsList";
+import { useUrlState, param } from "../../hooks/useUrlState";
+
+const profileUrlSchema = {
+  tab: param.string("tab"),
+};
+
+type ProfileTab = "personal-information" | "my-tickets";
+
+const DEFAULT_TAB: ProfileTab = "personal-information";
+
+const isProfileTab = (value: string | undefined): value is ProfileTab =>
+  value === "personal-information" || value === "my-tickets";
 
 const ProfilePage = () => {
+  const { values, set } = useUrlState(profileUrlSchema, {
+    resetKeys: [],
+  });
+
+  const activeTab = isProfileTab(values.tab) ? values.tab : DEFAULT_TAB;
+
+  const handleTabChange = (value: string) => {
+    if (isProfileTab(value)) {
+      set("tab", value === DEFAULT_TAB ? undefined : value);
+    }
+  };
+
   return (
     <main className="w-full min-w-0 px-4 py-8 sm:px-8 lg:px-15">
       <h1 className="mb-7 font-sans text-2xl font-extrabold leading-none tracking-normal text-white">
@@ -15,7 +39,8 @@ const ProfilePage = () => {
       </h1>
 
       <Tabs
-        defaultValue="personal-information"
+        value={activeTab}
+        onValueChange={handleTabChange}
         className="w-full min-w-0 gap-6"
       >
         <TabsList
