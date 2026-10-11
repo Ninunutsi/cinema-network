@@ -4,6 +4,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import NotFound from "../views/NotFound";
 import { ROUTE_SEGMENTS } from "../config/routes.config";
 import { MainLayout } from "../layouts/MainLayout";
+import { RouteErrorPage } from "./RouteErrorPage";
 
 const page = <T extends { default: React.ComponentType }>(
   load: () => Promise<T>,
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <RouteErrorPage />,
     children: [
       {
         index: true,
