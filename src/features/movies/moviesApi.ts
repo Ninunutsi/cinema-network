@@ -4,6 +4,7 @@ import type {
   ComingSoonMovie,
   FeaturedMovie,
   MovieDetails,
+  MovieNotificationResponse,
   MovieSearchResult,
   MovieSessionsByVenue,
   NowPlayingMovie,
@@ -61,6 +62,14 @@ export const moviesApi = {
         params: date ? { date } : undefined,
       },
     );
+
+    return unwrap(response);
+  },
+
+  async notify(movie: string): Promise<MovieNotificationResponse> {
+    const response = await httpClient.post<
+      DataEnvelope<MovieNotificationResponse>
+    >(`/movies/${encodeURIComponent(movie)}/notify`);
 
     return unwrap(response);
   },

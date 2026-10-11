@@ -13,7 +13,7 @@ import ArrowLeft from "../../../../assets/arrow-left.svg?react";
 import type { FeaturedMovie } from "../../../../features/movies/movies.types";
 import { useCarouselIndex } from "../../useCarouselIndex";
 import SliderContent from "./SliderContent";
-import { useFeaturedQuery } from "../../../../features/movies/useNowPlayingQuery";
+import { useFeaturedQuery } from "../../../../features/movies/moviesQueries";
 
 const SLIDER_HEIGHT = "h-197.5";
 

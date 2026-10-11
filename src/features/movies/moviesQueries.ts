@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { moviesApi } from "./moviesApi";
 
 export const movieKeys = {
@@ -12,6 +12,8 @@ export const movieKeys = {
   detail: (movie: string) => [...movieKeys.all, movie] as const,
   sessions: (movie: string, date: string) =>
     [...movieKeys.all, "sessions", movie, date] as const,
+  notification: (movie: string) =>
+    [...movieKeys.all, "notification", movie] as const,
 };
 
 export function useNowPlayingQuery(limit?: number) {
@@ -61,5 +63,19 @@ export function useMovieSessionsQuery(movie: string | undefined, date: string) {
     queryFn: () => moviesApi.getMovieSessions(movie!, date),
     enabled: Boolean(movie && date),
     staleTime: 60_000,
+  });
+}
+
+export function useNotifyMovieMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: movieKeys.notification(""),
+    mutationFn: (movie: string) => moviesApi.notify(movie),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [...movieKeys.all, "coming-soon"],
+      });
+    },
   });
 }

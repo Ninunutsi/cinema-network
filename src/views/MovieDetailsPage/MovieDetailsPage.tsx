@@ -4,7 +4,7 @@ import { useCurrentUserQuery } from "../../api/queries/auth-queries";
 import {
   useMovieDetailsQuery,
   useMovieSessionsQuery,
-} from "../../features/movies/useNowPlayingQuery";
+} from "../../features/movies/moviesQueries";
 import { MovieDetailsHero } from "./components/MovieDetailsHero";
 import { MovieSessionsSection } from "./components/MovieSessionsSection";
 import { MovieDetailsSidebar } from "./components/MovieDetailsSidebar";

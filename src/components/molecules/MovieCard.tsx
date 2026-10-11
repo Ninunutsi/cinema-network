@@ -3,6 +3,7 @@ import Notify from "../../assets/notify.svg?react";
 import { Button } from "../ui/button";
 import type { ComingSoonMovie } from "../../features/movies/movies.types";
 import { formatReleaseDate, formatRuntime } from "../../features/movies/utils";
+import { Check } from "lucide-react";
 
 interface BaseMovieData {
   title: string;
@@ -114,8 +115,12 @@ const MovieCard = (props: MovieCardProps) => {
             disabled={movie.isNotified}
             className="h-auto w-fit cursor-pointer rounded-full bg-transparent px-2.5 py-1.5 text-xs text-white hover:bg-transparent disabled:cursor-default disabled:opacity-60"
           >
-            <Notify aria-hidden="true" />
-            {movie.isNotified ? "You'll be notified" : "Notify Me"}
+            {movie.isNotified ? (
+              <Check aria-hidden="true" />
+            ) : (
+              <Notify aria-hidden="true" />
+            )}
+            {movie.isNotified ? "Reminder Set" : "Notify Me"}
           </Button>
         </div>
       </div>

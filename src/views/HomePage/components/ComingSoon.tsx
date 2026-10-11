@@ -3,7 +3,10 @@ import MovieCard from "../../../components/molecules/MovieCard";
 import MovieSection from "../../../components/molecules/MovieSection";
 
 import { Button } from "../../../components/ui/button";
-import { useComingSoonQuery } from "../../../features/movies/useNowPlayingQuery";
+import {
+  useComingSoonQuery,
+  useNotifyMovieMutation,
+} from "../../../features/movies/moviesQueries";
 
 const COMING_SOON_LIMIT = 6;
 const SKELETON_COUNT = 3;
@@ -15,6 +18,7 @@ const ComingSoon = () => {
     isError,
     refetch,
   } = useComingSoonQuery(COMING_SOON_LIMIT);
+  const { mutate: notifyMovie } = useNotifyMovieMutation();
   const navigate = useNavigate();
 
   if (!isPending && !isError && !movies?.length) return null;
@@ -58,7 +62,7 @@ const ComingSoon = () => {
               key={movie.id}
               variant="medium"
               movie={movie}
-              onNotify={() => console.log("Notify:", movie.id)}
+              onNotify={() => notifyMovie(movie.slug)}
             />
           </Link>
         ))}

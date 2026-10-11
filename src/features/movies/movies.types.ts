@@ -120,3 +120,8 @@ export interface MovieSessionsByVenue {
   venue: SessionVenue;
   sessions: MovieSession[];
 }
+
+export interface MovieNotificationResponse {
+  movieId: number;
+  subscribed: boolean;
+}

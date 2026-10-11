@@ -11,7 +11,7 @@ const formatter = new Intl.DateTimeFormat("en-US", {
   month: "short",
   day: "numeric",
   year: "numeric",
-  timeZone: "UTC", // "2026-07-17" is a calendar date, so don't shift it by the viewer's timezone
+  timeZone: "UTC",
 });
 
 export const formatReleaseDate = (isoDate: string): string =>

@@ -4,7 +4,7 @@ import MovieCard, {
   type LargeMovieData,
 } from "../../../components/molecules/MovieCard";
 import MovieSection from "../../../components/molecules/MovieSection";
-import { useNowPlayingQuery } from "../../../features/movies/useNowPlayingQuery";
+import { useNowPlayingQuery } from "../../../features/movies/moviesQueries";
 import { formatRuntime } from "../../../features/movies/utils";
 
 const NOW_PLAYING_LIMIT = 8;
