@@ -14,9 +14,9 @@ export const ticketsApi = {
     return unwrap(response);
   },
 
-  async refundOrder(orderId: number): Promise<TicketOrder> {
+  async refundOrder(orderReference: string): Promise<TicketOrder> {
     const response = await httpClient.post<DataEnvelope<TicketOrder>>(
-      `/orders/${orderId}/refund`,
+      `/orders/${orderReference}/refund`,
     );
 
     return unwrap(response);

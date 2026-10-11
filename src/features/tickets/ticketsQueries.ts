@@ -21,7 +21,8 @@ export function useRefundOrderMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (orderId: number) => ticketsApi.refundOrder(orderId),
+    mutationFn: (orderReference: string) =>
+      ticketsApi.refundOrder(orderReference),
 
     onSuccess: async () => {
       await queryClient.invalidateQueries({

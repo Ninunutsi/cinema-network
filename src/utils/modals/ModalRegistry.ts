@@ -24,4 +24,12 @@ export const modalRegistry: Record<string, ModalRegistryItem> = {
     fromParams: (p) => ({ sessionId: Number(p.sessionId) }),
     // className: "w-fit sm:max-w-none",
   },
+  RefundConfirmationModal: {
+    component: lazy(() => import("./contents/RefundConfirmationModal")),
+    kind: "dialog",
+    fromParams: (p) => ({
+      order: p.orderId,
+      movieTitle: p.movieTitle ?? "this booking",
+    }),
+  },
 };
