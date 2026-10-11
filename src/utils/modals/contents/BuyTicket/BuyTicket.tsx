@@ -1,9 +1,4 @@
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { useCurrentUserQuery } from "@/features/auth/authQueries";
 import BookingConfirmation from "./BookingConfirmation";
@@ -14,6 +9,7 @@ import OrderSidebar from "./OrderSidebar";
 import SeatsStep from "./SeatsStep";
 import { useBuyTicketFlow } from "./hooks/useBuyTicketFlow";
 import { useNavigate } from "react-router-dom";
+import { useModalStore } from "@/store/modalStore";
 
 const triggerClass = [
   "h-full cursor-pointer rounded-full px-4",
@@ -38,15 +34,22 @@ const BuyTicket = ({ sessionId, onClose }: BuyTicketProps) => {
     onClose();
   };
 
+  const handleViewTickets = () => {
+    actions.closeBuyTicket();
+
+    const { stack, popById } = useModalStore.getState();
+    const entry = stack.find((e) => e.key === "buyTicket");
+    if (entry) popById(entry.id);
+
+    navigate("/profile?tab=my-tickets");
+  };
+
   if (flow.order) {
     return (
       <BookingConfirmation
         order={flow.order}
         onClose={handleClose}
-        onViewTickets={() => {
-          navigate("/profile?tab=my-tickets", { replace: true });
-          handleClose();
-        }}
+        onViewTickets={handleViewTickets}
       />
     );
   }
