@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ticketsApi } from "./ticketsApi";
 import type { TicketsFilter } from "./types";
+import { toast } from "sonner";
 
 export const ticketKeys = {
   all: ["tickets"] as const,
@@ -25,6 +26,7 @@ export function useRefundOrderMutation() {
       ticketsApi.refundOrder(orderReference),
 
     onSuccess: async () => {
+      toast.success("Booking refunded.");
       await queryClient.invalidateQueries({
         queryKey: ticketKeys.all,
       });

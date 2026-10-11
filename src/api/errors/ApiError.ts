@@ -50,3 +50,5 @@ export function toApiError(error: unknown): ApiError {
     firstMessagePerField(body?.errors),
   );
 }
+
+export const getApiErrorMessage = (error: unknown) => toApiError(error).message;

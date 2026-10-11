@@ -1,5 +1,6 @@
-import { QueryClient } from "@tanstack/react-query";
-import { ApiError } from "./errors/ApiError";
+import { MutationCache, QueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { ApiError, getApiErrorMessage } from "./errors/ApiError";
 
 const MAX_QUERY_RETRIES = 2;
 
@@ -11,6 +12,12 @@ function shouldRetryQuery(failureCount: number, error: Error): boolean {
 }
 
 export const queryClient = new QueryClient({
+  mutationCache: new MutationCache({
+    onError: (error, _variables, _context, mutation) => {
+      if (mutation.meta?.silent) return;
+      toast.error(getApiErrorMessage(error));
+    },
+  }),
   defaultOptions: {
     queries: {
       staleTime: 60_000,

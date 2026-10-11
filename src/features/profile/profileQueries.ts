@@ -2,6 +2,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuthStore } from "../auth/authStore";
 import { profileApi } from "./profileApi";
 import type { UpdateProfilePayload } from "./profile.types";
+import { authKeys } from "../auth/authQueries";
+import { toast } from "sonner";
 
 export const profileKeys = {
   all: ["profile"] as const,
@@ -26,8 +28,8 @@ export function useUpdateProfileMutation() {
 
     onSuccess: async (user) => {
       updateUser(user);
-
-      await queryClient.invalidateQueries();
+      queryClient.setQueryData(authKeys.me(), user);
+      toast.success("Profile updated.");
     },
   });
 }

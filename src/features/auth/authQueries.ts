@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
+import { toast } from "sonner"; // NEW
 import { ApiError } from "../../api/errors/ApiError";
 import type { AuthSession, AuthUser } from "./types";
 import { authApi } from "./authApi";
@@ -52,7 +52,11 @@ export function useLoginMutation() {
 
   return useMutation({
     mutationFn: authApi.login,
-    onSuccess: startSession,
+    onSuccess: (session) => {
+      startSession(session);
+      toast.success("Logged In Successfully!");
+    },
+    meta: { silent: true },
   });
 }
 
@@ -61,7 +65,11 @@ export function useSignUpMutation() {
 
   return useMutation({
     mutationFn: authApi.signUp,
-    onSuccess: startSession,
+    onSuccess: (session) => {
+      startSession(session);
+      toast.success("Account created. Welcome!");
+    },
+    meta: { silent: true },
   });
 }
 
@@ -71,12 +79,14 @@ export function useLogoutMutation() {
 
   return useMutation({
     mutationFn: authApi.logout,
+    meta: { silent: true },
     onSettled: async () => {
       await queryClient.cancelQueries({ queryKey: authKeys.me() });
       await queryClient.cancelQueries({ queryKey: ticketKeys.all });
       clearSession();
       queryClient.setQueryData(authKeys.me(), null);
       queryClient.removeQueries({ queryKey: ticketKeys.all });
+      toast.success("You've been logged out."); // NEW
     },
   });
 }

@@ -6,6 +6,7 @@ import {
   getSeatHold,
   releaseSeatHold,
 } from "./bookingApi";
+import { toast } from "sonner";
 
 export const bookingKeys = {
   all: ["booking"] as const,
@@ -40,5 +41,7 @@ export const useReleaseSeatHoldMutation = () => {
 export const useCreateOrderMutation = () => {
   return useMutation({
     mutationFn: (payload: CreateOrderRequest) => createOrder(payload),
+    onSuccess: () =>
+      toast.success("Payment successful. Your tickets are booked!"),
   });
 };

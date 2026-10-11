@@ -5,6 +5,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { moviesApi } from "./moviesApi";
+import { toast } from "sonner";
 
 export const movieKeys = {
   all: ["movies"] as const,
@@ -82,6 +83,7 @@ export function useNotifyMovieMutation() {
       queryClient.invalidateQueries({
         queryKey: [...movieKeys.all, "coming-soon"],
       });
+      toast.success("We'll notify you when it's released.");
     },
   });
 }
