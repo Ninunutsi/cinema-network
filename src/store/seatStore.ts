@@ -1,43 +1,68 @@
 import { create } from "zustand";
+import type { TicketType } from "../features/booking/booking.types";
 
-export const MAX_SEATS = 4;
-let timer: ReturnType<typeof setTimeout> | undefined;
+export const MAX_SEATS = 3;
+export const DEFAULT_TICKET_TYPE: TicketType = "adult";
 
-type SeatStore = {
+interface SeatState {
   selectedIds: number[];
+  ticketTypes: Record<number, TicketType>;
   limitReached: boolean;
-  toggleSeat: (id: number) => void;
-  reset: (ids?: number[]) => void;
+
+  toggleSeat: (seatId: number) => void;
+  setTicketType: (seatId: number, ticketType: TicketType) => void;
+  removeSeats: (seatIds: number[]) => void;
+  reset: () => void;
+}
+
+const initialState = {
+  selectedIds: [] as number[],
+  ticketTypes: {} as Record<number, TicketType>,
+  limitReached: false,
 };
 
-export const useSeatStore = create<SeatStore>((set, get) => ({
-  selectedIds: [],
-  limitReached: false,
+const omitSeats = (
+  ticketTypes: Record<number, TicketType>,
+  seatIds: number[],
+): Record<number, TicketType> =>
+  Object.fromEntries(
+    Object.entries(ticketTypes).filter(([id]) => !seatIds.includes(Number(id))),
+  );
 
-  toggleSeat: (id) => {
-    const { selectedIds } = get();
+export const useSeatStore = create<SeatState>((set) => ({
+  ...initialState,
 
-    if (selectedIds.includes(id)) {
-      clearTimeout(timer);
-      set({
-        selectedIds: selectedIds.filter((x) => x !== id),
+  toggleSeat: (seatId) =>
+    set((state) => {
+      if (state.selectedIds.includes(seatId)) {
+        return {
+          selectedIds: state.selectedIds.filter((id) => id !== seatId),
+          ticketTypes: omitSeats(state.ticketTypes, [seatId]),
+          limitReached: false,
+        };
+      }
+
+      if (state.selectedIds.length >= MAX_SEATS) {
+        return { limitReached: true };
+      }
+
+      return {
+        selectedIds: [...state.selectedIds, seatId],
         limitReached: false,
-      });
-      return;
-    }
+      };
+    }),
 
-    if (selectedIds.length >= MAX_SEATS) {
-      clearTimeout(timer);
-      set({ limitReached: true });
-      timer = setTimeout(() => set({ limitReached: false }), 3000);
-      return;
-    }
+  setTicketType: (seatId, ticketType) =>
+    set((state) => ({
+      ticketTypes: { ...state.ticketTypes, [seatId]: ticketType },
+    })),
 
-    set({ selectedIds: [...selectedIds, id] });
-  },
+  removeSeats: (seatIds) =>
+    set((state) => ({
+      selectedIds: state.selectedIds.filter((id) => !seatIds.includes(id)),
+      ticketTypes: omitSeats(state.ticketTypes, seatIds),
+      limitReached: false,
+    })),
 
-  reset: (ids = []) => {
-    clearTimeout(timer);
-    set({ selectedIds: ids, limitReached: false });
-  },
+  reset: () => set(initialState),
 }));

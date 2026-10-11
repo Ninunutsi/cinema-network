@@ -1,134 +1,120 @@
-import SeatMap, {
-  MOCK_SEAT_MAP,
-} from "../../../../components/organism/SeatMap";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "../../../../components/ui/tabs";
-import SeatStatus from "../../../../components/atoms/SeatStatus";
-import ZoomableSeatMap from "./ZoomableSeatMap";
-import BuyTicketHeader from "./BuyTicketHeader";
 import { Separator } from "../../../../components/ui/separator";
-import SelectedSeat from "../../../../components/molecules/SelectedSeat";
-import { Button } from "@base-ui/react";
+import { useCurrentUserQuery } from "../../../../api/queries/auth-queries";
 import BookingConfirmation from "./BookingConfirmation";
+import BuyTicketHeader from "../../../../components/molecules/BuyTicketHeader";
+import CheckoutStep from "./CheckoutStep";
+import HoldTimerChip from "../../../../components/atoms/HoldTimerChip";
+import OrderSidebar from "./OrderSidebar";
+import SeatsStep from "../../../../components/molecules/SeatsStep";
+import { useBuyTicketFlow } from "./hooks/useBuyTicketFlow";
 
-const BuyTicketTabs = () => {
-  const triggerClass = [
-    "rounded-full px-4 h-full cursor-pointer",
-    "font-sans text-xs font-semibold leading-none tracking-normal",
-    "data-active:bg-danger data-active:text-white data-active:shadow-none",
-    "dark:data-active:bg-danger dark:data-active:text-white dark:data-active:border-transparent",
-  ].join(" ");
+const triggerClass = [
+  "h-full cursor-pointer rounded-full px-4",
+  "font-sans text-xs font-semibold leading-none tracking-normal",
+  "data-active:bg-danger data-active:text-white data-active:shadow-none",
+  "dark:data-active:border-transparent dark:data-active:bg-danger dark:data-active:text-white",
+].join(" ");
 
-  return (
-    <Tabs
-      defaultValue="account"
-      className="min-h-0 min-h-0 w-180 min-w-0 shrink-0"
-    >
-      <TabsList className="w-full shrink-0 rounded-full bg-surface mb-6 p-0 group-data-horizontal/tabs:h-11">
-        <TabsTrigger value="account" className={triggerClass}>
-          SEATS
-        </TabsTrigger>
-        <TabsTrigger value="password" className={triggerClass}>
-          CHECKOUT
-        </TabsTrigger>
-      </TabsList>
+interface BuyTicketProps {
+  sessionId: number;
+  onClose: () => void;
+}
 
-      <TabsContent value="account" className="min-h-0 min-w-0">
-        <div className="flex h-full min-h-0 flex-col gap-3">
-          <ZoomableSeatMap>
-            <div className="flex w-max flex-col items-center gap-8 p-2">
-              <div className="flex h-7.5 w-170 shrink-0 items-center justify-center gap-3.5 rounded-b-[20px] bg-surface-secondary px-5">
-                <p className="font-sans text-xs font-semibold leading-none tracking-normal text-white">
-                  SCREEN
-                </p>
-              </div>
-              <SeatMap sections={MOCK_SEAT_MAP.data.sections} />
-            </div>
-          </ZoomableSeatMap>
+const BuyTicket = ({ sessionId }: BuyTicketProps) => {
+  // const navigate = useNavigate();
+  const { data: user } = useCurrentUserQuery();
+  const flow = useBuyTicketFlow(sessionId);
+  const { actions, hold, session } = flow;
 
-          <div className="flex shrink-0 items-center justify-center gap-6">
-            <SeatStatus variant="available" />
-            <SeatStatus variant="selected" />
-            <SeatStatus variant="sold" />
-            <SeatStatus variant="held" />
-          </div>
-        </div>
-      </TabsContent>
+  if (flow.order) {
+    return (
+      <BookingConfirmation
+        order={flow.order}
+        onClose={() => ""}
+        onViewTickets={() => {
+          // closeModal();
+          // navigate("/my-tickets");
+        }}
+      />
+    );
+  }
 
-      <TabsContent value="password" className="min-h-0 min-w-0">
-        Change your password here.
-      </TabsContent>
-    </Tabs>
-  );
-};
+  if (flow.isLoading) return <div className="text-white">Loading…</div>;
+  if (flow.isError || !session || !flow.seatMap) {
+    return <div className="text-white">Unable to load this session.</div>;
+  }
 
-const BuyTicket = () => {
   return (
     <div className="flex h-auto min-h-150 w-276.5 max-w-full flex-col gap-8">
-      <BuyTicketHeader />
+      <BuyTicketHeader
+        session={session}
+        timer={
+          hold && (
+            <HoldTimerChip
+              key={hold.holdId}
+              seconds={hold.secondsRemaining}
+              onExpire={actions.expireHold}
+            />
+          )
+        }
+      />
 
       <div className="flex min-h-0 flex-1 gap-8">
-        <BuyTicketTabs />
+        <Tabs value={flow.step} className="min-h-0 w-180 min-w-0 shrink-0">
+          <TabsList className="mb-6 w-full shrink-0 rounded-full bg-surface p-0 group-data-horizontal/tabs:h-11">
+            <TabsTrigger value="seats" disabled className={triggerClass}>
+              1. SEATS
+            </TabsTrigger>
+            <TabsTrigger value="checkout" disabled className={triggerClass}>
+              2. CHECKOUT
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="seats" className="min-h-0 min-w-0">
+            <SeatsStep sections={flow.seatMap.sections} />
+          </TabsContent>
+
+          <TabsContent value="checkout" className="min-h-0 min-w-0">
+            <CheckoutStep
+              defaultValues={{
+                fullName: user?.fullName ?? "",
+                email: user?.email ?? "",
+                mobileNumber: user?.mobileNumber ?? "",
+              }}
+              errors={flow.fieldErrors}
+              isPaying={flow.isPaying}
+              onFieldChange={actions.clearFieldError}
+              onSubmit={actions.pay}
+            />
+          </TabsContent>
+        </Tabs>
+
         <Separator orientation="vertical" className="bg-background-tint" />
-        <div className="min-w-0 flex-1 flex flex-col jus">
-          <div className="flex min-w-0 flex-1 flex-col gap-3">
-            <div className="flex h-87.75 shrink-0 flex-col gap-3">
-              <p className="shrink-0 font-sans text-sm font-extrabold leading-none tracking-normal text-white">
-                Your seats · Max 3
-              </p>
 
-              {false && (
-                <p className="shrink-0 font-sans text-xs font-normal leading-[130%] tracking-normal text-muted">
-                  Pick up to 3 seats from the map. Each seat can carry its own
-                  ticket type.
-                </p>
-              )}
-
-              <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-x-hidden overflow-y-auto pr-1 scrollbar-thin">
-                <SelectedSeat />
-                <SelectedSeat />
-                <SelectedSeat />
-                <SelectedSeat />
-                <SelectedSeat />
-                <SelectedSeat />
-                <SelectedSeat />
-                {/* <SummaryTicket /> */}
-                {/* const SummaryTicket = () => (
-  <TicketCard
-    className="w-80.25 rounded-2xl p-3.75"
-    title="THE ODYSSEY"
-    subtitle="Hall B · Tue 15 Sep · 16:30"
-    details={[
-      { label: "Seats", value: "B3, B4, B5" },
-      { label: "Tickets", value: "2 x Adult, 1 x Child" },
-    ]}
-  />
-); */}
-              </div>
-            </div>
-
-            <div className="flex min-h-0 flex-1 flex-col justify-end gap-3 pt-2.5">
-              <div className="flex items-center justify-between px-1.25">
-                <p className="font-sans text-xs font-semibold leading-none tracking-normal text-white">
-                  SUBTOTAL
-                </p>
-                <h1 className="font-sans text-2xl font-extrabold leading-none tracking-normal text-white">
-                  ₾ 32
-                </h1>
-              </div>
-              <Button className="flex cursor-pointer h-10.25 w-full items-center justify-center gap-0.5 rounded-full bg-danger px-3.25 font-sans text-sm font-extrabold leading-none tracking-normal text-white">
-                Next: Checkout
-              </Button>
-            </div>
-          </div>
-        </div>
+        <OrderSidebar
+          step={flow.step}
+          seats={flow.seats}
+          ticketOptions={flow.ticketOptions}
+          hold={hold}
+          subtotal={flow.subtotal}
+          notice={flow.notice}
+          canProceed={flow.canProceed}
+          isHolding={flow.isHolding}
+          onTicketTypeChange={actions.setTicketType}
+          onRemoveSeat={actions.removeSeat}
+          onProceed={actions.proceedToCheckout}
+          onBack={actions.backToSeats}
+          onDismissNotice={actions.dismissNotice}
+        />
       </div>
-      {/* <BookingConfirmation /> */}
     </div>
   );
 };
+
 export default BuyTicket;

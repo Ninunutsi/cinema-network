@@ -5,7 +5,7 @@ interface VenueSessionsProps {
   venue: MovieSessionsByVenue["venue"];
   sessions: MovieSessionsByVenue["sessions"];
   isUnderAge: boolean;
-  onTicketClick: () => void;
+  onTicketClick: (sessionId: number) => void;
 }
 
 export const VenueSessions = ({

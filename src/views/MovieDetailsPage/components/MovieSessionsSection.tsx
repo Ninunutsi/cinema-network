@@ -10,7 +10,7 @@ interface MovieSessionsSectionProps {
   isPending: boolean;
   isError: boolean;
   isUnderAge: boolean;
-  onTicketClick: () => void;
+  onTicketClick: (sessionId: number) => void;
 }
 
 export const MovieSessionsSection = ({
